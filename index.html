@@ -371,44 +371,47 @@
               <div class="heatcap">Base case &middot; EBITDA margin widens 13% &rarr; 25% as the asset stabilises (Y3 &asymp; AED 4.4M, ties to the BASE/BASE cell above).</div>
             </div>
             <div class="panel" style="margin-top:12px">
-              <h5>DCF &rarr; NPV bridge &middot; Y1&ndash;Y10 <span style="color:#566072;font-weight:400">(base case, project-level)</span></h5>
-              <svg viewBox="0 0 360 140" style="width:100%;height:auto;display:block" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Discounted-cash-flow bridge: present value of operating cash flows plus terminal value, less the initial investment, equals a positive project NPV">
-                <line x1="8" y1="110" x2="352" y2="110" stroke="#2C3650" stroke-width="1"/>
-                <line x1="73" y1="54.5" x2="102" y2="54.5" stroke="#566072" stroke-width="1" stroke-dasharray="3,2"/>
-                <line x1="158" y1="18.2" x2="187" y2="18.2" stroke="#566072" stroke-width="1" stroke-dasharray="3,2"/>
-                <line x1="243" y1="38" x2="272" y2="38" stroke="#566072" stroke-width="1" stroke-dasharray="3,2"/>
-                <rect x="17" y="54.5" width="56" height="55.5" rx="2" fill="#12B886"/>
-                <rect x="102" y="18.2" width="56" height="36.3" rx="2" fill="#2E9A68"/>
-                <rect x="187" y="18.2" width="56" height="19.8" rx="2" fill="#E05656"/>
-                <rect x="272" y="38" width="56" height="72" rx="2" fill="#4C6EF5"/>
-                <text x="45" y="50" fill="#7FD6AE" font-size="9" text-anchor="middle">+18.5M</text>
-                <text x="130" y="14" fill="#7FD6AE" font-size="9" text-anchor="middle">+12.1M</text>
-                <text x="215" y="14" fill="#E0888A" font-size="9" text-anchor="middle">&minus;6.6M</text>
-                <text x="300" y="33" fill="#9FB2FF" font-size="9" text-anchor="middle" font-weight="600">24.0M</text>
-                <text x="45" y="123" fill="#8A93A6" font-size="8" text-anchor="middle">PV op. FCF</text>
-                <text x="130" y="123" fill="#8A93A6" font-size="8" text-anchor="middle">PV terminal</text>
-                <text x="215" y="123" fill="#8A93A6" font-size="8" text-anchor="middle">&minus; Initial inv.</text>
-                <text x="300" y="123" fill="#8A93A6" font-size="8" text-anchor="middle">Project NPV</text>
+              <h5>Cumulative &amp; discounted cash flow &middot; Y0&ndash;Y10 <span style="color:#566072;font-weight:400">(base case &middot; 12% WACC)</span></h5>
+              <svg viewBox="0 0 360 142" style="width:100%;height:auto;display:block" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cumulative cash flow reaches about 38 million undiscounted by year ten and crosses break-even near year four; discounted at 12 percent WACC it builds to a project NPV of about 15 million">
+                <line x1="8" y1="104" x2="352" y2="104" stroke="#2C3650" stroke-width="1" stroke-dasharray="4,3"/>
+                <line x1="151" y1="104" x2="151" y2="30" stroke="#8A93A6" stroke-width="1" stroke-dasharray="3,2"/>
+                <polyline points="16,119.8 49,120.3 82,118.4 116,114.3 149,109.5 182,103.0 215,96.3 248,88.9 282,81.7 315,74.5 348,68.0" fill="none" stroke="#E0A93A" stroke-width="2" stroke-dasharray="5,3"/>
+                <polyline points="16,119.8 49,120.3 82,117.7 116,111.9 149,104.5 182,94.9 215,81.9 248,65.6 282,48.8 315,31.5 348,12.8" fill="none" stroke="#7C9CFF" stroke-width="2"/>
+                <circle cx="16" cy="119.8" r="2.4" fill="#E05656"/>
+                <circle cx="151" cy="104" r="2.4" fill="#C9CED6"/>
+                <circle cx="315" cy="31.5" r="2.4" fill="#7C9CFF"/><circle cx="348" cy="12.8" r="2.8" fill="#7C9CFF"/>
+                <circle cx="315" cy="74.5" r="2.4" fill="#E0A93A"/><circle cx="348" cy="68.0" r="2.8" fill="#E0A93A"/>
+                <text x="151" y="26" fill="#C9CED6" font-size="9" text-anchor="middle">&asymp;4y payback</text>
+                <text x="348" y="9" fill="#9FB2FF" font-size="9" text-anchor="end" font-weight="600">+38M</text>
+                <text x="346" y="63" fill="#E7C77E" font-size="9" text-anchor="end" font-weight="600">NPV &asymp;15M</text>
+                <text x="8" y="114" fill="#E0888A" font-size="9" text-anchor="start">&minus;6.6M</text>
+                <text x="16" y="138" fill="#8A93A6" font-size="8" text-anchor="middle">Y0</text><text x="82" y="138" fill="#8A93A6" font-size="8" text-anchor="middle">Y2</text><text x="149" y="138" fill="#8A93A6" font-size="8" text-anchor="middle">Y4</text><text x="215" y="138" fill="#8A93A6" font-size="8" text-anchor="middle">Y6</text><text x="282" y="138" fill="#8A93A6" font-size="8" text-anchor="middle">Y8</text><text x="348" y="138" fill="#8A93A6" font-size="8" text-anchor="middle">Y10</text>
               </svg>
-              <div class="heatcap">Present-value build-up &middot; discounted operating cash flows + terminal value, less the AED 6.6M outlay &rarr; positive project NPV. Illustrative PV split, base case.</div>
+              <div class="leg" style="margin-top:6px"><i style="background:#7C9CFF"></i>Cumulative CF&nbsp;&nbsp;<i style="background:#E0A93A"></i>Discounted @12%&nbsp;&nbsp;<i style="background:#E05656"></i>Y0 outlay</div>
+              <div class="heatcap">Undiscounted cumulative cash crosses break-even &asymp;Year 4 (payback); discounted at 12% WACC it compounds to a project NPV of &asymp;AED 15M, &asymp;AED 38M undiscounted by Y10.</div>
             </div>
             <div class="panel" style="margin-top:12px">
-              <h5>Cumulative cash flow &middot; payback <span style="color:#566072;font-weight:400">(base case)</span></h5>
-              <svg viewBox="0 0 360 132" style="width:100%;height:auto;display:block" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cumulative project cash flow: underwater during the build, crossing break-even around year four, then compounding to roughly plus twenty-five million by year ten">
-                <path d="M138,70 L148,68.3 L182,61 L216,52.8 L249,44.2 L283,35.2 L316,25.7 L350,15.8 L350,70 Z" fill="#12B886" fill-opacity="0.12"/>
-                <path d="M14,70 L14,84.2 L48,82 L81,78.6 L115,73.9 L138,70 Z" fill="#E05656" fill-opacity="0.12"/>
-                <line x1="8" y1="70" x2="352" y2="70" stroke="#2C3650" stroke-width="1" stroke-dasharray="4,3"/>
-                <line x1="138" y1="70" x2="138" y2="24" stroke="#8A93A6" stroke-width="1" stroke-dasharray="3,2"/>
-                <polyline points="14,84.2 48,82 81,78.6 115,73.9 148,68.3 182,61 216,52.8 249,44.2 283,35.2 316,25.7 350,15.8" fill="none" stroke="#7C9CFF" stroke-width="2"/>
-                <circle cx="14" cy="84.2" r="2.4" fill="#E05656"/>
-                <circle cx="138" cy="70" r="2.4" fill="#C9CED6"/>
-                <circle cx="350" cy="15.8" r="2.4" fill="#12B886"/>
-                <text x="138" y="19" fill="#C9CED6" font-size="9" text-anchor="middle">&asymp;4.0y payback</text>
-                <text x="10" y="96" fill="#E0888A" font-size="9" text-anchor="start">&minus;6.6M</text>
-                <text x="350" y="12" fill="#5CCFA8" font-size="9" text-anchor="end">+25M</text>
-                <text x="14" y="126" fill="#8A93A6" font-size="8" text-anchor="middle">Y0</text><text x="81" y="126" fill="#8A93A6" font-size="8" text-anchor="middle">Y2</text><text x="148" y="126" fill="#8A93A6" font-size="8" text-anchor="middle">Y4</text><text x="216" y="126" fill="#8A93A6" font-size="8" text-anchor="middle">Y6</text><text x="283" y="126" fill="#8A93A6" font-size="8" text-anchor="middle">Y8</text><text x="350" y="126" fill="#8A93A6" font-size="8" text-anchor="middle">Y10</text>
+              <h5>DCF waterfall &middot; annual discounted CF &rarr; NPV <span style="color:#566072;font-weight:400">(12% WACC)</span></h5>
+              <svg viewBox="0 0 360 146" style="width:100%;height:auto;display:block" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Discounted-cash-flow waterfall: the 6.6 million outlay at year zero plus each year's cash flow discounted at 12 percent builds to a project NPV of about 15 million">
+                <line x1="8" y1="80" x2="352" y2="80" stroke="#2C3650" stroke-width="1"/>
+                <rect x="10" y="80" width="20" height="19.8" rx="1.5" fill="#7C6FE8"/>
+                <rect x="39" y="99.8" width="20" height="2" rx="1.5" fill="#E05656"/>
+                <rect x="68" y="97.6" width="20" height="2.8" rx="1.5" fill="#2E9A68"/>
+                <rect x="97" y="92.2" width="20" height="5.4" rx="1.5" fill="#2E9A68"/>
+                <rect x="126" y="86.0" width="20" height="6.2" rx="1.5" fill="#2E9A68"/>
+                <rect x="155" y="78.8" width="20" height="7.2" rx="1.5" fill="#12B886"/>
+                <rect x="184" y="70.2" width="20" height="8.6" rx="1.5" fill="#12B886"/>
+                <rect x="213" y="60.5" width="20" height="9.7" rx="1.5" fill="#12B886"/>
+                <rect x="242" y="51.6" width="20" height="8.9" rx="1.5" fill="#12B886"/>
+                <rect x="271" y="42.9" width="20" height="8.7" rx="1.5" fill="#12B886"/>
+                <rect x="300" y="35.0" width="20" height="7.9" rx="1.5" fill="#12B886"/>
+                <rect x="329" y="35.0" width="20" height="45" rx="1.5" fill="#7C6FE8"/>
+                <text x="20" y="110" fill="#E0888A" font-size="8" text-anchor="middle">&minus;6.6M</text>
+                <text x="339" y="31" fill="#B6AEEA" font-size="9" text-anchor="middle" font-weight="600">&asymp;15M</text>
+                <text x="20" y="139" fill="#8A93A6" font-size="7" text-anchor="middle">Y0</text><text x="49" y="139" fill="#8A93A6" font-size="7" text-anchor="middle">Y1</text><text x="78" y="139" fill="#8A93A6" font-size="7" text-anchor="middle">Y2</text><text x="107" y="139" fill="#8A93A6" font-size="7" text-anchor="middle">Y3</text><text x="136" y="139" fill="#8A93A6" font-size="7" text-anchor="middle">Y4</text><text x="165" y="139" fill="#8A93A6" font-size="7" text-anchor="middle">Y5</text><text x="194" y="139" fill="#8A93A6" font-size="7" text-anchor="middle">Y6</text><text x="223" y="139" fill="#8A93A6" font-size="7" text-anchor="middle">Y7</text><text x="252" y="139" fill="#8A93A6" font-size="7" text-anchor="middle">Y8</text><text x="281" y="139" fill="#8A93A6" font-size="7" text-anchor="middle">Y9</text><text x="310" y="139" fill="#8A93A6" font-size="7" text-anchor="middle">Y10</text><text x="339" y="139" fill="#9FB2FF" font-size="7" text-anchor="middle">NPV</text>
               </svg>
-              <div class="heatcap">Undiscounted cumulative project cash &middot; underwater through the build, crossing break-even around Year 4 (the 4.0-year payback KPI), then compounding.</div>
+              <div class="leg" style="margin-top:6px"><i style="background:#7C6FE8"></i>Investment / NPV&nbsp;&nbsp;<i style="background:#12B886"></i>Discounted annual CF&nbsp;&nbsp;<i style="background:#E05656"></i>negative year</div>
+              <div class="heatcap">Each bar = that year&rsquo;s cash flow discounted at 12% WACC; the AED 6.6M outlay builds through Y1&ndash;Y10 to a project NPV of &asymp;AED 15M (Y9 cumulative PV &asymp;12.3M).</div>
             </div>
           </div>
         </div>
