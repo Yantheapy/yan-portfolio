@@ -353,6 +353,23 @@
               </div>
               <div class="heatcap" id="heatcap">Hover a cell to read the combination.</div>
             </div>
+            <div class="panel" style="margin-top:12px">
+              <h5>Revenue &amp; EBITDA ramp &middot; Y1&ndash;Y5 <span style="color:#566072;font-weight:400">(base case)</span></h5>
+              <svg viewBox="0 0 360 116" style="width:100%;height:auto;display:block" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Revenue and EBITDA ramping from year one to year five, both rising, with EBITDA margin widening from 13 to 25 percent">
+                <line x1="8" y1="96" x2="352" y2="96" stroke="#2C3650" stroke-width="1"/>
+                <path d="M30,50 L110,41 L190,31 L270,24 L340,18 L340,96 L30,96 Z" fill="#4C6EF5" fill-opacity="0.12"/>
+                <polyline points="30,50 110,41 190,31 270,24 340,18" fill="none" stroke="#7C9CFF" stroke-width="2"/>
+                <polyline points="30,90 110,87 190,82 270,79 340,76" fill="none" stroke="#12B886" stroke-width="2"/>
+                <circle cx="30" cy="50" r="2.6" fill="#7C9CFF"/><circle cx="110" cy="41" r="2.6" fill="#7C9CFF"/><circle cx="190" cy="31" r="2.6" fill="#7C9CFF"/><circle cx="270" cy="24" r="2.6" fill="#7C9CFF"/><circle cx="340" cy="18" r="2.6" fill="#7C9CFF"/>
+                <circle cx="30" cy="90" r="2.6" fill="#12B886"/><circle cx="110" cy="87" r="2.6" fill="#12B886"/><circle cx="190" cy="82" r="2.6" fill="#12B886"/><circle cx="270" cy="79" r="2.6" fill="#12B886"/><circle cx="340" cy="76" r="2.6" fill="#12B886"/>
+                <text x="30" y="44" fill="#9FB2FF" font-size="9" text-anchor="middle">14M</text>
+                <text x="340" y="13" fill="#9FB2FF" font-size="9" text-anchor="end">24M</text>
+                <text x="340" y="72" fill="#5CCFA8" font-size="9" text-anchor="end">6.0M</text>
+                <text x="30" y="108" fill="#8A93A6" font-size="9" text-anchor="middle">Y1</text><text x="110" y="108" fill="#8A93A6" font-size="9" text-anchor="middle">Y2</text><text x="190" y="108" fill="#8A93A6" font-size="9" text-anchor="middle">Y3</text><text x="270" y="108" fill="#8A93A6" font-size="9" text-anchor="middle">Y4</text><text x="340" y="108" fill="#8A93A6" font-size="9" text-anchor="middle">Y5</text>
+              </svg>
+              <div class="leg" style="margin-top:6px"><i style="background:#7C9CFF"></i>Revenue (AED)&nbsp;&nbsp;<i style="background:#12B886"></i>EBITDA (AED)</div>
+              <div class="heatcap">Base case &middot; EBITDA margin widens 13% &rarr; 25% as the asset stabilises (Y3 &asymp; AED 4.4M, ties to the BASE/BASE cell above).</div>
+            </div>
           </div>
         </div>
         <div class="stack"><span>Scenario engine</span><span>Monte Carlo</span><span>NPV / IRR / payback</span><span>.xlsx ingestion</span><span>Bilingual</span><span>PDF export</span></div>
@@ -399,46 +416,6 @@
                   <div class="r"><span class="lab">search</span><span class="track"><span class="bar" style="width:38%;background:#12B886"></span></span><span class="val"></span></div>
                 </div>
                 <div style="margin-top:12px;font-size:10px;color:#8A93A6">Captured via <span style="color:#AEB7C7">track() &rarr; /api/event &rarr; KV</span></div>
-              </div>
-            </div>
-            <div class="panel" style="margin-top:12px">
-              <h5>Financial-and-operational dashboard &middot; 30d <span style="color:#566072;font-weight:400">(representative)</span></h5>
-              <div class="kpis" style="margin-bottom:0">
-                <div class="kpi"><div class="l">EBITDA margin</div><div class="v">22%</div></div>
-                <div class="kpi"><div class="l">Collections &middot; DSO</div><div class="v">18 d</div></div>
-                <div class="kpi"><div class="l">Days cash on hand</div><div class="v">95</div></div>
-                <div class="kpi"><div class="l">Budget vs plan</div><div class="v">+2%</div></div>
-              </div>
-            </div>
-            <div class="dgrid">
-              <div class="panel">
-                <h5>Revenue &amp; EBITDA &middot; 6 mo <span style="color:#566072;font-weight:400">(representative)</span></h5>
-                <svg viewBox="0 0 360 112" style="width:100%;height:auto;display:block" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Revenue and EBITDA over six months, both rising">
-                  <line x1="8" y1="96" x2="352" y2="96" stroke="#2C3650" stroke-width="1"/>
-                  <rect x="14" y="48" width="34" height="37" rx="2" fill="#7C9CFF"/><rect x="14" y="85" width="34" height="11" rx="2" fill="#12B886"/>
-                  <rect x="70" y="42" width="34" height="42" rx="2" fill="#7C9CFF"/><rect x="70" y="84" width="34" height="12" rx="2" fill="#12B886"/>
-                  <rect x="126" y="36" width="34" height="46" rx="2" fill="#7C9CFF"/><rect x="126" y="82" width="34" height="14" rx="2" fill="#12B886"/>
-                  <rect x="182" y="30" width="34" height="50" rx="2" fill="#7C9CFF"/><rect x="182" y="80" width="34" height="16" rx="2" fill="#12B886"/>
-                  <rect x="238" y="22" width="34" height="56" rx="2" fill="#7C9CFF"/><rect x="238" y="78" width="34" height="18" rx="2" fill="#12B886"/>
-                  <rect x="294" y="14" width="34" height="62" rx="2" fill="#7C9CFF"/><rect x="294" y="76" width="34" height="20" rx="2" fill="#12B886"/>
-                  <text x="31" y="108" fill="#8A93A6" font-size="9" text-anchor="middle">M1</text><text x="87" y="108" fill="#8A93A6" font-size="9" text-anchor="middle">M2</text><text x="143" y="108" fill="#8A93A6" font-size="9" text-anchor="middle">M3</text><text x="199" y="108" fill="#8A93A6" font-size="9" text-anchor="middle">M4</text><text x="255" y="108" fill="#8A93A6" font-size="9" text-anchor="middle">M5</text><text x="311" y="108" fill="#8A93A6" font-size="9" text-anchor="middle">M6</text>
-                </svg>
-                <div class="leg" style="margin-top:6px"><i style="background:#7C9CFF"></i>Revenue&nbsp;&nbsp;<i style="background:#12B886"></i>EBITDA</div>
-              </div>
-              <div class="panel">
-                <h5>Budget vs plan &middot; 6 mo <span style="color:#566072;font-weight:400">(representative)</span></h5>
-                <svg viewBox="0 0 360 112" style="width:100%;height:auto;display:block" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Budget versus plan variance over six months, mostly on or above plan">
-                  <line x1="8" y1="56" x2="352" y2="56" stroke="#2C3650" stroke-width="1" stroke-dasharray="4,3"/>
-                  <text x="10" y="51" fill="#566072" font-size="8">plan</text>
-                  <rect x="14" y="50" width="34" height="6" rx="2" fill="#12B886"/>
-                  <rect x="70" y="44" width="34" height="12" rx="2" fill="#12B886"/>
-                  <rect x="126" y="38" width="34" height="18" rx="2" fill="#12B886"/>
-                  <rect x="182" y="44" width="34" height="12" rx="2" fill="#12B886"/>
-                  <rect x="238" y="56" width="34" height="6" rx="2" fill="#E05656"/>
-                  <rect x="294" y="44" width="34" height="12" rx="2" fill="#12B886"/>
-                  <text x="31" y="108" fill="#8A93A6" font-size="9" text-anchor="middle">M1</text><text x="87" y="108" fill="#8A93A6" font-size="9" text-anchor="middle">M2</text><text x="143" y="108" fill="#8A93A6" font-size="9" text-anchor="middle">M3</text><text x="199" y="108" fill="#8A93A6" font-size="9" text-anchor="middle">M4</text><text x="255" y="108" fill="#8A93A6" font-size="9" text-anchor="middle">M5</text><text x="311" y="108" fill="#8A93A6" font-size="9" text-anchor="middle">M6</text>
-                </svg>
-                <div class="leg" style="margin-top:6px"><i style="background:#12B886"></i>on / above plan&nbsp;&nbsp;<i style="background:#E05656"></i>below</div>
               </div>
             </div>
             <div class="panel" style="margin-top:12px">
