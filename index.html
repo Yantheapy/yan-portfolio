@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yan Ngouen — Operations &amp; Digital Transformation</title>
+<meta name="description" content="Yan Ngouen — Operations &amp; Strategy executive (COO / Head of Operations). Healthcare and multi-site businesses, P&amp;L, and the software behind them. Dubai, UAE.">
+<meta name="theme-color" content="#0E1117">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Yan Ngouen — Operations &amp; Digital Transformation">
+<meta property="og:description" content="COO / Head of Operations. I turn operations and finance into working software — and run the clinics, P&amp;L and teams behind it. Dubai, UAE.">
+<meta property="og:image" content="https://yantheapy.github.io/yan-portfolio/og-image.png">
+<meta property="og:url" content="https://yantheapy.github.io/yan-portfolio/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Yan Ngouen — Operations &amp; Digital Transformation">
+<meta name="twitter:description" content="COO / Head of Operations · Healthcare &amp; multi-site · Dubai, UAE">
+<meta name="twitter:image" content="https://yantheapy.github.io/yan-portfolio/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0E1117; --ink2:#171C28; --paper:#FFFFFF; --bg:#F6F7F9;
+    --text:#14181F; --muted:#5B6472; --line:#E6E9EF;
+    --accent:#4C6EF5; --accent2:#7C9CFF; --good:#12B886;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',sans-serif;color:var(--text);background:var(--bg);line-height:1.6;font-weight:300;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 28px}
+  h1,h2,h3,h4,.dsp{font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:-.01em}
+  a{color:var(--accent);text-decoration:none}
+
+  /* HERO (dark) */
+  .hero{background:var(--ink);color:#EEF1F6;position:relative;overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:0;
+    background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+    background-size:34px 34px;mask-image:radial-gradient(circle at 30% 20%,#000,transparent 75%)}
+  .hero .wrap{position:relative;padding:78px 28px 60px}
+  .eyebrow{font-family:'Space Grotesk';letter-spacing:.24em;text-transform:uppercase;font-size:12px;color:var(--accent2);font-weight:600}
+  .hero h1{font-size:60px;line-height:1.02;margin:16px 0 8px;color:#fff;font-weight:700}
+  .hero .role{font-size:19px;color:#AEB7C7;font-weight:400}
+  .spine{font-size:23px;margin:24px 0 28px;max-width:680px;color:#E7EBF2;font-weight:300}
+  .spine b{font-weight:600;color:#fff;border-bottom:2px solid var(--accent);padding-bottom:1px}
+  .chips{display:flex;flex-wrap:wrap;gap:10px}
+  .chip{font-size:13px;padding:7px 14px;border:1px solid rgba(255,255,255,.16);border-radius:999px;color:#C7CEDA}
+  .chip a{color:#C7CEDA}
+  .chip.solid{background:var(--accent);border-color:var(--accent);color:#fff}
+  .chip.solid a{color:#fff}
+
+  /* METRICS */
+  .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border-bottom:1px solid var(--line)}
+  .metric{background:var(--paper);padding:26px 22px}
+  .metric .num{font-family:'Space Grotesk';font-size:34px;color:var(--ink);line-height:1;font-weight:700}
+  .metric .num span{color:var(--accent)}
+  .metric .lbl{font-size:12.5px;color:var(--muted);margin-top:7px}
+
+  section{padding:54px 0;border-bottom:1px solid var(--line)}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:6px}
+  .sec-head h2{font-size:30px;color:var(--ink)}
+  .sec-head .n{font-family:'Space Grotesk';font-size:13px;color:var(--accent);font-weight:600}
+  .sec-sub{color:var(--muted);font-size:15px;margin-bottom:30px;max-width:660px}
+
+  .case{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:30px 32px;margin-bottom:20px}
+  .case .tag{font-family:'Space Grotesk';font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600}
+  .case h3{font-size:23px;margin:8px 0 4px;color:var(--ink)}
+  .case .ctx{color:var(--muted);font-size:14px;margin-bottom:16px}
+  .case .block{margin:13px 0}
+  .case .block .k{font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--text);font-weight:600;margin-bottom:3px}
+  .case .block p{font-size:15px}
+  .stack{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .stack span{font-size:12px;padding:5px 11px;background:var(--bg);border:1px solid var(--line);border-radius:6px;color:var(--text)}
+
+  /* DIAGRAMS */
+  .diagram{background:var(--ink);border-radius:14px;padding:26px 24px 18px;margin-bottom:20px}
+  .diagram .dlabel{font-family:'Space Grotesk';font-size:13px;color:var(--accent2);font-weight:600;margin-bottom:14px;letter-spacing:.04em}
+  .diagram svg{width:100%;height:auto;display:block}
+
+  .caps{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .cap{padding:20px 22px;border:1px solid var(--line);border-radius:12px;background:var(--paper)}
+  .cap h4{font-size:17px;margin-bottom:6px;color:var(--ink)}
+  .cap p{font-size:14px;color:var(--muted)}
+  .triad{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .tcard{padding:18px 20px;border:1px solid var(--line);border-radius:12px;background:var(--paper)}
+  .tcard .th{font-family:'Space Grotesk';font-size:13px;color:var(--accent);font-weight:600;margin-bottom:7px}
+  .tcard p{font-size:13.5px;color:var(--muted)}
+  @media(max-width:720px){.triad{grid-template-columns:1fr}}
+
+  .note{background:linear-gradient(120deg,var(--ink),var(--ink2));color:#E7EBF2;border-radius:14px;padding:28px 32px;font-size:16px;font-weight:300}
+  .note b{color:#fff;font-weight:600}
+  .hubs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+  .hubs > div{border-left:2px solid var(--accent);padding-left:13px}
+  .hubs b{display:block;color:#fff;font-size:13px;margin-bottom:3px;font-family:'Space Grotesk'}
+  .hubs span{font-size:12px;color:#AEB7C7;line-height:1.5}
+  @media(max-width:720px){.hubs{grid-template-columns:1fr}}
+
+  footer{padding:50px 0 72px;text-align:center}
+  footer h2{font-size:30px;color:var(--ink);margin-bottom:10px}
+  .cta{display:inline-block;margin-top:8px;padding:13px 30px;background:var(--accent);color:#fff;border-radius:999px;font-size:15px;font-weight:500}
+  .cta.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+  .ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:8px}
+  .avail{display:inline-block;font-size:12.5px;color:var(--accent);border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:6px 16px;margin-bottom:18px}
+  .fineprint{margin-top:26px;font-size:12px;color:var(--muted)}
+
+  @media(max-width:720px){
+    .hero h1{font-size:40px}.spine{font-size:19px}
+    .metrics{grid-template-columns:repeat(2,1fr)}.caps{grid-template-columns:1fr}
+    .hero .wrap{padding:52px 28px 40px}
+  }
+  .dashprev{margin-top:18px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#0E1117}
+  .dashbar{display:flex;align-items:center;gap:6px;padding:9px 12px;background:#161B26;border-bottom:1px solid #222B3D}
+  .dashbar i{width:10px;height:10px;border-radius:50%;display:inline-block}
+  .dashbar .u{margin-left:10px;font-size:11px;color:#8A93A6}
+  .dashbody{padding:16px}
+  .scn{display:flex;gap:6px;margin-bottom:12px}
+  .scn span{font-size:11px;padding:4px 12px;border-radius:6px;border:1px solid #2C3650;color:#9AA6BC}
+  .scn span.on{background:#4C6EF5;border-color:#4C6EF5;color:#fff}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+  .kpi{background:#1B2230;border:1px solid #2C3650;border-radius:8px;padding:10px 12px;position:relative;overflow:hidden}
+  .kpi::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#7C9CFF,#12B886)}
+  .kpi .l{font-size:9.5px;color:#8A93A6;text-transform:uppercase;letter-spacing:.06em}
+  .kpi .v{font-family:'Space Grotesk';font-size:19px;color:#EAEEF6;margin-top:3px}
+  .kpi .v.m{color:#566072;letter-spacing:.06em}
+  .heatlbl{font-size:10.5px;color:#8A93A6;margin-bottom:7px;letter-spacing:.04em}
+  .heat{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;max-width:340px}
+  .heat b{height:22px;border-radius:4px;display:block}
+  .dgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+  .panel{background:#12161F;border:1px solid #222B3D;border-radius:8px;padding:12px 14px}
+  .panel h5{font-family:'Space Grotesk';font-size:10.5px;color:#AEB7C7;font-weight:600;margin-bottom:10px;letter-spacing:.04em;text-transform:uppercase}
+  .torn{display:flex;flex-direction:column;gap:6px}
+  .torn .r{display:flex;align-items:center;gap:8px}
+  .torn .r .lab{width:72px;text-align:right;font-size:9.5px;color:#8A93A6;flex:none}
+  .torn .r .track{flex:1}
+  .torn .r .bar{height:13px;border-radius:3px;display:block}
+  .torn .r .val{font-size:9.5px;color:#9AA6BC;width:34px;flex:none}
+  .sbar{display:flex;height:20px;border-radius:5px;overflow:hidden;margin-bottom:10px}
+  .sbar span{display:block;height:100%}
+  .leg{font-size:10px;color:#9AA6BC;line-height:1.85}
+  .leg i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px;vertical-align:middle}
+  .heat2{display:grid;grid-template-columns:48px repeat(5,1fr);gap:4px;align-items:center}
+  .heat2 .hh{font-size:8.5px;color:#8A93A6;text-align:center}
+  .heat2 .hl{font-size:9px;color:#8A93A6;text-align:right;padding-right:3px}
+  .heat2 .hc{height:25px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10.5px;color:#F0F3F8;font-weight:500;font-family:'Space Grotesk'}
+  .chip2{font-size:10.5px;padding:5px 9px;background:#1B2230;border:1px solid #2C3650;border-radius:6px;color:#C7CEDA;display:inline-block;margin:0 5px 6px 0}
+  .badge{font-size:10px;padding:4px 9px;border-radius:999px;border:1px solid #2C3650;color:#9AA6BC;display:inline-block;margin:0 5px 6px 0}
+  .badge.g{border-color:#2A4D3C;color:#7FD6AE}
+  @media(max-width:720px){.kpis{grid-template-columns:repeat(2,1fr)}}
+  @media print{
+    @page{margin:12mm 0}
+    .dashprev,.kpi{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    body{background:#fff}
+    .hero{background:var(--ink)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .diagram,.note{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .case .block,.cap,.note,.diagram{break-inside:avoid}
+    a{color:var(--text)}
+  }
+</style>
+</head>
+<body>
+
+  <div class="hero">
+    <div class="wrap">
+      <div class="eyebrow">Operations · Strategy · Digital &amp; Data Transformation</div>
+      <h1>Yan Ngouen</h1>
+      <div class="role">COO · Programme / Project Director — healthcare, development &amp; multi-site</div>
+      <p class="spine">I turn <b>operations and finance into working software</b> — and run the programmes, P&amp;L and capital decisions behind them.</p>
+      <div class="chips">
+        <span class="chip">Dubai, UAE · self-sponsored visa</span>
+        <span class="chip"><a href="mailto:yantherapy@gmail.com">yantherapy@gmail.com</a></span>
+        <span class="chip"><a href="https://www.linkedin.com/in/yan-ngouen-890097154/">linkedin.com/in/yan-ngouen</a></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="metrics">
+      <div class="metric"><div class="num">17</div><div class="lbl">clinics scaled across 5 countries</div></div>
+      <div class="metric"><div class="num"><span>~40%</span></div><div class="lbl">revenue CAGR delivered</div></div>
+      <div class="metric"><div class="num">240M<span>+</span></div><div class="lbl">AED development portfolio modeled</div></div>
+      <div class="metric"><div class="num">190<span>+</span></div><div class="lbl">page operating platform shipped</div></div>
+    </div>
+
+    <section id="background">
+      <div class="sec-head"><span class="n">·</span><h2>Background</h2></div>
+      <p class="sec-sub">A rare triad — trained in the clinic, schooled in the economics, and I build the product myself, so strategy, money and delivery actually connect. Across healthcare, real-estate development, education and investment.</p>
+      <div class="triad">
+        <div class="tcard"><div class="th">Clinical</div><p>MSc &amp; BSc Rehabilitation Medicine and a decade inside clinical operations — I know how care is actually delivered.</p></div>
+        <div class="tcard"><div class="th">Business</div><p>MBA Frankfurt (Distinction), MSc Health Economics (LSE), incoming EMBA TRIUM (NYU&nbsp;Stern / LSE / HEC) — investment-grade rigor.</p></div>
+        <div class="tcard"><div class="th">Builder</div><p>I spec and ship the software myself — financial models and operating platforms, AI-augmented, in production.</p></div>
+      </div>
+    </section>
+
+    <section id="work">
+      <div class="sec-head"><span class="n">01</span><h2>Selected work</h2></div>
+      <p class="sec-sub">An operator who specs and ships real software — built AI-augmented — so operations and investment decisions become measurable. Figures and internal content are masked for confidentiality.</p>
+
+      <div class="case">
+        <div class="tag">Investment analytics · web application</div>
+        <h3>Board-grade financial decision tool</h3>
+        <div class="ctx">UAE multi-year medical investment project — as Director of Special Projects, QUBE Development</div>
+        <div class="block"><div class="k">Challenge</div><p>The board needed a defensible go/no-go on a multi-year clinic investment — not a static spreadsheet only one person could read.</p></div>
+        <div class="block"><div class="k">What I built</div><p>A live parametric model turned into an interactive web app: a six-driver scenario engine (Base / Upside / Downside), live NPV / IRR / MOIC / payback, Monte-Carlo simulation, DCF waterfall, tornado and two-way sensitivity, investor-vs-founder return models, Excel ingestion, EN/RU and PDF export — productizing a multi-thousand-formula model.</p></div>
+        <div class="block"><div class="k">Impact</div><p>A spreadsheet became a board-grade decision tool: any scenario answered in seconds, assumptions transparent, capital allocation defensible.</p></div>
+        <p style="font-size:13px;color:var(--muted);margin:2px 0 0">Below — the model for a single greenfield clinic (~AED 6.6M): one asset inside the broader AED 240M+ development portfolio I structured. The same rigor scales from one project to the whole book.</p>
+        <div class="dashprev">
+          <div class="dashbar"><i style="background:#FF5F57"></i><i style="background:#FEBC2E"></i><i style="background:#28C840"></i><span class="u">investment model · live · Y1&ndash;Y10 · real figures, project anonymized</span></div>
+          <div class="dashbody">
+            <div class="scn"><span class="on">Base</span><span>Upside</span><span>Downside</span></div>
+            <div class="kpis">
+              <div class="kpi"><div class="l">Total investment</div><div class="v">6.6M AED</div></div>
+              <div class="kpi"><div class="l">5-Year IRR</div><div class="v">12.4%</div></div>
+              <div class="kpi"><div class="l">10-Year IRR</div><div class="v">34.5%</div></div>
+              <div class="kpi"><div class="l">Payback</div><div class="v">4.0 y</div></div>
+              <div class="kpi"><div class="l">Project IRR · exit 5Y</div><div class="v">49.5%</div></div>
+              <div class="kpi"><div class="l">MOIC · 5Y</div><div class="v">5.55&times;</div></div>
+              <div class="kpi"><div class="l">Investor net gain</div><div class="v">7.4M AED</div></div>
+              <div class="kpi"><div class="l">EBITDA margin</div><div class="v">20.0%</div></div>
+            </div>
+            <div class="dgrid">
+              <div class="panel">
+                <h5>CapEx structure &middot; 6.6M AED</h5>
+                <div class="sbar"><span style="width:40%;background:#4C6EF5"></span><span style="width:14%;background:#E05656"></span><span style="width:13%;background:#12B886"></span><span style="width:9%;background:#3E9A60"></span><span style="width:8%;background:#7C9CFF"></span><span style="width:7%;background:#C99A3A"></span><span style="width:9%;background:#5B6472"></span></div>
+                <div class="leg"><i style="background:#4C6EF5"></i>Renovation &amp; fit-out 40%<br><i style="background:#E05656"></i>Pre-operational 14%<br><i style="background:#12B886"></i>Working capital + deposit 13%<br><i style="background:#3E9A60"></i>Physio equipment 9%<br><i style="background:#7C9CFF"></i>Assessment &middot; Lab &middot; IT 8%<br><i style="background:#C99A3A"></i>Dental equipment 7%</div>
+              </div>
+              <div class="panel">
+                <h5>Revenue stress test &rarr; EBITDA</h5>
+                <div class="torn">
+                  <div class="r"><span class="lab">Severe &minus;30%</span><span class="track"><span class="bar" style="width:50%;background:#9E3B3B"></span></span><span class="val">3.0M</span></div>
+                  <div class="r"><span class="lab">Down &minus;20%</span><span class="track"><span class="bar" style="width:60%;background:#B0563C"></span></span><span class="val">3.6M</span></div>
+                  <div class="r"><span class="lab">Mild &minus;10%</span><span class="track"><span class="bar" style="width:67%;background:#B8923A"></span></span><span class="val">4.0M</span></div>
+                  <div class="r"><span class="lab">BASE</span><span class="track"><span class="bar" style="width:73%;background:#4C6EF5"></span></span><span class="val">4.4M</span></div>
+                  <div class="r"><span class="lab">Mild +10%</span><span class="track"><span class="bar" style="width:80%;background:#3E9A60"></span></span><span class="val">4.8M</span></div>
+                  <div class="r"><span class="lab">Upside +20%</span><span class="track"><span class="bar" style="width:88%;background:#2E9A68"></span></span><span class="val">5.3M</span></div>
+                  <div class="r"><span class="lab">Strong +30%</span><span class="track"><span class="bar" style="width:95%;background:#1F8A5A"></span></span><span class="val">5.7M</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="panel" style="margin-top:12px">
+              <h5>Two-way sensitivity &middot; Revenue &times; OPEX &rarr; EBITDA (AED)</h5>
+              <div class="heat2">
+                <span class="hl"></span><span class="hh">OPEX&minus;20%</span><span class="hh">OPEX&minus;10%</span><span class="hh">BASE</span><span class="hh">OPEX+10%</span><span class="hh">OPEX+20%</span>
+                <span class="hl">Rev&minus;20%</span><span class="hc" style="background:#3E9A60">5.1M</span><span class="hc" style="background:#B8923A">4.3M</span><span class="hc" style="background:#B0563C">3.5M</span><span class="hc" style="background:#9E3B3B">2.7M</span><span class="hc" style="background:#9E3B3B">1.9M</span>
+                <span class="hl">Rev&minus;10%</span><span class="hc" style="background:#1F8A5A">5.7M</span><span class="hc" style="background:#3E9A60">4.8M</span><span class="hc" style="background:#B8923A">4.0M</span><span class="hc" style="background:#B0563C">3.1M</span><span class="hc" style="background:#9E3B3B">2.2M</span>
+                <span class="hl">BASE</span><span class="hc" style="background:#1F8A5A">6.4M</span><span class="hc" style="background:#1F8A5A">5.4M</span><span class="hc" style="background:#3E9A60">4.4M</span><span class="hc" style="background:#B0563C">3.4M</span><span class="hc" style="background:#9E3B3B">2.4M</span>
+                <span class="hl">Rev+10%</span><span class="hc" style="background:#1F8A5A">7.0M</span><span class="hc" style="background:#1F8A5A">5.9M</span><span class="hc" style="background:#3E9A60">4.8M</span><span class="hc" style="background:#B8923A">3.7M</span><span class="hc" style="background:#9E3B3B">2.7M</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="stack"><span>Scenario engine</span><span>Monte Carlo</span><span>NPV / IRR / payback</span><span>.xlsx ingestion</span><span>Bilingual</span><span>PDF export</span></div>
+      </div>
+
+      <div class="case">
+        <div class="tag">Operating system · full platform</div>
+        <h3>Clinic operations &amp; governance platform</h3>
+        <div class="ctx">Premium DHA-regulated dental clinic, Dubai — as CEO</div>
+        <div class="block"><div class="k">Challenge</div><p>Scaling a regulated clinic meant governance, quality, sales and operations lived in scattered documents — no single, access-controlled source of truth.</p></div>
+        <div class="block"><div class="k">What I built</div><p>A 190+ page internal platform on a custom engine: sales-enablement system, 29 SOPs, CAPA / quality, patient-risk and RAID registers, complaint-case workflows — fully bilingual RU/EN.</p></div>
+        <div class="block"><div class="k">Engineering</div><p>Edge-middleware auth (HMAC-signed token cookies) plus email one-time-code login for clinicians; 14 serverless API endpoints; a key-value data layer with optimistic locking, audit trail and automatic backups; usage telemetry; CI/CD from GitHub to Cloudflare.</p></div>
+        <div class="dashprev">
+          <div class="dashbar"><i style="background:#FF5F57"></i><i style="background:#FEBC2E"></i><i style="background:#28C840"></i><span class="u">clinic operations platform · admin + doctor-OTP · RU&middot;EN · clinic anonymized</span></div>
+          <div class="dashbody">
+            <div class="kpis">
+              <div class="kpi"><div class="l">Pages</div><div class="v">191</div></div>
+              <div class="kpi"><div class="l">API endpoints</div><div class="v">14</div></div>
+              <div class="kpi"><div class="l">KV registries</div><div class="v">5</div></div>
+              <div class="kpi"><div class="l">Languages</div><div class="v">RU &middot; EN</div></div>
+            </div>
+            <div class="dgrid">
+              <div class="panel">
+                <h5>Modules &amp; registries</h5>
+                <div><span class="chip2">D1 Offers</span><span class="chip2">D2 Positioning</span><span class="chip2">D3 Objections &middot;30</span><span class="chip2">D4 Scripts &middot;18</span><span class="chip2">D5 Pricing</span><span class="chip2">D6 Journey</span><span class="chip2">D7 Playbook</span><span class="chip2">29 SOPs</span><span class="chip2">CAPA</span><span class="chip2">Patient Risk Register</span><span class="chip2">RAID</span></div>
+              </div>
+              <div class="panel">
+                <h5>Usage telemetry &middot; 30d <span style="color:#566072;font-weight:400">(representative)</span></h5>
+                <div class="torn">
+                  <div class="r"><span class="lab">page_view</span><span class="track"><span class="bar" style="width:92%;background:#4C6EF5"></span></span><span class="val"></span></div>
+                  <div class="r"><span class="lab">card_open</span><span class="track"><span class="bar" style="width:64%;background:#7C9CFF"></span></span><span class="val"></span></div>
+                  <div class="r"><span class="lab">search</span><span class="track"><span class="bar" style="width:38%;background:#12B886"></span></span><span class="val"></span></div>
+                </div>
+                <div style="margin-top:12px;font-size:10px;color:#8A93A6">Captured via <span style="color:#AEB7C7">track() &rarr; /api/event &rarr; KV</span></div>
+              </div>
+            </div>
+            <div class="panel" style="margin-top:12px">
+              <h5>Access &amp; data integrity</h5>
+              <span class="badge g">Admin password &middot; HMAC token</span><span class="badge g">Doctor email-OTP</span><span class="badge">Role-based access</span><span class="badge g">Optimistic locking (409)</span><span class="badge g">Audit log</span><span class="badge g">30-day backups</span><span class="badge">CI/CD &middot; GitHub&rarr;Cloudflare</span>
+            </div>
+          </div>
+        </div>
+        <div class="block"><div class="k">Operating model</div><p>One system keeping strategy, operations, quality and the numbers in sync: a goal cascade from strategy to the floor, a Balanced Scorecard across the Quintuple Aim, and qualitative signals (NPS, CSAT) tied to the quantitative (P&amp;L, KPIs) — with a feedback loop that turns results back into re-planning.</p></div>
+        <div class="diagram">
+          <div class="dlabel">Operating model — strategy ↔ operations ↔ quality, in sync</div>
+          <svg viewBox="0 0 960 250" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+            <defs>
+              <marker id="ar2" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#7C9CFF"/></marker>
+              <marker id="ar2g" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#7FD6AE"/></marker>
+            </defs>
+            <rect x="16" y="20" width="202" height="52" rx="9" fill="#1B2230" stroke="#2C3650"/>
+            <text x="117" y="44" fill="#EAEEF6" font-size="14" font-weight="600" text-anchor="middle">Strategy</text>
+            <text x="117" y="61" fill="#9AA6BC" font-size="11" text-anchor="middle">vision · priorities</text>
+            <rect x="256" y="20" width="202" height="52" rx="9" fill="#1B2230" stroke="#2C3650"/>
+            <text x="357" y="44" fill="#EAEEF6" font-size="14" font-weight="600" text-anchor="middle">Goal cascade</text>
+            <text x="357" y="61" fill="#9AA6BC" font-size="11" text-anchor="middle">company → team → role</text>
+            <rect x="496" y="20" width="202" height="52" rx="9" fill="#1B2230" stroke="#2C3650"/>
+            <text x="597" y="44" fill="#EAEEF6" font-size="14" font-weight="600" text-anchor="middle">Operations</text>
+            <text x="597" y="61" fill="#9AA6BC" font-size="11" text-anchor="middle">Kanban · PID · SOP</text>
+            <rect x="736" y="20" width="208" height="52" rx="9" fill="#14271F" stroke="#2A4D3C"/>
+            <text x="840" y="44" fill="#EAEEF6" font-size="14" font-weight="600" text-anchor="middle">KPIs</text>
+            <text x="840" y="61" fill="#7FD6AE" font-size="11" text-anchor="middle">Balanced Scorecard</text>
+            <line x1="218" y1="46" x2="254" y2="46" stroke="#4C6EF5" stroke-width="2" marker-end="url(#ar2)"/>
+            <line x1="458" y1="46" x2="494" y2="46" stroke="#4C6EF5" stroke-width="2" marker-end="url(#ar2)"/>
+            <line x1="698" y1="46" x2="734" y2="46" stroke="#4C6EF5" stroke-width="2" marker-end="url(#ar2)"/>
+            <path d="M840,74 C840,128 117,128 117,74" fill="none" stroke="#7FD6AE" stroke-width="2" stroke-dasharray="5,4" marker-end="url(#ar2g)"/>
+            <rect x="382" y="112" width="192" height="17" rx="3" fill="#0E1117"/>
+            <text x="478" y="124" fill="#7FD6AE" font-size="11" text-anchor="middle">feedback · continuous re-plan</text>
+            <rect x="16" y="146" width="450" height="46" rx="8" fill="#12161F" stroke="#222B3D"/>
+            <text x="34" y="166" fill="#AEB7C7" font-size="12" font-weight="600">Quality system</text>
+            <text x="34" y="183" fill="#9AA6BC" font-size="10.5">CAPA · 14 SOPs · audit · DHA / JCI / ISO 13485</text>
+            <rect x="494" y="146" width="450" height="46" rx="8" fill="#12161F" stroke="#222B3D"/>
+            <text x="512" y="166" fill="#AEB7C7" font-size="12" font-weight="600">Qualitative &#8644; Quantitative</text>
+            <text x="512" y="183" fill="#9AA6BC" font-size="10.5">NPS · CSAT · outcomes &#8644; P&amp;L · unit economics · KPIs</text>
+            <text x="480" y="226" fill="#8A93A6" font-size="11" text-anchor="middle">Quintuple Aim frame — Patient experience · Population health · Cost / value · Staff wellbeing · Health equity</text>
+          </svg>
+        </div>
+        <div class="stack"><span>Edge auth / OTP</span><span>Serverless API</span><span>KV + optimistic locking</span><span>Audit &amp; backups</span><span>Telemetry</span><span>i18n</span><span>CI/CD</span></div>
+      </div>
+
+      <div class="case" style="padding:22px 32px">
+        <div class="tag">Operational transformation</div>
+        <h3 style="font-size:20px">From ad-hoc to audit-ready</h3>
+        <p style="font-size:14.5px;color:var(--muted);margin-top:5px">Beyond the software: I built the governance and quality backbone — a 31-KPI scorecard and CAPA methodology — that put the clinic on a JCI-accreditation pathway and made operations measurable and audit-ready.</p>
+      </div>
+    </section>
+
+    <section id="build">
+      <div class="sec-head"><span class="n">02</span><h2>Inside the build</h2></div>
+      <p class="sec-sub">How the systems are actually wired — architecture, not screenshots, so nothing confidential is exposed.</p>
+
+      <div class="diagram">
+        <div class="dlabel">Clinic operations platform — architecture</div>
+        <svg viewBox="0 0 960 196" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+          <defs>
+            <marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#7C9CFF"/></marker>
+          </defs>
+          <g>
+            <rect x="8" y="58" width="180" height="64" rx="10" fill="#1B2230" stroke="#2C3650"/>
+            <text x="98" y="86" fill="#EAEEF6" font-size="14" font-weight="600" text-anchor="middle">191-page UI</text>
+            <text x="98" y="105" fill="#9AA6BC" font-size="12" text-anchor="middle">RU · EN</text>
+
+            <rect x="248" y="58" width="190" height="64" rx="10" fill="#1B2230" stroke="#2C3650"/>
+            <text x="343" y="84" fill="#EAEEF6" font-size="14" font-weight="600" text-anchor="middle">Edge middleware</text>
+            <text x="343" y="103" fill="#9AA6BC" font-size="11.5" text-anchor="middle">HMAC auth + email-OTP</text>
+
+            <rect x="498" y="58" width="180" height="64" rx="10" fill="#1B2230" stroke="#2C3650"/>
+            <text x="588" y="84" fill="#EAEEF6" font-size="14" font-weight="600" text-anchor="middle">14 serverless</text>
+            <text x="588" y="103" fill="#9AA6BC" font-size="11.5" text-anchor="middle">API functions</text>
+
+            <rect x="738" y="44" width="214" height="92" rx="10" fill="#14271F" stroke="#2A4D3C"/>
+            <text x="845" y="72" fill="#EAEEF6" font-size="14" font-weight="600" text-anchor="middle">KV data layer</text>
+            <text x="845" y="92" fill="#7FD6AE" font-size="11.5" text-anchor="middle">optimistic locking</text>
+            <text x="845" y="109" fill="#7FD6AE" font-size="11.5" text-anchor="middle">audit · auto-backup</text>
+
+            <line x1="188" y1="90" x2="246" y2="90" stroke="#4C6EF5" stroke-width="2" marker-end="url(#ar)"/>
+            <line x1="438" y1="90" x2="496" y2="90" stroke="#4C6EF5" stroke-width="2" marker-end="url(#ar)"/>
+            <line x1="678" y1="90" x2="736" y2="90" stroke="#4C6EF5" stroke-width="2" marker-end="url(#ar)"/>
+
+            <rect x="8" y="158" width="944" height="30" rx="8" fill="#12161F" stroke="#222B3D"/>
+            <text x="24" y="177" fill="#9AA6BC" font-size="12">Telemetry pipeline (page_view · card_open · search)  ·  CI/CD: GitHub Actions → Cloudflare Pages  ·  role-based access</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="diagram">
+        <div class="dlabel">Investment analytics tool — data flow</div>
+        <svg viewBox="0 0 960 150" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+          <g>
+            <rect x="8" y="44" width="190" height="62" rx="10" fill="#1B2230" stroke="#2C3650"/>
+            <text x="103" y="70" fill="#EAEEF6" font-size="14" font-weight="600" text-anchor="middle">Excel model</text>
+            <text x="103" y="89" fill="#9AA6BC" font-size="11.5" text-anchor="middle">3,100+ formulas</text>
+
+            <rect x="256" y="44" width="180" height="62" rx="10" fill="#1B2230" stroke="#2C3650"/>
+            <text x="346" y="70" fill="#EAEEF6" font-size="14" font-weight="600" text-anchor="middle">Scenario engine</text>
+            <text x="346" y="89" fill="#9AA6BC" font-size="11.5" text-anchor="middle">6 drivers</text>
+
+            <rect x="494" y="44" width="180" height="62" rx="10" fill="#1B2230" stroke="#2C3650"/>
+            <text x="584" y="70" fill="#EAEEF6" font-size="14" font-weight="600" text-anchor="middle">Compute</text>
+            <text x="584" y="89" fill="#9AA6BC" font-size="11.5" text-anchor="middle">Monte Carlo · DCF</text>
+
+            <rect x="732" y="34" width="220" height="82" rx="10" fill="#14271F" stroke="#2A4D3C"/>
+            <text x="842" y="62" fill="#EAEEF6" font-size="14" font-weight="600" text-anchor="middle">Outputs</text>
+            <text x="842" y="81" fill="#7FD6AE" font-size="11.5" text-anchor="middle">NPV / IRR / MOIC</text>
+            <text x="842" y="98" fill="#7FD6AE" font-size="11.5" text-anchor="middle">tornado · heatmap · PDF</text>
+
+            <line x1="198" y1="75" x2="254" y2="75" stroke="#4C6EF5" stroke-width="2" marker-end="url(#ar)"/>
+            <line x1="436" y1="75" x2="492" y2="75" stroke="#4C6EF5" stroke-width="2" marker-end="url(#ar)"/>
+            <line x1="674" y1="75" x2="730" y2="75" stroke="#4C6EF5" stroke-width="2" marker-end="url(#ar)"/>
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <section id="how">
+      <div class="sec-head"><span class="n">03</span><h2>How I work</h2></div>
+      <div class="caps">
+        <div class="cap"><h4>Operator first</h4><p>P&amp;L ownership, unit economics and multi-site operations across the UAE, Europe and CIS — I run the business, not just advise it.</p></div>
+        <div class="cap"><h4>Investment-grade thinking</h4><p>Feasibility, financial models, M&amp;A and JV structuring — business cases a board can act on.</p></div>
+        <div class="cap"><h4>Builds the system</h4><p>Governance, KPI scorecards, SOPs and the digital tooling that makes growth repeatable and measurable.</p></div>
+        <div class="cap"><h4>Ships software, AI-augmented</h4><p>As a non-engineer I spec and deploy real applications — edge auth, serverless APIs, data layers — using AI-assisted development.</p></div>
+      </div>
+    </section>
+
+    <section id="thesis" style="border-bottom:none">
+      <div class="note">
+        <div style="font-family:'Space Grotesk';font-size:12.5px;color:#7C9CFF;letter-spacing:.14em;text-transform:uppercase;margin-bottom:9px">The real product</div>
+        <div style="font-family:'Space Grotesk';font-size:24px;color:#fff;font-weight:600;margin-bottom:12px">Transparency &amp; alignment.</div>
+        <p>Every model, dashboard and platform I build becomes the <b>shared source of truth where stakeholders coordinate</b> — strategy cascades down into budgets and action, results flow back up. Built by an operator, AI-augmented, in production.</p>
+        <div class="hubs">
+          <div><b>Marketing</b><span>Strategy → budget, campaigns, content — one view for the marketer, SMM and agencies.</span></div>
+          <div><b>Finance</b><span>Budget control, ROI &amp; payback, scenario forecasts — for leadership, board and investors.</span></div>
+          <div><b>Clinical &amp; ops</b><span>Quality, KPIs and risk — doctors and operations on the same page.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="avail">Open to — COO · Head of Operations · fractional ops · UAE</div>
+      <h2>Let&rsquo;s talk</h2>
+      <p style="color:var(--muted);max-width:520px;margin:0 auto">Operations leadership for healthcare and multi-site businesses scaling in the UAE.</p>
+      <div class="ctas">
+        <a class="cta" href="mailto:yantherapy@gmail.com?subject=COO%20%2F%20operations%20conversation">Book a 20-min call</a>
+        <a class="cta ghost" href="https://www.linkedin.com/in/yan-ngouen-890097154/">LinkedIn</a>
+      </div>
+      <div class="fineprint">All figures, patient data and internal content are masked or representative for confidentiality.</div>
+    </footer>
+  </div>
+
+</body>
+</html>
