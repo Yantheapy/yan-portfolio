@@ -200,6 +200,16 @@
   .badge.g{border-color:#2A4D3C;color:#7FD6AE}
   @media(max-width:720px){.kpis{grid-template-columns:repeat(2,1fr)}.dgrid{grid-template-columns:1fr}}
 
+  /* PULL QUOTE */
+  .quotewrap{padding:58px 0;border-bottom:1px solid var(--line);text-align:center}
+  .quote{max-width:840px;margin:0 auto}
+  .quote .mark{display:block;font-family:'Space Grotesk';font-size:58px;line-height:0;height:30px;color:var(--accent);opacity:.5}
+  .quote blockquote{margin:0}
+  .quote p{font-family:'Space Grotesk';font-weight:500;font-size:24px;line-height:1.46;letter-spacing:-.015em;color:var(--ink)}
+  .quote .by{margin-top:22px;font-size:13.5px;color:var(--muted)}
+  .quote .by b{color:var(--text);font-weight:600}
+  @media(max-width:720px){.quote p{font-size:20px}}
+
   /* MOTION */
   .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s cubic-bezier(.2,.7,.2,1),transform .6s cubic-bezier(.2,.7,.2,1)}
   .reveal.in{opacity:1;transform:none}
@@ -287,7 +297,7 @@
         <div class="ctx">UAE multi-year medical investment project — as Director of Special Projects, QUBE Development</div>
         <div class="block"><div class="k">Challenge</div><p>The board needed a defensible go/no-go on a multi-year clinic investment — not a static spreadsheet only one person could read.</p></div>
         <div class="block"><div class="k">What I built</div><p>A live parametric model turned into an interactive web app: a six-driver scenario engine (Base / Upside / Downside), live NPV / IRR / MOIC / payback, Monte-Carlo simulation, DCF waterfall, tornado and two-way sensitivity, investor-vs-founder return models, Excel ingestion, EN/RU and PDF export — productizing a multi-thousand-formula model.</p></div>
-        <div class="block"><div class="k">Impact</div><p>A spreadsheet became a board-grade decision tool: any scenario answered in seconds, assumptions transparent, capital allocation defensible.</p></div>
+        <div class="block"><div class="k">Impact</div><p>A spreadsheet only one person could read became a board-grade decision tool — any scenario priced in seconds, every assumption visible, the capital call sized on evidence. It informed the board's go/no-go on an AED 240M+ investment programme.</p></div>
         <p style="font-size:13px;color:var(--muted);margin:2px 0 0">Below — the model for a single greenfield clinic (~AED 6.6M): one asset inside the broader AED 240M+ development portfolio I structured. The same rigor scales from one project to the whole book. <b style="color:var(--text);font-weight:500">Try the scenario tabs.</b></p>
         <div class="dashprev" id="invest">
           <div class="dashbar"><i style="background:#FF5F57"></i><i style="background:#FEBC2E"></i><i style="background:#28C840"></i><span class="u">investment model · Y1&ndash;Y10 · real figures, project anonymized</span><span class="live"><i></i>interactive</span></div>
@@ -341,7 +351,7 @@
           </div>
         </div>
         <div class="stack"><span>Scenario engine</span><span>Monte Carlo</span><span>NPV / IRR / payback</span><span>.xlsx ingestion</span><span>Bilingual</span><span>PDF export</span></div>
-        <div class="outcome"><span class="o">Any scenario answered in seconds</span><span class="o">Board-grade go/no-go</span><span class="o">Assumptions fully transparent</span></div>
+        <div class="outcome"><span class="o">Go/no-go decided in the room</span><span class="o">Every assumption auditable</span><span class="o">Informed an AED 240M+ investment decision</span></div>
       </div>
 
       <div class="case reveal">
@@ -417,7 +427,7 @@
           </svg>
         </div>
         <div class="stack"><span>Edge auth / OTP</span><span>Serverless API</span><span>KV + optimistic locking</span><span>Audit &amp; backups</span><span>Telemetry</span><span>i18n</span><span>CI/CD</span></div>
-        <div class="outcome"><span class="o">Single access-controlled source of truth</span><span class="o">JCI-accreditation pathway</span><span class="o">31-KPI scorecard live</span><span class="o">Audit-ready operations</span></div>
+        <div class="outcome"><span class="o">Governance, marketing &amp; finance model — in 7 weeks</span><span class="o">Scattered docs → one source of truth</span><span class="o">31-KPI scorecard, live</span><span class="o">JCI-accreditation pathway</span><span class="o">Operations made audit-ready</span></div>
       </div>
 
       <div class="case reveal" style="padding:22px 32px">
@@ -425,6 +435,14 @@
         <h3 style="font-size:20px">From ad-hoc to audit-ready</h3>
         <p style="font-size:14.5px;color:var(--muted);margin-top:5px">Beyond the software: I built the governance and quality backbone — a 31-KPI scorecard and CAPA methodology — that put the clinic on a JCI-accreditation pathway and made operations measurable and audit-ready.</p>
       </div>
+    </section>
+
+    <section class="quotewrap">
+      <figure class="quote reveal">
+        <span class="mark" aria-hidden="true">“</span>
+        <blockquote><p>His talent for translating complex data into actionable strategy, combined with deep domain fluency across healthcare, education and ESG innovation, distinguishes him as a truly versatile and forward-thinking leader.</p></blockquote>
+        <figcaption class="by"><b>Egor Molchanov</b> · Chief Executive Officer, Qube Development LLC</figcaption>
+      </figure>
     </section>
 
     <section id="build" class="sec">
@@ -460,29 +478,6 @@
         </svg>
       </div>
 
-      <div class="diagram reveal">
-        <div class="dlabel">Investment analytics tool — data flow</div>
-        <svg viewBox="0 0 960 150" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif" role="img" aria-label="Data flow: Excel model with 3,100-plus formulas to a six-driver scenario engine, to compute with Monte Carlo and DCF, to outputs NPV IRR MOIC, tornado, heatmap and PDF">
-        <g>
-          <rect x="8" y="44" width="190" height="62" rx="10" fill="#1B2230" stroke="#2C3650"/>
-          <text x="103" y="70" fill="#EAEEF6" font-size="14" font-weight="600" text-anchor="middle">Excel model</text>
-          <text x="103" y="89" fill="#9AA6BC" font-size="11.5" text-anchor="middle">3,100+ formulas</text>
-          <rect x="256" y="44" width="180" height="62" rx="10" fill="#1B2230" stroke="#2C3650"/>
-          <text x="346" y="70" fill="#EAEEF6" font-size="14" font-weight="600" text-anchor="middle">Scenario engine</text>
-          <text x="346" y="89" fill="#9AA6BC" font-size="11.5" text-anchor="middle">6 drivers</text>
-          <rect x="494" y="44" width="180" height="62" rx="10" fill="#1B2230" stroke="#2C3650"/>
-          <text x="584" y="70" fill="#EAEEF6" font-size="14" font-weight="600" text-anchor="middle">Compute</text>
-          <text x="584" y="89" fill="#9AA6BC" font-size="11.5" text-anchor="middle">Monte Carlo · DCF</text>
-          <rect x="732" y="34" width="220" height="82" rx="10" fill="#14271F" stroke="#2A4D3C"/>
-          <text x="842" y="62" fill="#EAEEF6" font-size="14" font-weight="600" text-anchor="middle">Outputs</text>
-          <text x="842" y="81" fill="#7FD6AE" font-size="11.5" text-anchor="middle">NPV / IRR / MOIC</text>
-          <text x="842" y="98" fill="#7FD6AE" font-size="11.5" text-anchor="middle">tornado · heatmap · PDF</text>
-          <line x1="198" y1="75" x2="254" y2="75" stroke="#4C6EF5" stroke-width="2" marker-end="url(#ar)"/>
-          <line x1="436" y1="75" x2="492" y2="75" stroke="#4C6EF5" stroke-width="2" marker-end="url(#ar)"/>
-          <line x1="674" y1="75" x2="730" y2="75" stroke="#4C6EF5" stroke-width="2" marker-end="url(#ar)"/>
-        </g>
-        </svg>
-      </div>
     </section>
 
     <section id="how" class="sec">
@@ -517,6 +512,7 @@
         <a class="cta ghost" href="YanNgouen_CV.pdf" download>Download CV</a>
         <a class="cta ghost" href="https://www.linkedin.com/in/yan-ngouen-890097154/">LinkedIn</a>
       </div>
+      <div class="reveal" style="margin-top:20px;font-size:13.5px;color:var(--text)">References from founders and board members available on request.</div>
       <div class="fineprint reveal">All figures, patient data and internal content are masked or representative for confidentiality.</div>
     </footer>
   </main>
