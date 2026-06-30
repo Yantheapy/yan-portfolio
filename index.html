@@ -24,30 +24,58 @@
     --ink:#0E1117; --ink2:#171C28; --paper:#FFFFFF; --bg:#F6F7F9;
     --text:#14181F; --muted:#5B6472; --line:#E6E9EF;
     --accent:#4C6EF5; --accent2:#7C9CFF; --good:#12B886;
+    --shadow-light:0 14px 38px -16px rgba(22,32,68,.22);
+    --shadow-dark:0 22px 50px -20px rgba(4,9,24,.7);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{font-family:'Inter',sans-serif;color:var(--text);background:var(--bg);line-height:1.6;font-weight:300;-webkit-font-smoothing:antialiased}
+  body{font-family:'Inter',sans-serif;color:var(--text);background:var(--bg);line-height:1.6;font-weight:300;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
   .wrap{max-width:1040px;margin:0 auto;padding:0 28px}
-  h1,h2,h3,h4,.dsp{font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:-.01em}
+  h1,h2,h3,h4,.dsp{font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:-.01em;text-wrap:balance}
   a{color:var(--accent);text-decoration:none}
+  :focus-visible{outline:2px solid var(--accent2);outline-offset:3px;border-radius:4px}
+  section{scroll-margin-top:72px}
+
+  /* SKIP LINK */
+  .skip{position:absolute;left:-9999px;top:0;z-index:120;background:var(--accent);color:#fff;padding:10px 16px;border-radius:0 0 8px 0;font-size:13px}
+  .skip:focus{left:0}
+
+  /* TOP NAV */
+  .topnav{position:sticky;top:0;z-index:60;background:rgba(14,17,23,.72);backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%);border-bottom:1px solid rgba(255,255,255,.07)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:58px}
+  .navbrand{display:flex;flex-direction:column;line-height:1;color:#fff;font-family:'Space Grotesk';font-weight:600;font-size:15.5px}
+  .navbrand span{font-family:'Inter';font-weight:400;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent2);margin-top:4px}
+  .navlinks{display:flex;align-items:center;gap:8px}
+  .navlinks a{font-size:13px;color:#AEB7C7;padding:7px 11px;border-radius:7px;transition:color .2s,background .2s;position:relative}
+  .navlinks a:not(.navcta):hover{color:#fff;background:rgba(255,255,255,.06)}
+  .navlinks a.active{color:#fff}
+  .navlinks a.active:not(.navcta)::after{content:"";position:absolute;left:11px;right:11px;bottom:2px;height:2px;border-radius:2px;background:var(--accent)}
+  .navcta{color:#fff!important;background:var(--accent);padding:8px 15px;border-radius:999px;font-weight:500;box-shadow:0 8px 20px -8px rgba(76,110,245,.7);transition:transform .2s,box-shadow .2s}
+  .navcta:hover{transform:translateY(-1px);box-shadow:0 12px 26px -8px rgba(76,110,245,.85)}
+  .navcta:active{transform:translateY(0)}
+  .progress{height:2px;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .08s linear}
+  @media(max-width:720px){.navlinks a:not(.navcta){display:none}}
 
   /* HERO (dark) */
   .hero{background:var(--ink);color:#EEF1F6;position:relative;overflow:hidden}
   .hero::before{content:"";position:absolute;inset:0;
     background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
-    background-size:34px 34px;mask-image:radial-gradient(circle at 30% 20%,#000,transparent 75%)}
-  .hero .wrap{position:relative;padding:78px 28px 60px}
+    background-size:34px 34px;mask-image:radial-gradient(circle at 30% 20%,#000,transparent 75%);-webkit-mask-image:radial-gradient(circle at 30% 20%,#000,transparent 75%)}
+  .hero::after{content:"";position:absolute;width:540px;height:540px;right:-120px;top:-180px;border-radius:50%;
+    background:radial-gradient(circle,rgba(76,110,245,.28),transparent 62%);filter:blur(20px);pointer-events:none}
+  .hero .wrap{position:relative;padding:60px 28px 58px}
   .eyebrow{font-family:'Space Grotesk';letter-spacing:.24em;text-transform:uppercase;font-size:12px;color:var(--accent2);font-weight:600}
-  .hero h1{font-size:60px;line-height:1.02;margin:16px 0 8px;color:#fff;font-weight:700}
+  .hero h1{font-size:60px;line-height:1.02;margin:16px 0 8px;color:#fff;font-weight:700;letter-spacing:-.025em}
   .hero .role{font-size:19px;color:#AEB7C7;font-weight:400}
   .spine{font-size:23px;margin:24px 0 28px;max-width:680px;color:#E7EBF2;font-weight:300}
   .spine b{font-weight:600;color:#fff;border-bottom:2px solid var(--accent);padding-bottom:1px}
   .chips{display:flex;flex-wrap:wrap;gap:10px}
-  .chip{font-size:13px;padding:7px 14px;border:1px solid rgba(255,255,255,.16);border-radius:999px;color:#C7CEDA}
+  .chip{font-size:13px;padding:7px 14px;border:1px solid rgba(255,255,255,.16);border-radius:999px;color:#C7CEDA;transition:border-color .2s,background .2s,transform .2s}
+  .chip:hover{border-color:rgba(124,156,255,.55);background:rgba(124,156,255,.08)}
   .chip a{color:#C7CEDA}
   .chip.solid{background:var(--accent);border-color:var(--accent);color:#fff}
   .chip.solid a{color:#fff}
+  .chip.solid:hover{transform:translateY(-1px);background:#3f60e8}
   .herowrap{display:flex;align-items:center;gap:36px;justify-content:space-between}
   .herotext{flex:1;min-width:0}
   .headshot{width:158px;height:158px;border-radius:50%;object-fit:cover;border:3px solid rgba(124,156,255,.35);box-shadow:0 10px 34px rgba(0,0,0,.45);flex:none}
@@ -55,18 +83,20 @@
 
   /* METRICS */
   .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border-bottom:1px solid var(--line)}
-  .metric{background:var(--paper);padding:26px 22px}
+  .metric{background:var(--paper);padding:26px 22px;transition:background .25s}
+  .metric:hover{background:#FBFCFE}
   .metric .num{font-family:'Space Grotesk';font-size:34px;color:var(--ink);line-height:1;font-weight:700}
   .metric .num span{color:var(--accent)}
   .metric .lbl{font-size:12.5px;color:var(--muted);margin-top:7px}
 
-  section{padding:54px 0;border-bottom:1px solid var(--line)}
+  .sec{padding:54px 0;border-bottom:1px solid var(--line)}
   .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:6px}
   .sec-head h2{font-size:30px;color:var(--ink)}
   .sec-head .n{font-family:'Space Grotesk';font-size:13px;color:var(--accent);font-weight:600}
   .sec-sub{color:var(--muted);font-size:15px;margin-bottom:30px;max-width:660px}
 
-  .case{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:30px 32px;margin-bottom:20px}
+  .case{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:30px 32px;margin-bottom:20px;box-shadow:var(--shadow-light);transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s}
+  .case:hover{transform:translateY(-3px);box-shadow:0 26px 56px -22px rgba(22,32,68,.32)}
   .case .tag{font-family:'Space Grotesk';font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600}
   .case h3{font-size:23px;margin:8px 0 4px;color:var(--ink)}
   .case .ctx{color:var(--muted);font-size:14px;margin-bottom:16px}
@@ -75,25 +105,31 @@
   .case .block p{font-size:15px}
   .stack{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
   .stack span{font-size:12px;padding:5px 11px;background:var(--bg);border:1px solid var(--line);border-radius:6px;color:var(--text)}
+  .outcome{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;padding-top:18px;border-top:1px dashed var(--line)}
+  .outcome .o{font-size:12.5px;padding:7px 13px;border-radius:999px;background:rgba(18,184,134,.09);border:1px solid rgba(18,184,134,.28);color:#0c7a59;font-weight:500}
+  .outcome .o::before{content:"→ ";color:var(--good)}
 
   /* DIAGRAMS */
-  .diagram{background:var(--ink);border-radius:14px;padding:26px 24px 18px;margin-bottom:20px}
+  .diagram{background:var(--ink);border-radius:14px;padding:26px 24px 18px;margin-bottom:20px;box-shadow:var(--shadow-dark)}
   .diagram .dlabel{font-family:'Space Grotesk';font-size:13px;color:var(--accent2);font-weight:600;margin-bottom:14px;letter-spacing:.04em}
   .diagram svg{width:100%;height:auto;display:block}
 
   .caps{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-  .cap{padding:20px 22px;border:1px solid var(--line);border-radius:12px;background:var(--paper)}
+  .cap{padding:20px 22px;border:1px solid var(--line);border-radius:12px;background:var(--paper);transition:transform .25s,border-color .25s,box-shadow .25s}
+  .cap:hover{transform:translateY(-3px);border-color:rgba(76,110,245,.45);box-shadow:var(--shadow-light)}
   .cap h4{font-size:17px;margin-bottom:6px;color:var(--ink)}
   .cap p{font-size:14px;color:var(--muted)}
   .triad{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-  .tcard{padding:18px 20px;border:1px solid var(--line);border-radius:12px;background:var(--paper)}
+  .tcard{padding:18px 20px;border:1px solid var(--line);border-radius:12px;background:var(--paper);transition:transform .25s,border-color .25s,box-shadow .25s}
+  .tcard:hover{transform:translateY(-3px);border-color:rgba(76,110,245,.45);box-shadow:var(--shadow-light)}
   .tcard .th{font-family:'Space Grotesk';font-size:13px;color:var(--accent);font-weight:600;margin-bottom:7px}
   .tcard p{font-size:13.5px;color:var(--muted)}
   @media(max-width:720px){.triad{grid-template-columns:1fr}}
 
-  .note{background:linear-gradient(120deg,var(--ink),var(--ink2));color:#E7EBF2;border-radius:14px;padding:28px 32px;font-size:16px;font-weight:300}
+  .note{background:linear-gradient(120deg,var(--ink),var(--ink2));color:#E7EBF2;border-radius:14px;padding:28px 32px;font-size:16px;font-weight:300;box-shadow:var(--shadow-dark);position:relative;overflow:hidden}
+  .note::after{content:"";position:absolute;width:360px;height:360px;right:-120px;bottom:-160px;border-radius:50%;background:radial-gradient(circle,rgba(76,110,245,.22),transparent 65%);pointer-events:none}
   .note b{color:#fff;font-weight:600}
-  .hubs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+  .hubs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px;position:relative}
   .hubs > div{border-left:2px solid var(--accent);padding-left:13px}
   .hubs b{display:block;color:#fff;font-size:13px;margin-bottom:3px;font-family:'Space Grotesk'}
   .hubs span{font-size:12px;color:#AEB7C7;line-height:1.5}
@@ -101,42 +137,52 @@
 
   footer{padding:50px 0 72px;text-align:center}
   footer h2{font-size:30px;color:var(--ink);margin-bottom:10px}
-  .cta{display:inline-block;margin-top:8px;padding:13px 30px;background:var(--accent);color:#fff;border-radius:999px;font-size:15px;font-weight:500}
-  .cta.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+  .cta{display:inline-block;margin-top:8px;padding:13px 30px;background:var(--accent);color:#fff;border-radius:999px;font-size:15px;font-weight:500;box-shadow:0 12px 26px -10px rgba(76,110,245,.7);transition:transform .2s,box-shadow .2s}
+  .cta:hover{transform:translateY(-2px);box-shadow:0 16px 32px -10px rgba(76,110,245,.85)}
+  .cta:active{transform:translateY(0)}
+  .cta.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent);box-shadow:none}
+  .cta.ghost:hover{background:rgba(76,110,245,.07)}
   .ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:8px}
   .avail{display:inline-block;font-size:12.5px;color:var(--accent);border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:6px 16px;margin-bottom:18px}
+  .avail .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--good);margin-right:7px;vertical-align:middle;box-shadow:0 0 0 0 rgba(18,184,134,.5);animation:pulse 2.4s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(18,184,134,.45)}70%{box-shadow:0 0 0 7px rgba(18,184,134,0)}100%{box-shadow:0 0 0 0 rgba(18,184,134,0)}}
   .fineprint{margin-top:26px;font-size:12px;color:var(--muted)}
 
   @media(max-width:720px){
     .hero h1{font-size:40px}.spine{font-size:19px}
     .metrics{grid-template-columns:repeat(2,1fr)}.caps{grid-template-columns:1fr}
-    .hero .wrap{padding:52px 28px 40px}
+    .hero .wrap{padding:48px 28px 40px}
   }
-  .dashprev{margin-top:18px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#0E1117}
+
+  /* INTERACTIVE DASHBOARD */
+  .dashprev{margin-top:18px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#0E1117;box-shadow:var(--shadow-dark)}
   .dashbar{display:flex;align-items:center;gap:6px;padding:9px 12px;background:#161B26;border-bottom:1px solid #222B3D}
   .dashbar i{width:10px;height:10px;border-radius:50%;display:inline-block}
   .dashbar .u{margin-left:10px;font-size:11px;color:#8A93A6}
+  .dashbar .live{margin-left:auto;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:#7FD6AE;display:flex;align-items:center;gap:6px}
+  .dashbar .live i{width:7px;height:7px;background:#12B886;animation:pulse 2.4s infinite}
   .dashbody{padding:16px}
-  .scn{display:flex;gap:6px;margin-bottom:12px}
-  .scn span{font-size:11px;padding:4px 12px;border-radius:6px;border:1px solid #2C3650;color:#9AA6BC}
+  .scn{display:flex;gap:6px;margin-bottom:6px}
+  .scn span{font-size:11px;padding:5px 13px;border-radius:6px;border:1px solid #2C3650;color:#9AA6BC;cursor:pointer;user-select:none;transition:background .2s,border-color .2s,color .2s,transform .15s}
+  .scn span:hover{border-color:#4C6EF5;color:#C7CEDA}
   .scn span.on{background:#4C6EF5;border-color:#4C6EF5;color:#fff}
+  .scn span:active{transform:scale(.96)}
+  .scnhint{font-size:10px;color:#8A93A6;margin-bottom:12px}
+  .scnhint b{color:#AEB7C7;font-weight:500}
   .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
   .kpi{background:#1B2230;border:1px solid #2C3650;border-radius:8px;padding:10px 12px;position:relative;overflow:hidden}
   .kpi::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#7C9CFF,#12B886)}
   .kpi .l{font-size:9.5px;color:#8A93A6;text-transform:uppercase;letter-spacing:.06em}
   .kpi .v{font-family:'Space Grotesk';font-size:19px;color:#EAEEF6;margin-top:3px}
   .kpi .v.m{color:#566072;letter-spacing:.06em}
-  .heatlbl{font-size:10.5px;color:#8A93A6;margin-bottom:7px;letter-spacing:.04em}
-  .heat{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;max-width:340px}
-  .heat b{height:22px;border-radius:4px;display:block}
   .dgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
   .panel{background:#12161F;border:1px solid #222B3D;border-radius:8px;padding:12px 14px}
   .panel h5{font-family:'Space Grotesk';font-size:10.5px;color:#AEB7C7;font-weight:600;margin-bottom:10px;letter-spacing:.04em;text-transform:uppercase}
   .torn{display:flex;flex-direction:column;gap:6px}
   .torn .r{display:flex;align-items:center;gap:8px}
   .torn .r .lab{width:72px;text-align:right;font-size:9.5px;color:#8A93A6;flex:none}
-  .torn .r .track{flex:1}
-  .torn .r .bar{height:13px;border-radius:3px;display:block}
+  .torn .r .track{flex:1;background:#1B2230;border-radius:3px;overflow:hidden}
+  .torn .r .bar{height:13px;border-radius:3px;display:block;transition:width .6s cubic-bezier(.2,.7,.2,1)}
   .torn .r .val{font-size:9.5px;color:#9AA6BC;width:34px;flex:none}
   .sbar{display:flex;height:20px;border-radius:5px;overflow:hidden;margin-bottom:10px}
   .sbar span{display:block;height:100%}
@@ -145,13 +191,29 @@
   .heat2{display:grid;grid-template-columns:48px repeat(5,1fr);gap:4px;align-items:center}
   .heat2 .hh{font-size:8.5px;color:#8A93A6;text-align:center}
   .heat2 .hl{font-size:9px;color:#8A93A6;text-align:right;padding-right:3px}
-  .heat2 .hc{height:25px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10.5px;color:#F0F3F8;font-weight:500;font-family:'Space Grotesk'}
+  .heat2 .hc{height:25px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10.5px;color:#F0F3F8;font-weight:500;font-family:'Space Grotesk';cursor:default;transition:transform .15s,box-shadow .15s;position:relative}
+  .heat2 .hc:hover{transform:scale(1.12);box-shadow:0 0 0 2px rgba(255,255,255,.5);z-index:2}
+  .heatcap{font-size:9.5px;color:#8A93A6;margin-top:8px;min-height:13px}
+  .heatcap b{color:#C7CEDA;font-weight:500}
   .chip2{font-size:10.5px;padding:5px 9px;background:#1B2230;border:1px solid #2C3650;border-radius:6px;color:#C7CEDA;display:inline-block;margin:0 5px 6px 0}
   .badge{font-size:10px;padding:4px 9px;border-radius:999px;border:1px solid #2C3650;color:#9AA6BC;display:inline-block;margin:0 5px 6px 0}
   .badge.g{border-color:#2A4D3C;color:#7FD6AE}
-  @media(max-width:720px){.kpis{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:720px){.kpis{grid-template-columns:repeat(2,1fr)}.dgrid{grid-template-columns:1fr}}
+
+  /* MOTION */
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s cubic-bezier(.2,.7,.2,1),transform .6s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){
+    *{scroll-behavior:auto!important}
+    .reveal{opacity:1!important;transform:none!important;transition:none!important}
+    .torn .r .bar{transition:none!important}
+    .avail .dot,.dashbar .live i{animation:none!important}
+  }
+
   @media print{
     @page{margin:12mm 0}
+    .topnav,.skip,.progress{display:none!important}
+    .reveal{opacity:1!important;transform:none!important}
     .dashprev,.kpi{-webkit-print-color-adjust:exact;print-color-adjust:exact}
     body{background:#fff}
     .hero{background:var(--ink)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
@@ -162,8 +224,23 @@
 </style>
 </head>
 <body>
+  <a class="skip" href="#main">Skip to content</a>
 
-  <div class="hero">
+  <header class="topnav">
+    <div class="wrap nav-inner">
+      <a class="navbrand" href="#top">Yan Ngouen<span>COO · Project Director</span></a>
+      <nav class="navlinks" aria-label="Section navigation">
+        <a href="#background">Background</a>
+        <a href="#work">Work</a>
+        <a href="#build">Build</a>
+        <a href="#how">How I work</a>
+        <a class="navcta" href="YanNgouen_CV.pdf" download>Download CV</a>
+      </nav>
+    </div>
+    <div class="progress" id="progress"></div>
+  </header>
+
+  <div class="hero" id="top">
     <div class="wrap herowrap">
       <div class="herotext">
       <div class="eyebrow">Operations · Strategy · Digital &amp; Data Transformation</div>
@@ -182,49 +259,54 @@
     </div>
   </div>
 
-  <div class="wrap">
+  <main id="main" class="wrap">
     <div class="metrics">
-      <div class="metric"><div class="num">17</div><div class="lbl">clinics scaled across 5 countries</div></div>
-      <div class="metric"><div class="num"><span>~40%</span></div><div class="lbl">revenue CAGR delivered</div></div>
-      <div class="metric"><div class="num">240M<span>+</span></div><div class="lbl">AED development portfolio modeled</div></div>
-      <div class="metric"><div class="num">190<span>+</span></div><div class="lbl">page operating platform shipped</div></div>
+      <div class="metric"><div class="num"><span class="c" data-count="17" data-dec="0">17</span></div><div class="lbl">clinics scaled across 5 countries</div></div>
+      <div class="metric"><div class="num"><span style="color:var(--accent)"><span class="c" data-count="40" data-dec="0" data-prefix="~">~40</span>%</span></div><div class="lbl">revenue CAGR delivered</div></div>
+      <div class="metric"><div class="num"><span class="c" data-count="240" data-dec="0">240</span>M<span>+</span></div><div class="lbl">AED development portfolio modeled</div></div>
+      <div class="metric"><div class="num"><span class="c" data-count="190" data-dec="0">190</span><span>+</span></div><div class="lbl">page operating platform shipped</div></div>
     </div>
 
-    <section id="background">
-      <div class="sec-head"><span class="n">·</span><h2>Background</h2></div>
-      <p class="sec-sub">A rare triad — trained in the clinic, schooled in the economics, and I build the product myself, so strategy, money and delivery actually connect. Across healthcare, real-estate development, education and investment.</p>
+    <section id="background" class="sec">
+      <div class="sec-head reveal"><span class="n">·</span><h2>Background</h2></div>
+      <p class="sec-sub reveal">A rare triad — trained in the clinic, schooled in the economics, and I build the product myself, so strategy, money and delivery actually connect. Across healthcare, real-estate development, education and investment.</p>
       <div class="triad">
-        <div class="tcard"><div class="th">Clinical</div><p>MSc &amp; BSc Rehabilitation Medicine and a decade inside clinical operations — I know how care is actually delivered.</p></div>
-        <div class="tcard"><div class="th">Business</div><p>MBA Frankfurt (Distinction), MSc Health Economics (LSE), incoming EMBA TRIUM (NYU&nbsp;Stern / LSE / HEC) — investment-grade rigor.</p></div>
-        <div class="tcard"><div class="th">Builder</div><p>I spec and ship the software myself — financial models and operating platforms, AI-augmented, in production.</p></div>
+        <div class="tcard reveal"><div class="th">Clinical</div><p>MSc &amp; BSc Rehabilitation Medicine and a decade inside clinical operations — I know how care is actually delivered.</p></div>
+        <div class="tcard reveal"><div class="th">Business</div><p>MBA Frankfurt (Distinction), MSc Health Economics (LSE), incoming EMBA TRIUM (NYU&nbsp;Stern / LSE / HEC) — investment-grade rigor.</p></div>
+        <div class="tcard reveal"><div class="th">Builder</div><p>I spec and ship the software myself — financial models and operating platforms, AI-augmented, in production.</p></div>
       </div>
     </section>
 
-    <section id="work">
-      <div class="sec-head"><span class="n">01</span><h2>Selected work</h2></div>
-      <p class="sec-sub">An operator who specs and ships real software — built AI-augmented — so operations and investment decisions become measurable. Figures and internal content are masked for confidentiality.</p>
+    <section id="work" class="sec">
+      <div class="sec-head reveal"><span class="n">01</span><h2>Selected work</h2></div>
+      <p class="sec-sub reveal">An operator who specs and ships real software — built AI-augmented — so operations and investment decisions become measurable. Figures and internal content are masked for confidentiality.</p>
 
-      <div class="case">
+      <div class="case reveal">
         <div class="tag">Investment analytics · web application</div>
         <h3>Board-grade financial decision tool</h3>
         <div class="ctx">UAE multi-year medical investment project — as Director of Special Projects, QUBE Development</div>
         <div class="block"><div class="k">Challenge</div><p>The board needed a defensible go/no-go on a multi-year clinic investment — not a static spreadsheet only one person could read.</p></div>
         <div class="block"><div class="k">What I built</div><p>A live parametric model turned into an interactive web app: a six-driver scenario engine (Base / Upside / Downside), live NPV / IRR / MOIC / payback, Monte-Carlo simulation, DCF waterfall, tornado and two-way sensitivity, investor-vs-founder return models, Excel ingestion, EN/RU and PDF export — productizing a multi-thousand-formula model.</p></div>
         <div class="block"><div class="k">Impact</div><p>A spreadsheet became a board-grade decision tool: any scenario answered in seconds, assumptions transparent, capital allocation defensible.</p></div>
-        <p style="font-size:13px;color:var(--muted);margin:2px 0 0">Below — the model for a single greenfield clinic (~AED 6.6M): one asset inside the broader AED 240M+ development portfolio I structured. The same rigor scales from one project to the whole book.</p>
-        <div class="dashprev">
-          <div class="dashbar"><i style="background:#FF5F57"></i><i style="background:#FEBC2E"></i><i style="background:#28C840"></i><span class="u">investment model · live · Y1&ndash;Y10 · real figures, project anonymized</span></div>
+        <p style="font-size:13px;color:var(--muted);margin:2px 0 0">Below — the model for a single greenfield clinic (~AED 6.6M): one asset inside the broader AED 240M+ development portfolio I structured. The same rigor scales from one project to the whole book. <b style="color:var(--text);font-weight:500">Try the scenario tabs.</b></p>
+        <div class="dashprev" id="invest">
+          <div class="dashbar"><i style="background:#FF5F57"></i><i style="background:#FEBC2E"></i><i style="background:#28C840"></i><span class="u">investment model · Y1&ndash;Y10 · real figures, project anonymized</span><span class="live"><i></i>interactive</span></div>
           <div class="dashbody">
-            <div class="scn"><span class="on">Base</span><span>Upside</span><span>Downside</span></div>
+            <div class="scn" id="scn" role="tablist" aria-label="Scenario">
+              <span class="on" data-s="base" role="tab" tabindex="0" aria-selected="true">Base</span>
+              <span data-s="upside" role="tab" tabindex="0" aria-selected="false">Upside</span>
+              <span data-s="downside" role="tab" tabindex="0" aria-selected="false">Downside</span>
+            </div>
+            <div class="scnhint" id="scnhint">Central case — board assumptions. <b>Base</b> figures are real (masked); Upside / Downside are representative scenarios.</div>
             <div class="kpis">
-              <div class="kpi"><div class="l">Total investment</div><div class="v">6.6M AED</div></div>
-              <div class="kpi"><div class="l">5-Year IRR</div><div class="v">12.4%</div></div>
-              <div class="kpi"><div class="l">10-Year IRR</div><div class="v">34.5%</div></div>
-              <div class="kpi"><div class="l">Payback</div><div class="v">4.0 y</div></div>
-              <div class="kpi"><div class="l">Project IRR · exit 5Y</div><div class="v">49.5%</div></div>
-              <div class="kpi"><div class="l">MOIC · 5Y</div><div class="v">5.55&times;</div></div>
-              <div class="kpi"><div class="l">Investor net gain</div><div class="v">7.4M AED</div></div>
-              <div class="kpi"><div class="l">EBITDA margin</div><div class="v">20.0%</div></div>
+              <div class="kpi"><div class="l">Total investment</div><div class="v" data-k="capex">6.6M AED</div></div>
+              <div class="kpi"><div class="l">5-Year IRR</div><div class="v" data-k="irr5">12.4%</div></div>
+              <div class="kpi"><div class="l">10-Year IRR</div><div class="v" data-k="irr10">34.5%</div></div>
+              <div class="kpi"><div class="l">Payback</div><div class="v" data-k="payback">4.0 y</div></div>
+              <div class="kpi"><div class="l">Project IRR · exit 5Y</div><div class="v" data-k="pirr">49.5%</div></div>
+              <div class="kpi"><div class="l">MOIC · 5Y</div><div class="v" data-k="moic">5.55&times;</div></div>
+              <div class="kpi"><div class="l">Investor net gain</div><div class="v" data-k="gain">7.4M AED</div></div>
+              <div class="kpi"><div class="l">EBITDA margin</div><div class="v" data-k="ebitda">20.0%</div></div>
             </div>
             <div class="dgrid">
               <div class="panel">
@@ -233,37 +315,39 @@
                 <div class="leg"><i style="background:#4C6EF5"></i>Renovation &amp; fit-out 40%<br><i style="background:#E05656"></i>Pre-operational 14%<br><i style="background:#12B886"></i>Working capital + deposit 13%<br><i style="background:#3E9A60"></i>Physio equipment 9%<br><i style="background:#7C9CFF"></i>Assessment &middot; Lab &middot; IT 8%<br><i style="background:#C99A3A"></i>Dental equipment 7%</div>
               </div>
               <div class="panel">
-                <h5>Revenue stress test &rarr; EBITDA</h5>
-                <div class="torn">
-                  <div class="r"><span class="lab">Severe &minus;30%</span><span class="track"><span class="bar" style="width:50%;background:#9E3B3B"></span></span><span class="val">3.0M</span></div>
-                  <div class="r"><span class="lab">Down &minus;20%</span><span class="track"><span class="bar" style="width:60%;background:#B0563C"></span></span><span class="val">3.6M</span></div>
-                  <div class="r"><span class="lab">Mild &minus;10%</span><span class="track"><span class="bar" style="width:67%;background:#B8923A"></span></span><span class="val">4.0M</span></div>
-                  <div class="r"><span class="lab">BASE</span><span class="track"><span class="bar" style="width:73%;background:#4C6EF5"></span></span><span class="val">4.4M</span></div>
-                  <div class="r"><span class="lab">Mild +10%</span><span class="track"><span class="bar" style="width:80%;background:#3E9A60"></span></span><span class="val">4.8M</span></div>
-                  <div class="r"><span class="lab">Upside +20%</span><span class="track"><span class="bar" style="width:88%;background:#2E9A68"></span></span><span class="val">5.3M</span></div>
-                  <div class="r"><span class="lab">Strong +30%</span><span class="track"><span class="bar" style="width:95%;background:#1F8A5A"></span></span><span class="val">5.7M</span></div>
+                <h5>Revenue stress test &rarr; EBITDA <span style="color:#566072;font-weight:400" id="stresshint">· base case</span></h5>
+                <div class="torn" id="torn">
+                  <div class="r"><span class="lab">Severe &minus;30%</span><span class="track"><span class="bar" data-m="0.68" style="width:50%;background:#9E3B3B"></span></span><span class="val" data-mv="0.68">3.0M</span></div>
+                  <div class="r"><span class="lab">Down &minus;20%</span><span class="track"><span class="bar" data-m="0.82" style="width:60%;background:#B0563C"></span></span><span class="val" data-mv="0.82">3.6M</span></div>
+                  <div class="r"><span class="lab">Mild &minus;10%</span><span class="track"><span class="bar" data-m="0.91" style="width:67%;background:#B8923A"></span></span><span class="val" data-mv="0.91">4.0M</span></div>
+                  <div class="r"><span class="lab">BASE</span><span class="track"><span class="bar" data-m="1.0" style="width:73%;background:#4C6EF5"></span></span><span class="val" data-mv="1.0">4.4M</span></div>
+                  <div class="r"><span class="lab">Mild +10%</span><span class="track"><span class="bar" data-m="1.09" style="width:80%;background:#3E9A60"></span></span><span class="val" data-mv="1.09">4.8M</span></div>
+                  <div class="r"><span class="lab">Upside +20%</span><span class="track"><span class="bar" data-m="1.20" style="width:88%;background:#2E9A68"></span></span><span class="val" data-mv="1.20">5.3M</span></div>
+                  <div class="r"><span class="lab">Strong +30%</span><span class="track"><span class="bar" data-m="1.30" style="width:95%;background:#1F8A5A"></span></span><span class="val" data-mv="1.30">5.7M</span></div>
                 </div>
               </div>
             </div>
             <div class="panel" style="margin-top:12px">
               <h5>Two-way sensitivity &middot; Revenue &times; OPEX &rarr; EBITDA (AED)</h5>
-              <div class="heat2">
+              <div class="heat2" id="heat2">
                 <span class="hl"></span><span class="hh">OPEX&minus;20%</span><span class="hh">OPEX&minus;10%</span><span class="hh">BASE</span><span class="hh">OPEX+10%</span><span class="hh">OPEX+20%</span>
-                <span class="hl">Rev&minus;20%</span><span class="hc" style="background:#3E9A60">5.1M</span><span class="hc" style="background:#B8923A">4.3M</span><span class="hc" style="background:#B0563C">3.5M</span><span class="hc" style="background:#9E3B3B">2.7M</span><span class="hc" style="background:#9E3B3B">1.9M</span>
-                <span class="hl">Rev&minus;10%</span><span class="hc" style="background:#1F8A5A">5.7M</span><span class="hc" style="background:#3E9A60">4.8M</span><span class="hc" style="background:#B8923A">4.0M</span><span class="hc" style="background:#B0563C">3.1M</span><span class="hc" style="background:#9E3B3B">2.2M</span>
-                <span class="hl">BASE</span><span class="hc" style="background:#1F8A5A">6.4M</span><span class="hc" style="background:#1F8A5A">5.4M</span><span class="hc" style="background:#3E9A60">4.4M</span><span class="hc" style="background:#B0563C">3.4M</span><span class="hc" style="background:#9E3B3B">2.4M</span>
-                <span class="hl">Rev+10%</span><span class="hc" style="background:#1F8A5A">7.0M</span><span class="hc" style="background:#1F8A5A">5.9M</span><span class="hc" style="background:#3E9A60">4.8M</span><span class="hc" style="background:#B8923A">3.7M</span><span class="hc" style="background:#9E3B3B">2.7M</span>
+                <span class="hl">Rev&minus;20%</span><span class="hc" style="background:#3E9A60" data-r="Rev−20%" data-c="OPEX−20%">5.1M</span><span class="hc" style="background:#B8923A" data-r="Rev−20%" data-c="OPEX−10%">4.3M</span><span class="hc" style="background:#B0563C" data-r="Rev−20%" data-c="BASE">3.5M</span><span class="hc" style="background:#9E3B3B" data-r="Rev−20%" data-c="OPEX+10%">2.7M</span><span class="hc" style="background:#9E3B3B" data-r="Rev−20%" data-c="OPEX+20%">1.9M</span>
+                <span class="hl">Rev&minus;10%</span><span class="hc" style="background:#1F8A5A" data-r="Rev−10%" data-c="OPEX−20%">5.7M</span><span class="hc" style="background:#3E9A60" data-r="Rev−10%" data-c="OPEX−10%">4.8M</span><span class="hc" style="background:#B8923A" data-r="Rev−10%" data-c="BASE">4.0M</span><span class="hc" style="background:#B0563C" data-r="Rev−10%" data-c="OPEX+10%">3.1M</span><span class="hc" style="background:#9E3B3B" data-r="Rev−10%" data-c="OPEX+20%">2.2M</span>
+                <span class="hl">BASE</span><span class="hc" style="background:#1F8A5A" data-r="BASE" data-c="OPEX−20%">6.4M</span><span class="hc" style="background:#1F8A5A" data-r="BASE" data-c="OPEX−10%">5.4M</span><span class="hc" style="background:#3E9A60" data-r="BASE" data-c="BASE">4.4M</span><span class="hc" style="background:#B0563C" data-r="BASE" data-c="OPEX+10%">3.4M</span><span class="hc" style="background:#9E3B3B" data-r="BASE" data-c="OPEX+20%">2.4M</span>
+                <span class="hl">Rev+10%</span><span class="hc" style="background:#1F8A5A" data-r="Rev+10%" data-c="OPEX−20%">7.0M</span><span class="hc" style="background:#1F8A5A" data-r="Rev+10%" data-c="OPEX−10%">5.9M</span><span class="hc" style="background:#3E9A60" data-r="Rev+10%" data-c="BASE">4.8M</span><span class="hc" style="background:#B8923A" data-r="Rev+10%" data-c="OPEX+10%">3.7M</span><span class="hc" style="background:#9E3B3B" data-r="Rev+10%" data-c="OPEX+20%">2.7M</span>
               </div>
+              <div class="heatcap" id="heatcap">Hover a cell to read the combination.</div>
             </div>
           </div>
         </div>
         <div class="stack"><span>Scenario engine</span><span>Monte Carlo</span><span>NPV / IRR / payback</span><span>.xlsx ingestion</span><span>Bilingual</span><span>PDF export</span></div>
+        <div class="outcome"><span class="o">Any scenario answered in seconds</span><span class="o">Board-grade go/no-go</span><span class="o">Assumptions fully transparent</span></div>
       </div>
 
-      <div class="case">
+      <div class="case reveal">
         <div class="tag">Operating system · full platform</div>
         <h3>Clinic operations &amp; governance platform</h3>
-        <div class="ctx">Premium DHA-regulated dental clinic, Dubai — as CEO</div>
+        <div class="ctx">Premium DHA-regulated dental clinic, Dubai — transformation mandate · 2026</div>
         <div class="block"><div class="k">Challenge</div><p>Scaling a regulated clinic meant governance, quality, sales and operations lived in scattered documents — no single, access-controlled source of truth.</p></div>
         <div class="block"><div class="k">What I built</div><p>A 190+ page internal platform on a custom engine: sales-enablement system, 29 SOPs, CAPA / quality, patient-risk and RAID registers, complaint-case workflows — fully bilingual RU/EN.</p></div>
         <div class="block"><div class="k">Engineering</div><p>Edge-middleware auth (HMAC-signed token cookies) plus email one-time-code login for clinicians; 14 serverless API endpoints; a key-value data layer with optimistic locking, audit trail and automatic backups; usage telemetry; CI/CD from GitHub to Cloudflare.</p></div>
@@ -271,9 +355,9 @@
           <div class="dashbar"><i style="background:#FF5F57"></i><i style="background:#FEBC2E"></i><i style="background:#28C840"></i><span class="u">clinic operations platform · admin + doctor-OTP · RU&middot;EN · clinic anonymized</span></div>
           <div class="dashbody">
             <div class="kpis">
-              <div class="kpi"><div class="l">Pages</div><div class="v">191</div></div>
-              <div class="kpi"><div class="l">API endpoints</div><div class="v">14</div></div>
-              <div class="kpi"><div class="l">KV registries</div><div class="v">5</div></div>
+              <div class="kpi"><div class="l">Pages</div><div class="v"><span class="c" data-count="191" data-dec="0">191</span></div></div>
+              <div class="kpi"><div class="l">API endpoints</div><div class="v"><span class="c" data-count="14" data-dec="0">14</span></div></div>
+              <div class="kpi"><div class="l">KV registries</div><div class="v"><span class="c" data-count="5" data-dec="0">5</span></div></div>
               <div class="kpi"><div class="l">Languages</div><div class="v">RU &middot; EN</div></div>
             </div>
             <div class="dgrid">
@@ -300,7 +384,7 @@
         <div class="block"><div class="k">Operating model</div><p>One system keeping strategy, operations, quality and the numbers in sync: a goal cascade from strategy to the floor, a Balanced Scorecard across the Quintuple Aim, and qualitative signals (NPS, CSAT) tied to the quantitative (P&amp;L, KPIs) — with a feedback loop that turns results back into re-planning.</p></div>
         <div class="diagram">
           <div class="dlabel">Operating model — strategy ↔ operations ↔ quality, in sync</div>
-          <svg viewBox="0 0 960 250" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+          <svg viewBox="0 0 960 250" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif" role="img" aria-label="Operating model: strategy to goal cascade to operations to KPIs, with a feedback loop and quality system across the Quintuple Aim">
             <defs>
               <marker id="ar2" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#7C9CFF"/></marker>
               <marker id="ar2g" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#7FD6AE"/></marker>
@@ -333,94 +417,86 @@
           </svg>
         </div>
         <div class="stack"><span>Edge auth / OTP</span><span>Serverless API</span><span>KV + optimistic locking</span><span>Audit &amp; backups</span><span>Telemetry</span><span>i18n</span><span>CI/CD</span></div>
+        <div class="outcome"><span class="o">Single access-controlled source of truth</span><span class="o">JCI-accreditation pathway</span><span class="o">31-KPI scorecard live</span><span class="o">Audit-ready operations</span></div>
       </div>
 
-      <div class="case" style="padding:22px 32px">
+      <div class="case reveal" style="padding:22px 32px">
         <div class="tag">Operational transformation</div>
         <h3 style="font-size:20px">From ad-hoc to audit-ready</h3>
         <p style="font-size:14.5px;color:var(--muted);margin-top:5px">Beyond the software: I built the governance and quality backbone — a 31-KPI scorecard and CAPA methodology — that put the clinic on a JCI-accreditation pathway and made operations measurable and audit-ready.</p>
       </div>
     </section>
 
-    <section id="build">
-      <div class="sec-head"><span class="n">02</span><h2>Inside the build</h2></div>
-      <p class="sec-sub">How the systems are actually wired — architecture, not screenshots, so nothing confidential is exposed.</p>
+    <section id="build" class="sec">
+      <div class="sec-head reveal"><span class="n">02</span><h2>Inside the build</h2></div>
+      <p class="sec-sub reveal">How the systems are actually wired — architecture, not screenshots, so nothing confidential is exposed.</p>
 
-      <div class="diagram">
+      <div class="diagram reveal">
         <div class="dlabel">Clinic operations platform — architecture</div>
-        <svg viewBox="0 0 960 196" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
-          <defs>
-            <marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#7C9CFF"/></marker>
-          </defs>
-          <g>
-            <rect x="8" y="58" width="180" height="64" rx="10" fill="#1B2230" stroke="#2C3650"/>
-            <text x="98" y="86" fill="#EAEEF6" font-size="14" font-weight="600" text-anchor="middle">191-page UI</text>
-            <text x="98" y="105" fill="#9AA6BC" font-size="12" text-anchor="middle">RU · EN</text>
-
-            <rect x="248" y="58" width="190" height="64" rx="10" fill="#1B2230" stroke="#2C3650"/>
-            <text x="343" y="84" fill="#EAEEF6" font-size="14" font-weight="600" text-anchor="middle">Edge middleware</text>
-            <text x="343" y="103" fill="#9AA6BC" font-size="11.5" text-anchor="middle">HMAC auth + email-OTP</text>
-
-            <rect x="498" y="58" width="180" height="64" rx="10" fill="#1B2230" stroke="#2C3650"/>
-            <text x="588" y="84" fill="#EAEEF6" font-size="14" font-weight="600" text-anchor="middle">14 serverless</text>
-            <text x="588" y="103" fill="#9AA6BC" font-size="11.5" text-anchor="middle">API functions</text>
-
-            <rect x="738" y="44" width="214" height="92" rx="10" fill="#14271F" stroke="#2A4D3C"/>
-            <text x="845" y="72" fill="#EAEEF6" font-size="14" font-weight="600" text-anchor="middle">KV data layer</text>
-            <text x="845" y="92" fill="#7FD6AE" font-size="11.5" text-anchor="middle">optimistic locking</text>
-            <text x="845" y="109" fill="#7FD6AE" font-size="11.5" text-anchor="middle">audit · auto-backup</text>
-
-            <line x1="188" y1="90" x2="246" y2="90" stroke="#4C6EF5" stroke-width="2" marker-end="url(#ar)"/>
-            <line x1="438" y1="90" x2="496" y2="90" stroke="#4C6EF5" stroke-width="2" marker-end="url(#ar)"/>
-            <line x1="678" y1="90" x2="736" y2="90" stroke="#4C6EF5" stroke-width="2" marker-end="url(#ar)"/>
-
-            <rect x="8" y="158" width="944" height="30" rx="8" fill="#12161F" stroke="#222B3D"/>
-            <text x="24" y="177" fill="#9AA6BC" font-size="12">Telemetry pipeline (page_view · card_open · search)  ·  CI/CD: GitHub Actions → Cloudflare Pages  ·  role-based access</text>
-          </g>
+        <svg viewBox="0 0 960 196" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif" role="img" aria-label="Architecture: 191-page UI to edge middleware with HMAC auth and email OTP, to 14 serverless API functions, to a KV data layer with optimistic locking, audit and auto-backup; telemetry and CI/CD underneath">
+        <defs>
+          <marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#7C9CFF"/></marker>
+        </defs>
+        <g>
+          <rect x="8" y="58" width="180" height="64" rx="10" fill="#1B2230" stroke="#2C3650"/>
+          <text x="98" y="86" fill="#EAEEF6" font-size="14" font-weight="600" text-anchor="middle">191-page UI</text>
+          <text x="98" y="105" fill="#9AA6BC" font-size="12" text-anchor="middle">RU · EN</text>
+          <rect x="248" y="58" width="190" height="64" rx="10" fill="#1B2230" stroke="#2C3650"/>
+          <text x="343" y="84" fill="#EAEEF6" font-size="14" font-weight="600" text-anchor="middle">Edge middleware</text>
+          <text x="343" y="103" fill="#9AA6BC" font-size="11.5" text-anchor="middle">HMAC auth + email-OTP</text>
+          <rect x="498" y="58" width="180" height="64" rx="10" fill="#1B2230" stroke="#2C3650"/>
+          <text x="588" y="84" fill="#EAEEF6" font-size="14" font-weight="600" text-anchor="middle">14 serverless</text>
+          <text x="588" y="103" fill="#9AA6BC" font-size="11.5" text-anchor="middle">API functions</text>
+          <rect x="738" y="44" width="214" height="92" rx="10" fill="#14271F" stroke="#2A4D3C"/>
+          <text x="845" y="72" fill="#EAEEF6" font-size="14" font-weight="600" text-anchor="middle">KV data layer</text>
+          <text x="845" y="92" fill="#7FD6AE" font-size="11.5" text-anchor="middle">optimistic locking</text>
+          <text x="845" y="109" fill="#7FD6AE" font-size="11.5" text-anchor="middle">audit · auto-backup</text>
+          <line x1="188" y1="90" x2="246" y2="90" stroke="#4C6EF5" stroke-width="2" marker-end="url(#ar)"/>
+          <line x1="438" y1="90" x2="496" y2="90" stroke="#4C6EF5" stroke-width="2" marker-end="url(#ar)"/>
+          <line x1="678" y1="90" x2="736" y2="90" stroke="#4C6EF5" stroke-width="2" marker-end="url(#ar)"/>
+          <rect x="8" y="158" width="944" height="30" rx="8" fill="#12161F" stroke="#222B3D"/>
+          <text x="24" y="177" fill="#9AA6BC" font-size="12">Telemetry pipeline (page_view · card_open · search)  ·  CI/CD: GitHub Actions → Cloudflare Pages  ·  role-based access</text>
+        </g>
         </svg>
       </div>
 
-      <div class="diagram">
+      <div class="diagram reveal">
         <div class="dlabel">Investment analytics tool — data flow</div>
-        <svg viewBox="0 0 960 150" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
-          <g>
-            <rect x="8" y="44" width="190" height="62" rx="10" fill="#1B2230" stroke="#2C3650"/>
-            <text x="103" y="70" fill="#EAEEF6" font-size="14" font-weight="600" text-anchor="middle">Excel model</text>
-            <text x="103" y="89" fill="#9AA6BC" font-size="11.5" text-anchor="middle">3,100+ formulas</text>
-
-            <rect x="256" y="44" width="180" height="62" rx="10" fill="#1B2230" stroke="#2C3650"/>
-            <text x="346" y="70" fill="#EAEEF6" font-size="14" font-weight="600" text-anchor="middle">Scenario engine</text>
-            <text x="346" y="89" fill="#9AA6BC" font-size="11.5" text-anchor="middle">6 drivers</text>
-
-            <rect x="494" y="44" width="180" height="62" rx="10" fill="#1B2230" stroke="#2C3650"/>
-            <text x="584" y="70" fill="#EAEEF6" font-size="14" font-weight="600" text-anchor="middle">Compute</text>
-            <text x="584" y="89" fill="#9AA6BC" font-size="11.5" text-anchor="middle">Monte Carlo · DCF</text>
-
-            <rect x="732" y="34" width="220" height="82" rx="10" fill="#14271F" stroke="#2A4D3C"/>
-            <text x="842" y="62" fill="#EAEEF6" font-size="14" font-weight="600" text-anchor="middle">Outputs</text>
-            <text x="842" y="81" fill="#7FD6AE" font-size="11.5" text-anchor="middle">NPV / IRR / MOIC</text>
-            <text x="842" y="98" fill="#7FD6AE" font-size="11.5" text-anchor="middle">tornado · heatmap · PDF</text>
-
-            <line x1="198" y1="75" x2="254" y2="75" stroke="#4C6EF5" stroke-width="2" marker-end="url(#ar)"/>
-            <line x1="436" y1="75" x2="492" y2="75" stroke="#4C6EF5" stroke-width="2" marker-end="url(#ar)"/>
-            <line x1="674" y1="75" x2="730" y2="75" stroke="#4C6EF5" stroke-width="2" marker-end="url(#ar)"/>
-          </g>
+        <svg viewBox="0 0 960 150" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif" role="img" aria-label="Data flow: Excel model with 3,100-plus formulas to a six-driver scenario engine, to compute with Monte Carlo and DCF, to outputs NPV IRR MOIC, tornado, heatmap and PDF">
+        <g>
+          <rect x="8" y="44" width="190" height="62" rx="10" fill="#1B2230" stroke="#2C3650"/>
+          <text x="103" y="70" fill="#EAEEF6" font-size="14" font-weight="600" text-anchor="middle">Excel model</text>
+          <text x="103" y="89" fill="#9AA6BC" font-size="11.5" text-anchor="middle">3,100+ formulas</text>
+          <rect x="256" y="44" width="180" height="62" rx="10" fill="#1B2230" stroke="#2C3650"/>
+          <text x="346" y="70" fill="#EAEEF6" font-size="14" font-weight="600" text-anchor="middle">Scenario engine</text>
+          <text x="346" y="89" fill="#9AA6BC" font-size="11.5" text-anchor="middle">6 drivers</text>
+          <rect x="494" y="44" width="180" height="62" rx="10" fill="#1B2230" stroke="#2C3650"/>
+          <text x="584" y="70" fill="#EAEEF6" font-size="14" font-weight="600" text-anchor="middle">Compute</text>
+          <text x="584" y="89" fill="#9AA6BC" font-size="11.5" text-anchor="middle">Monte Carlo · DCF</text>
+          <rect x="732" y="34" width="220" height="82" rx="10" fill="#14271F" stroke="#2A4D3C"/>
+          <text x="842" y="62" fill="#EAEEF6" font-size="14" font-weight="600" text-anchor="middle">Outputs</text>
+          <text x="842" y="81" fill="#7FD6AE" font-size="11.5" text-anchor="middle">NPV / IRR / MOIC</text>
+          <text x="842" y="98" fill="#7FD6AE" font-size="11.5" text-anchor="middle">tornado · heatmap · PDF</text>
+          <line x1="198" y1="75" x2="254" y2="75" stroke="#4C6EF5" stroke-width="2" marker-end="url(#ar)"/>
+          <line x1="436" y1="75" x2="492" y2="75" stroke="#4C6EF5" stroke-width="2" marker-end="url(#ar)"/>
+          <line x1="674" y1="75" x2="730" y2="75" stroke="#4C6EF5" stroke-width="2" marker-end="url(#ar)"/>
+        </g>
         </svg>
       </div>
     </section>
 
-    <section id="how">
-      <div class="sec-head"><span class="n">03</span><h2>How I work</h2></div>
+    <section id="how" class="sec">
+      <div class="sec-head reveal"><span class="n">03</span><h2>How I work</h2></div>
       <div class="caps">
-        <div class="cap"><h4>Operator first</h4><p>P&amp;L ownership, unit economics and multi-site operations across the UAE, Europe and CIS — I run the business, not just advise it.</p></div>
-        <div class="cap"><h4>Investment-grade thinking</h4><p>Feasibility, financial models, M&amp;A and JV structuring — business cases a board can act on.</p></div>
-        <div class="cap"><h4>Builds the system</h4><p>Governance, KPI scorecards, SOPs and the digital tooling that makes growth repeatable and measurable.</p></div>
-        <div class="cap"><h4>Ships software, AI-augmented</h4><p>As a non-engineer I spec and deploy real applications — edge auth, serverless APIs, data layers — using AI-assisted development.</p></div>
+        <div class="cap reveal"><h4>Operator first</h4><p>P&amp;L ownership, unit economics and multi-site operations across the UAE, Europe and CIS — I run the business, not just advise it.</p></div>
+        <div class="cap reveal"><h4>Investment-grade thinking</h4><p>Feasibility, financial models, M&amp;A and JV structuring — business cases a board can act on.</p></div>
+        <div class="cap reveal"><h4>Builds the system</h4><p>Governance, KPI scorecards, SOPs and the digital tooling that makes growth repeatable and measurable.</p></div>
+        <div class="cap reveal"><h4>Ships software, AI-augmented</h4><p>As a non-engineer I spec and deploy real applications — edge auth, serverless APIs, data layers — using AI-assisted development.</p></div>
       </div>
     </section>
 
-    <section id="thesis" style="border-bottom:none">
-      <div class="note">
+    <section id="thesis" class="sec" style="border-bottom:none">
+      <div class="note reveal">
         <div style="font-family:'Space Grotesk';font-size:12.5px;color:#7C9CFF;letter-spacing:.14em;text-transform:uppercase;margin-bottom:9px">The real product</div>
         <div style="font-family:'Space Grotesk';font-size:24px;color:#fff;font-weight:600;margin-bottom:12px">Transparency &amp; alignment.</div>
         <p>Every model, dashboard and platform I build becomes the <b>shared source of truth where stakeholders coordinate</b> — strategy cascades down into budgets and action, results flow back up. Built by an operator, AI-augmented, in production.</p>
@@ -433,17 +509,172 @@
     </section>
 
     <footer>
-      <div class="avail">Open to — COO · Head of Operations · fractional ops · UAE</div>
-      <h2>Let&rsquo;s talk</h2>
-      <p style="color:var(--muted);max-width:520px;margin:0 auto">Operations leadership for healthcare and multi-site businesses scaling in the UAE.</p>
-      <div class="ctas">
+      <div class="avail reveal"><span class="dot"></span>Open to — COO · Head of Operations · fractional ops · UAE</div>
+      <h2 class="reveal">Let&rsquo;s talk</h2>
+      <p class="reveal" style="color:var(--muted);max-width:520px;margin:0 auto">Operations leadership for healthcare and multi-site businesses scaling in the UAE.</p>
+      <div class="ctas reveal">
         <a class="cta" href="mailto:yantherapy@gmail.com?subject=COO%20%2F%20operations%20conversation">Book a 20-min call</a>
         <a class="cta ghost" href="YanNgouen_CV.pdf" download>Download CV</a>
         <a class="cta ghost" href="https://www.linkedin.com/in/yan-ngouen-890097154/">LinkedIn</a>
       </div>
-      <div class="fineprint">All figures, patient data and internal content are masked or representative for confidentiality.</div>
+      <div class="fineprint reveal">All figures, patient data and internal content are masked or representative for confidentiality.</div>
     </footer>
-  </div>
+  </main>
 
+<script>
+(function(){
+  "use strict";
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- scroll progress ---- */
+  var prog = document.getElementById('progress');
+  function onScroll(){
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    var p = max > 0 ? (h.scrollTop || document.body.scrollTop) / max : 0;
+    if(prog) prog.style.width = (p*100).toFixed(2) + '%';
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  /* ---- count-up ---- */
+  function fmt(v, dec, prefix, suffix){
+    var n = dec>0 ? v.toFixed(dec) : Math.round(v).toString();
+    return (prefix||'') + n + (suffix||'');
+  }
+  function countUp(el){
+    var target = parseFloat(el.getAttribute('data-count'));
+    var dec = parseInt(el.getAttribute('data-dec')||'0',10);
+    var prefix = el.getAttribute('data-prefix')||'';
+    var suffix = el.getAttribute('data-suffix')||'';
+    if(reduce){ el.textContent = fmt(target,dec,prefix,suffix); return; }
+    var dur = 1100, start = null;
+    function step(ts){
+      if(start===null) start = ts;
+      var t = Math.min((ts-start)/dur, 1);
+      var e = 1 - Math.pow(1-t, 3);
+      el.textContent = fmt(target*e, dec, prefix, suffix);
+      if(t<1) requestAnimationFrame(step); else el.textContent = fmt(target,dec,prefix,suffix);
+    }
+    requestAnimationFrame(step);
+  }
+
+  /* ---- reveal + count triggers ---- */
+  var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(!en.isIntersecting) return;
+      en.target.classList.add('in');
+      var counters = en.target.querySelectorAll ? en.target.querySelectorAll('.c') : [];
+      counters.forEach(function(c){ if(!c.dataset.done){ c.dataset.done='1'; countUp(c); } });
+      io.unobserve(en.target);
+    });
+  }, {threshold:0.16, rootMargin:'0px 0px -40px 0px'}) : null;
+
+  var staggerGroups = {};
+  document.querySelectorAll('.reveal').forEach(function(el){
+    if(io){ io.observe(el); } else { el.classList.add('in'); }
+  });
+  // stagger siblings within a grid for a cascade feel
+  ['.triad','.caps'].forEach(function(sel){
+    var grid = document.querySelector(sel);
+    if(!grid) return;
+    Array.prototype.slice.call(grid.children).forEach(function(ch,i){
+      if(ch.classList.contains('reveal')) ch.style.transitionDelay = (i*70)+'ms';
+    });
+  });
+  // metrics + standalone counters (may be above the fold)
+  document.querySelectorAll('.metrics .c').forEach(function(c){
+    if(io){ io.observe(c.closest('.metric')); } else { countUp(c); }
+  });
+
+  /* ---- nav active section ---- */
+  var navmap = {};
+  document.querySelectorAll('.navlinks a[href^="#"]').forEach(function(a){
+    navmap[a.getAttribute('href').slice(1)] = a;
+  });
+  var secs = ['background','work','build','how'].map(function(id){return document.getElementById(id);}).filter(Boolean);
+  if('IntersectionObserver' in window){
+    var navIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          Object.keys(navmap).forEach(function(k){ navmap[k].classList.remove('active'); });
+          if(navmap[en.target.id]) navmap[en.target.id].classList.add('active');
+        }
+      });
+    }, {rootMargin:'-45% 0px -50% 0px'});
+    secs.forEach(function(s){ navIO.observe(s); });
+  }
+
+  /* ---- interactive investment dashboard ---- */
+  var SCEN = {
+    base:    {irr5:12.4, irr10:34.5, payback:4.0, pirr:49.5, moic:5.55, gain:7.4, ebitda:20.0, central:4.4,
+              hint:'Central case — board assumptions. <b>Base</b> figures are real (masked); Upside / Downside are representative scenarios.', stress:'· base case'},
+    upside:  {irr5:18.9, irr10:41.2, payback:3.3, pirr:58.7, moic:6.80, gain:9.6, ebitda:24.5, central:5.4,
+              hint:'<b>Upside</b> — faster ramp, stronger payer mix. Representative scenario around the real base case.', stress:'· upside ramp'},
+    downside:{irr5:6.1,  irr10:22.8, payback:5.2, pirr:33.4, moic:3.60, gain:4.1, ebitda:15.5, central:3.4,
+              hint:'<b>Downside</b> — slower ramp, margin pressure. Representative stress around the real base case.', stress:'· downside stress'}
+  };
+  function setVal(k, txt){
+    var el = document.querySelector('.kpi .v[data-k="'+k+'"]');
+    if(el) el.textContent = txt;
+  }
+  function animKpi(k, to, dec, suffix){
+    var el = document.querySelector('.kpi .v[data-k="'+k+'"]');
+    if(!el) return;
+    var from = parseFloat((el.textContent||'0').replace(/[^0-9.\-]/g,'')) || 0;
+    if(reduce){ el.textContent = (dec>0?to.toFixed(dec):to)+suffix; return; }
+    var dur=520, start=null;
+    function step(ts){ if(start===null)start=ts; var t=Math.min((ts-start)/dur,1); var e=1-Math.pow(1-t,3);
+      var v=from+(to-from)*e; el.textContent=(dec>0?v.toFixed(dec):Math.round(v))+suffix; if(t<1)requestAnimationFrame(step); else el.textContent=(dec>0?to.toFixed(dec):to)+suffix; }
+    requestAnimationFrame(step);
+  }
+  function applyScenario(s){
+    var d = SCEN[s]; if(!d) return;
+    animKpi('irr5', d.irr5, 1, '%');
+    animKpi('irr10', d.irr10, 1, '%');
+    animKpi('payback', d.payback, 1, ' y');
+    animKpi('pirr', d.pirr, 1, '%');
+    setVal('moic', d.moic.toFixed(2)+'×');
+    animKpi('moic', d.moic, 2, '×');
+    setVal('gain', d.gain.toFixed(1)+'M AED');
+    animKpi('gain', d.gain, 1, 'M AED');
+    animKpi('ebitda', d.ebitda, 1, '%');
+    // stress ladder around the scenario central EBITDA
+    var hint = document.getElementById('scnhint'); if(hint) hint.innerHTML = d.hint;
+    var sh = document.getElementById('stresshint'); if(sh) sh.textContent = d.stress;
+    document.querySelectorAll('#torn .r').forEach(function(r){
+      var bar = r.querySelector('.bar'), val = r.querySelector('.val');
+      var m = parseFloat(bar.getAttribute('data-m'));
+      var v = d.central * m;
+      var w = Math.max(28, Math.min(98, (v/7.6)*100));
+      bar.style.width = w.toFixed(0)+'%';
+      val.textContent = v.toFixed(1)+'M';
+    });
+  }
+  var scn = document.getElementById('scn');
+  if(scn){
+    function select(span){
+      scn.querySelectorAll('span').forEach(function(x){ x.classList.remove('on'); x.setAttribute('aria-selected','false'); });
+      span.classList.add('on'); span.setAttribute('aria-selected','true');
+      applyScenario(span.getAttribute('data-s'));
+    }
+    scn.querySelectorAll('span').forEach(function(span){
+      span.addEventListener('click', function(){ select(span); });
+      span.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); select(span); } });
+    });
+  }
+
+  /* ---- heatmap hover caption ---- */
+  var heatcap = document.getElementById('heatcap');
+  document.querySelectorAll('#heat2 .hc').forEach(function(cell){
+    cell.addEventListener('mouseenter', function(){
+      if(heatcap) heatcap.innerHTML = '<b>'+cell.getAttribute('data-r')+'</b> &times; <b>'+cell.getAttribute('data-c')+'</b> &rarr; EBITDA <b>'+cell.textContent+' AED</b>';
+    });
+    cell.addEventListener('mouseleave', function(){
+      if(heatcap) heatcap.innerHTML = 'Hover a cell to read the combination.';
+    });
+  });
+})();
+</script>
 </body>
 </html>
