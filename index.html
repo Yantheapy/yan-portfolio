@@ -202,15 +202,16 @@
   .badge.g{border-color:#2A4D3C;color:#7FD6AE}
   @media(max-width:720px){.kpis{grid-template-columns:repeat(2,1fr)}.dgrid{grid-template-columns:1fr}}
 
-  /* PULL QUOTE */
-  .quotewrap{padding:58px 0;border-bottom:1px solid var(--line);text-align:center}
-  .quote{max-width:840px;margin:0 auto}
-  .quote .mark{display:block;font-family:'Space Grotesk';font-size:58px;line-height:0;height:30px;color:var(--accent);opacity:.5}
-  .quote blockquote{margin:0}
-  .quote p{font-family:'Space Grotesk';font-weight:500;font-size:24px;line-height:1.46;letter-spacing:-.015em;color:var(--ink)}
-  .quote .by{margin-top:22px;font-size:13.5px;color:var(--muted)}
+  /* PULL QUOTES (two-up) */
+  .quotewrap{padding:58px 0;border-bottom:1px solid var(--line)}
+  .quotes{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:1000px;margin:0 auto}
+  .quote{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:28px 30px;box-shadow:var(--shadow-light);position:relative;display:flex;flex-direction:column}
+  .quote .mark{display:block;font-family:'Space Grotesk';font-size:46px;line-height:0;height:26px;color:var(--accent);opacity:.5}
+  .quote blockquote{margin:0;flex:1}
+  .quote p{font-family:'Space Grotesk';font-weight:500;font-size:18.5px;line-height:1.44;letter-spacing:-.01em;color:var(--ink)}
+  .quote .by{margin-top:18px;font-size:13px;color:var(--muted)}
   .quote .by b{color:var(--text);font-weight:600}
-  @media(max-width:720px){.quote p{font-size:20px}}
+  @media(max-width:720px){.quotes{grid-template-columns:1fr}.quote p{font-size:18px}}
 
   /* MOTION */
   .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s cubic-bezier(.2,.7,.2,1),transform .6s cubic-bezier(.2,.7,.2,1)}
@@ -240,7 +241,7 @@
 
   <header class="topnav">
     <div class="wrap nav-inner">
-      <a class="navbrand" href="#top">Yan Ngouen<span>COO · Project Director</span></a>
+      <a class="navbrand" href="#top">Yan Ngouen<span>Executive · Capital · Governance</span></a>
       <nav class="navlinks" aria-label="Section navigation">
         <a href="#background">Background</a>
         <a href="#work">Work</a>
@@ -364,6 +365,7 @@
         <div class="block"><div class="k">Challenge</div><p>Turn a landmark private collection into an investable institution — a board-ready vehicle a family office or strategic investor could underwrite, not a passion project.</p></div>
         <div class="block"><div class="k">What I built</div><p>The full investor package: a multi-year financial model (CAPEX, financing, monthly P&amp;L and cash flow, 5-year IRR / NPV, scenario, sensitivity and Monte-Carlo), a ~70-page business plan, visitor and market analysis benchmarked to Louvre Abu Dhabi and the Met, and the equity and governance structure for the raise.</p></div>
         <div class="block"><div class="k">Positioning</div><p>Framed as cultural diplomacy — uniting Byzantine and Middle-Eastern heritage through art — aligned with the UAE&rsquo;s cultural-tourism strategy and the UN SDGs (quality education, sustainable cities, peace &amp; strong institutions). A first-of-its-kind institution for the GCC.</p></div>
+        <blockquote style="margin:18px 0 4px;padding:14px 18px;border-left:3px solid var(--accent);background:var(--bg);border-radius:0 8px 8px 0;font-size:14.5px;line-height:1.5;color:var(--text)">&ldquo;Yan turned our collection into an investable institution — he built the financial model, the business plan, and the governance and capital structure behind the museum, and brought real rigour to how we engage investors.&rdquo;<span style="display:block;margin-top:8px;font-size:12.5px;color:var(--muted)"><b style="color:var(--text)">Gary Tatintsian</b> · Founder, Tatintsian Gallery — Moscow &amp; Miami</span></blockquote>
         <div class="stack"><span>Financial modeling</span><span>Monte Carlo</span><span>IRR / NPV / payback</span><span>Business plan</span><span>Equity &amp; governance structure</span><span>Capital raise</span></div>
         <div class="outcome"><span class="o">AED 1.0B+ collection, structured</span><span class="o">~AED 47M build, modeled</span><span class="o">First-of-its-kind in the GCC</span><span class="o">ESG / cultural-diplomacy positioning</span><span class="o">Active capital raise</span></div>
       </div>
@@ -452,11 +454,18 @@
     </section>
 
     <section class="quotewrap">
+      <div class="quotes">
       <figure class="quote reveal">
         <span class="mark" aria-hidden="true">“</span>
         <blockquote><p>His talent for translating complex data into actionable strategy, combined with deep domain fluency across healthcare, education and ESG innovation, distinguishes him as a truly versatile and forward-thinking leader.</p></blockquote>
         <figcaption class="by"><b>Chief Executive Officer</b> · UAE healthcare &amp; education developer · AED 240M+ portfolio</figcaption>
       </figure>
+      <figure class="quote reveal">
+        <span class="mark" aria-hidden="true">&ldquo;</span>
+        <blockquote><p>Yan brought rare strategic and analytical discipline to our leadership team — he drove strong commercial growth, professionalised our KPI and reporting systems, and consistently turned complex problems into structured, defensible decisions. A genuinely capable operator and strategist.</p></blockquote>
+        <figcaption class="by"><b>Maxim Mikhailov</b> · Academic Director, Synergy University</figcaption>
+      </figure>
+      </div>
     </section>
 
     <section id="build" class="sec">
