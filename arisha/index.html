@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Arisha Medical Clinic — Financial Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=20260415-03">
+</head>
+<body>
+<div class="bg-orbs"><div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div></div>
+
+<header id="main-header">
+  <div class="header-inner">
+    <div class="logo-area">
+      <div class="logo-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="14" fill="url(#lg)"/><path d="M9 18l5-10 5 10" stroke="#fff" stroke-width="2" stroke-linecap="round"/><defs><linearGradient id="lg" x1="0" y1="0" x2="28" y2="28"><stop stop-color="#6366f1"/><stop offset="1" stop-color="#a855f7"/></linearGradient></defs></svg></div>
+      <div><h1 id="projectTitle">Arisha Medical Clinic</h1><div class="subtitle" id="projectSubtitle">Финансовая модель · Март 2026</div></div>
+    </div>
+    <div class="project-switcher" id="projectSwitcher" aria-label="Project selector">
+      <button class="project-pill active" type="button" data-project="arisha">Arisha</button>
+    </div>
+    <div class="lang-switcher" id="languageSwitcher" aria-label="Language selector">
+      <button class="lang-pill active" type="button" data-lang="ru">RU</button>
+      <button class="lang-pill" type="button" data-lang="en">EN</button>
+    </div>
+    <nav class="header-nav" id="mainNav">
+      <button class="nav-btn active" data-section="overview">Обзор</button>
+      <button class="nav-btn" data-section="revenue">Доходы</button>
+      <button class="nav-btn" data-section="patients">Пациенты</button>
+      <button class="nav-btn" data-section="cashflow">Cash Flow</button>
+      <button class="nav-btn" data-section="capex">CAPEX</button>
+      <button class="nav-btn" data-section="sensitivity">Чувствительность</button>
+      <button class="nav-btn" data-section="risks">Риски</button>
+    </nav>
+    <div class="currency-toggle"><span>AED</span><label class="toggle-switch"><input type="checkbox" id="currencyToggle"><span class="toggle-slider"></span></label><span>USD</span></div>
+    <button class="import-btn" id="importBtn" title="Import Excel">📊 Import .xlsx</button>
+    <button class="export-btn" id="exportPdfBtn" title="Export PDF">📄 Export PDF</button>
+    <input type="file" id="xlsxFileInput" accept=".xlsx,.xls" style="display:none">
+  </div>
+</header>
+
+<!-- YEAR FILTER BAR -->
+<div class="year-filter-bar" id="yearFilterBar">
+  <span class="filter-label" id="filterLabel">📅 Период:</span>
+  <span class="filter-summary" id="yearFilterSummary">Y1-Y10</span>
+  <button class="year-pill active" data-year="all">All</button>
+  <button class="year-pill" data-year="0">Y1</button>
+  <button class="year-pill" data-year="1">Y2</button>
+  <button class="year-pill" data-year="2">Y3</button>
+  <button class="year-pill" data-year="3">Y4</button>
+  <button class="year-pill" data-year="4">Y5</button>
+  <button class="year-pill" data-year="5">Y6</button>
+  <button class="year-pill" data-year="6">Y7</button>
+  <button class="year-pill" data-year="7">Y8</button>
+  <button class="year-pill" data-year="8">Y9</button>
+  <button class="year-pill" data-year="9">Y10</button>
+</div>
+
+<div class="dashboard-layout">
+  <!-- ===== CONTROL PANEL ===== -->
+  <aside class="control-panel" id="controlPanel">
+    <div class="panel-topbar">
+      <div class="panel-title-wrap">
+        <span class="panel-title-icon">⚙</span>
+        <div class="panel-title-copy">
+          <h2 class="panel-title">Модель</h2>
+          <p class="panel-sub">Параметры в реальном времени</p>
+        </div>
+      </div>
+      <button class="panel-toggle-btn" id="panelToggleBtn" type="button" aria-expanded="true" aria-label="Collapse model panel">‹</button>
+    </div>
+
+    <div class="panel-groups">
+      <section class="panel-group is-open" data-panel-group="scenario">
+        <button class="panel-group-toggle" type="button" aria-expanded="true">
+          <span class="panel-group-copy">
+            <span class="panel-group-title">Сценарий</span>
+            <span class="panel-group-meta">Preset + reset</span>
+          </span>
+          <span class="panel-group-chevron">⌄</span>
+        </button>
+        <div class="panel-group-body">
+          <div class="scenario-btns" id="scenarioButtons">
+            <button class="sc-btn active" data-scenario="base">Base</button>
+            <button class="sc-btn" data-scenario="optimistic">Upside</button>
+            <button class="sc-btn" data-scenario="pessimistic">Downside</button>
+          </div>
+          <button class="reset-btn" id="btnReset">↻ Сбросить к базовому</button>
+        </div>
+      </section>
+
+      <section class="panel-group is-open" data-panel-group="drivers">
+        <button class="panel-group-toggle" type="button" aria-expanded="true">
+          <span class="panel-group-copy">
+            <span class="panel-group-title">Параметры</span>
+            <span class="panel-group-meta">6 drivers</span>
+          </span>
+          <span class="panel-group-chevron">⌄</span>
+        </button>
+        <div class="panel-group-body">
+          <div class="sl-group"><div class="sl-head"><span>Revenue Growth</span><span class="sl-val" id="val-revGrowth">0%</span></div><input type="range" class="param-slider" id="sl-revGrowth" min="-30" max="30" value="0" step="1"><div class="sl-ticks"><span>-30%</span><span>+30%</span></div></div>
+          <div class="sl-group"><div class="sl-head"><span>Provider Compensation %</span><span class="sl-val" id="val-revShare">40%</span></div><input type="range" class="param-slider" id="sl-revShare" min="35" max="50" value="40" step="1"><div class="sl-ticks"><span>35%</span><span>50%</span></div></div>
+          <div class="sl-group"><div class="sl-head"><span>OPEX Adjustment</span><span class="sl-val" id="val-opex">0%</span></div><input type="range" class="param-slider" id="sl-opex" min="-20" max="20" value="0" step="1"><div class="sl-ticks"><span>-20%</span><span>+20%</span></div></div>
+          <div class="sl-group"><div class="sl-head"><span>Fixed Staff Cost</span><span class="sl-val" id="val-staff">0%</span></div><input type="range" class="param-slider" id="sl-staff" min="-20" max="20" value="0" step="1"><div class="sl-ticks"><span>-20%</span><span>+20%</span></div></div>
+          <div class="sl-group"><div class="sl-head"><span>WACC</span><span class="sl-val" id="val-wacc">12%</span></div><input type="range" class="param-slider" id="sl-wacc" min="8" max="18" value="12" step="0.5"><div class="sl-ticks"><span>8%</span><span>18%</span></div></div>
+          <div class="sl-group"><div class="sl-head"><span>Exit Multiple</span><span class="sl-val" id="val-exitMult">8×</span></div><input type="range" class="param-slider" id="sl-exitMult" min="4" max="12" value="8" step="0.5"><div class="sl-ticks"><span>4×</span><span>12×</span></div></div>
+        </div>
+      </section>
+
+      <section class="panel-group is-open" data-panel-group="metrics">
+        <button class="panel-group-toggle" type="button" aria-expanded="true">
+          <span class="panel-group-copy">
+            <span class="panel-group-title">Live Metrics</span>
+            <span class="panel-group-meta">Current state</span>
+          </span>
+          <span class="panel-group-chevron">⌄</span>
+        </button>
+        <div class="panel-group-body live-metrics">
+          <h3 class="lm-title">Live Metrics</h3>
+          <div class="lm-row"><span>NPV</span><span id="lm-npv" class="lm-val">—</span></div>
+          <div class="lm-row"><span>10Y IRR</span><span id="lm-irr" class="lm-val">—</span></div>
+          <div class="lm-row"><span id="lm-ebitda-label">Y1-Y10 EBITDA</span><span id="lm-ebitda" class="lm-val">—</span></div>
+          <div class="lm-row"><span>Payback</span><span id="lm-payback" class="lm-val">—</span></div>
+          <div class="lm-row"><span>Exit EV (5Y)</span><span id="lm-exitEV" class="lm-val">—</span></div>
+          <div class="lm-row"><span>MOIC (5Y)</span><span id="lm-moic" class="lm-val">—</span></div>
+        </div>
+      </section>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main id="dashboard-main">
+    <!-- OVERVIEW -->
+    <section class="dashboard-section active" id="section-overview">
+      <div class="kpi-row" data-animate>
+        <div class="kpi-card kpi-npv" data-animate><div class="kpi-label">TOTAL INVESTMENT</div><div class="kpi-value" id="kpi-invest">6.6M</div><div class="kpi-sub">CapEx + WC + Pre-op</div></div>
+        <div class="kpi-card kpi-irr" data-animate><div class="kpi-label">5-YEAR IRR (XIRR)</div><div class="kpi-value" id="kpi-irr5">12.4%</div><div class="kpi-sub" id="kpi-irr5-sub">vs 12% WACC</div></div>
+        <div class="kpi-card kpi-irr" data-animate><div class="kpi-label">10-YEAR IRR (XIRR)</div><div class="kpi-value" id="kpi-irr10">34.5%</div><div class="kpi-sub">Long-term return</div></div>
+        <div class="kpi-card kpi-payback" data-animate><div class="kpi-label">PAYBACK PERIOD</div><div class="kpi-value" id="kpi-payback">4.0 лет</div><div class="kpi-sub" id="kpi-payback-sub">Benchmark: 3-5 лет</div></div>
+      </div>
+      <div class="kpi-row" data-animate>
+        <div class="kpi-card kpi-moic" data-animate><div class="kpi-label">PROJECT IRR w/ EXIT (5Y)</div><div class="kpi-value" id="kpi-exitIrr">49.4%</div><div class="kpi-sub">Asset-level, sale at 8× EBITDA</div></div>
+        <div class="kpi-card kpi-moic" data-animate><div class="kpi-label">PROJECT MOIC (5Y @8×)</div><div class="kpi-value" id="kpi-moic">5.55×</div><div class="kpi-sub">Asset-level (not investor)</div></div>
+        <div class="kpi-card kpi-npv" data-animate><div class="kpi-label">INVESTOR NET GAIN (Y5)</div><div class="kpi-value" id="kpi-investorNetGain">5.59M</div><div class="kpi-sub">30% stake · capital 6.57M AED (CapEx incl. WC)</div></div>
+        <div class="kpi-card kpi-payback" data-animate><div class="kpi-label" id="kpi-margin-label">Y1-Y10 EBITDA MARGIN</div><div class="kpi-value" id="kpi-margin5">18.5%</div><div class="kpi-sub">Operating efficiency</div></div>
+      </div>
+      <div class="kpi-row kpi-row-bottom" data-animate>
+        <div class="kpi-card kpi-npv" data-animate><div class="kpi-label">LTV : CAC</div><div class="kpi-value" id="kpi-ltvCac">7.7×</div><div class="kpi-sub">Target ≥ 3×</div></div>
+        <div class="kpi-card kpi-payback" data-animate><div class="kpi-label">OPERATIONAL BREAKEVEN</div><div class="kpi-value" id="kpi-operationalBreakeven">Month 9 (Y1)</div><div class="kpi-sub">EBITDA-positive from</div></div>
+        <div class="kpi-card kpi-npv" data-animate><div class="kpi-label" id="kpi-rev-label">Y1-Y10 REVENUE</div><div class="kpi-value" id="kpi-rev10">35.1M</div><div class="kpi-sub">Selected period</div></div>
+        <div class="kpi-card kpi-irr" data-animate><div class="kpi-label" id="kpi-np-label">Y1-Y10 NET PROFIT</div><div class="kpi-value" id="kpi-np10">8.2M</div><div class="kpi-sub">After tax & D&A</div></div>
+      </div>
+      <div class="verdict-banner" data-animate><div class="verdict-icon">✓</div><div class="verdict-text" id="verdictText"><strong>Инвестиционный кейс устойчив.</strong> 5-year IRR 12.4% близок к 12% WACC, а upside формируется за счет exit scenario. Payback около 4 лет.</div></div>
+      <div class="charts-row" data-animate>
+        <div class="chart-card" data-animate><div class="chart-header"><h3 id="overviewCapexTitle">Структура инвестиций (CapEx)</h3><span class="chart-badge">6,572,160 AED</span></div><div class="chart-container"><canvas id="chart-capex"></canvas></div></div>
+        <div class="chart-card" data-animate><div class="chart-header"><h3 id="overviewPatientsTitle">Рост пациентской базы</h3></div><div class="chart-container"><canvas id="chart-patients"></canvas></div></div>
+      </div>
+      <div class="charts-row" data-animate>
+        <div class="chart-card" data-animate><div class="chart-header"><h3 id="overviewSourcesTitle">Источники пациентов</h3></div><div class="chart-container"><canvas id="chart-cohort"></canvas></div></div>
+        <div class="chart-card" data-animate><div class="chart-header"><h3 id="overviewUtilTitle">Утилизация и ёмкость</h3><span class="chart-badge badge-success">FTE @ util>75%</span></div><div class="chart-container"><canvas id="chart-util"></canvas></div></div>
+      </div>
+      <div class="chart-card chart-card-wide" data-animate><div class="chart-header"><h3 id="benchmarkTitle">Бенчмарк: Arisha vs рынок Dubai</h3></div><div class="benchmark-grid" id="benchmarkGrid"></div></div>
+      <!-- SCENARIO COMPARISON -->
+      <div class="chart-card chart-card-wide scenario-compare" data-animate>
+        <div class="chart-header"><h3 id="scenarioCompareTitle">📐 Сценарии: 620 sqm vs 450 sqm</h3></div>
+        <div class="scenario-table" id="scenarioTable">
+          <table>
+            <thead><tr><th id="scenarioMetricTh">Метрика</th><th class="sc-active">620 sqm (Base)</th><th>450 sqm (Compact)</th><th id="scenarioDeltaTh">Δ Разница</th></tr></thead>
+            <tbody>
+              <tr><td>Total CapEx</td><td class="sc-active">6.57M</td><td>5.56M</td><td class="sc-delta positive">-1.02M (−15%)</td></tr>
+              <tr><td>Clinic Area</td><td class="sc-active">620 sqm</td><td>450 sqm</td><td class="sc-delta negative">−170 sqm (−27%)</td></tr>
+              <tr><td>Functional Area</td><td class="sc-active">440.2 sqm</td><td>292.5 sqm</td><td class="sc-delta negative">−147.7 sqm (−34%)</td></tr>
+              <tr><td>Functional Space Share</td><td class="sc-active">71%</td><td>65%</td><td class="sc-delta negative">−6pp</td></tr>
+              <tr><td>CapEx / sqm</td><td class="sc-active">10.6K AED</td><td>12.3K AED</td><td class="sc-delta negative">+16%</td></tr>
+              <tr><td>Annual Rent @ 1,320 AED/sqm</td><td class="sc-active">818K AED</td><td>594K AED</td><td class="sc-delta positive">−27%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="chart-note">Compact scenario rows above compare workbook assumptions and capex only. Revenue, IRR, and payback need a dedicated 450 sqm recalc.</div>
+      </div>
+    </section>
+
+    <!-- REVENUE -->
+    <section class="dashboard-section" id="section-revenue">
+      <div class="chart-card chart-card-wide" data-animate><div class="chart-header"><h3 id="revenueSectionTitle">Доходность и прибыльность (10 лет)</h3><div class="chart-tabs"><button class="chart-tab active" data-chart="revenue-abs">Абсолют</button><button class="chart-tab" data-chart="revenue-margin">Маржа %</button></div></div><div class="chart-container chart-container-lg"><canvas id="chart-revenue"></canvas></div></div>
+      <div class="charts-row" data-animate>
+        <div class="chart-card" data-animate><div class="chart-header"><h3 id="costsChartTitle">Структура расходов Y1-Y10</h3></div><div class="chart-container"><canvas id="chart-costs"></canvas></div></div>
+        <div class="chart-card" data-animate><div class="chart-header"><h3 id="monthlyPlTitle">Месячная P&L динамика (Y1)</h3><span class="chart-badge badge-success">Breakeven: M7</span></div><div class="chart-container"><canvas id="chart-monthly"></canvas></div></div>
+      </div>
+      <div class="chart-card chart-card-wide" data-animate><div class="chart-header"><h3 id="waterfallTitle">Operating Waterfall: Revenue → EBITDA (Y1-Y10)</h3></div><div class="chart-container"><canvas id="chart-waterfall"></canvas></div></div>
+      <div class="charts-row" data-animate>
+        <div class="chart-card" data-animate><div class="chart-header"><h3 id="svcMixTitle">Revenue Mix Y1-Y10</h3><span class="chart-badge">by department</span></div><div class="chart-container"><canvas id="chart-svc-donut"></canvas></div></div>
+        <div class="chart-card" data-animate><div class="chart-header"><h3 id="svcAvgTitle">Средний чек по департаменту Y1-Y10</h3></div><div class="chart-container"><canvas id="chart-svc-rev"></canvas></div></div>
+      </div>
+      <div class="chart-card chart-card-wide" data-animate><div class="chart-header"><h3 id="productMixTitle">Revenue by Product Y1-Y10</h3><span class="chart-badge">workbook price list</span></div><div class="chart-container chart-container-lg chart-container-product"><canvas id="chart-product-revenue"></canvas></div></div>
+      <div class="table-card" data-animate><div class="chart-header"><h3 id="productEconomicsTitle">Product Economics (Y1-Y10)</h3></div><div class="table-scroll"><table class="data-table" id="productEconomicsTable"><thead><tr><th>Product</th><th>Department</th><th>Mix</th><th>Units</th><th>Avg Price</th><th>Revenue</th></tr></thead><tbody></tbody></table></div></div>
+      <div class="chart-card chart-card-wide" data-animate><div class="chart-header"><h3 id="mixEvolutionTitle">Эволюция Revenue Mix по департаментам (10 лет)</h3></div><div class="chart-container chart-container-lg"><canvas id="chart-svc-area"></canvas></div></div>
+      <div class="charts-row" data-animate>
+        <div class="table-card" data-animate><div class="chart-header"><h3 id="serviceEconomicsTitle">Department Economics (Y5)</h3></div><div class="table-scroll"><table class="data-table" id="serviceEconomicsTable"><thead><tr><th>Department</th><th>Mix</th><th>Avg Price</th><th>Visits</th><th>Revenue</th><th>Est. EBITDA</th></tr></thead><tbody></tbody></table></div></div>
+        <div class="chart-card" data-animate><div class="chart-header"><h3 id="actualVsPlanTitle">Actual vs Plan</h3></div><div class="module-panel" id="actualVsPlanPanel"></div></div>
+      </div>
+      <div class="table-card" data-animate><div class="chart-header"><h3 id="plDetailTitle">Детализация P&L по годам</h3></div><div class="table-scroll"><table class="data-table" id="plTable"><thead><tr><th id="plMetricHeader">Показатель</th><th>Y1</th><th>Y2</th><th>Y3</th><th>Y5</th><th>Y7</th><th>Y10</th></tr></thead><tbody></tbody></table></div></div>
+      <!-- MONTHLY DRILL-DOWN -->
+      <div class="chart-card chart-card-wide monthly-drilldown" data-animate>
+        <div class="chart-header">
+          <h3 id="monthlyDrilldownTitle">📅 Monthly Drill-down (Year 1)</h3>
+          <div class="md-year-btns" id="mdYearBtns">
+            <button class="md-yr-btn active" data-mdyr="0">Y1</button>
+            <button class="md-yr-btn" data-mdyr="1">Y2</button>
+            <button class="md-yr-btn" data-mdyr="2">Y3</button>
+          </div>
+        </div>
+        <div class="charts-row">
+          <div class="chart-container"><canvas id="chart-md-rev"></canvas></div>
+          <div class="chart-container"><canvas id="chart-md-ebitda"></canvas></div>
+        </div>
+        <div class="md-note" id="monthlyDrilldownNote">Monthly data shown for Year 1. Y2/Y3 estimated via linear distribution.</div>
+      </div>
+    </section>
+
+    <!-- PATIENT ACQUISITION -->
+    <section class="dashboard-section" id="section-patients">
+      <div class="chart-card chart-card-wide" data-animate>
+        <div class="chart-header"><h3 id="patientAcqTitle">Patient Acquisition Model (Y5 anchor)</h3><span class="chart-badge" id="patientAcqBadge">Model-derived</span></div>
+        <div class="module-metrics-grid module-metrics-grid-triple" id="patientAcqMetrics"></div>
+        <div class="module-callout" id="patientAcqCallout"></div>
+      </div>
+      <div class="charts-row" data-animate>
+        <div class="chart-card" data-animate><div class="chart-header"><h3 id="patientEngineTitle">Patient Engine (Y5 anchor)</h3></div><div class="chart-container"><canvas id="chart-pa-engine"></canvas></div></div>
+        <div class="chart-card" data-animate><div class="chart-header"><h3 id="patientEconomicsTitle">Acquisition Economics (10Y)</h3></div><div class="chart-container"><canvas id="chart-pa-econ"></canvas></div></div>
+      </div>
+      <div class="chart-card chart-card-wide" data-animate>
+        <div class="chart-header">
+          <h3 id="patientEngineModuleTitle">Patient Engine</h3>
+          <div class="chart-tabs" id="patientEngineViewTabs">
+            <button class="chart-tab active" type="button" data-pa-view-tab="trend">Trend</button>
+            <button class="chart-tab" type="button" data-pa-view-tab="bridge">Base Bridge</button>
+            <button class="chart-tab" type="button" data-pa-view-tab="table">Detail</button>
+          </div>
+        </div>
+        <div class="patient-engine-pane" id="patientTrendPane" data-pa-view="trend">
+          <div class="patient-pane-header">
+            <h4 class="patient-pane-title" id="patientEngineTrendTitle">Patient Engine Trend (Y1-Y10)</h4>
+            <div class="patient-pane-meta">
+              <div class="chart-tabs" id="patientTrendModeTabs">
+                <button class="chart-tab active" type="button" data-pa-trend-mode="blend">Blend</button>
+                <button class="chart-tab" type="button" data-pa-trend-mode="patients">Patients</button>
+                <button class="chart-tab" type="button" data-pa-trend-mode="visits">Visits</button>
+              </div>
+              <span class="chart-badge" id="patientEngineTrendBadge">Full history</span>
+            </div>
+          </div>
+          <div class="chart-container chart-container-lg"><canvas id="chart-pa-trend"></canvas></div>
+        </div>
+        <div class="patient-engine-pane" id="patientBridgePane" data-pa-view="bridge" hidden>
+          <div class="patient-pane-header">
+            <h4 class="patient-pane-title" id="patientBaseChartTitle">Patient Base Bridge (10Y)</h4>
+            <span class="chart-badge" id="patientBaseChartBadge">opening → closing</span>
+          </div>
+          <div class="chart-container chart-container-lg"><canvas id="chart-patient-base"></canvas></div>
+        </div>
+        <div class="patient-engine-pane" id="patientTablePane" data-pa-view="table" hidden>
+          <div class="patient-pane-header">
+            <h4 class="patient-pane-title" id="patientBaseTitle">Patient Base Detail</h4>
+            <span class="chart-badge" id="patientBaseDetailBadge">selected period</span>
+          </div>
+          <div class="module-callout" id="patientBaseCallout"></div>
+          <div class="table-scroll"><table class="data-table" id="patientBaseTable"><thead><tr><th>Year</th><th>Opening Base</th><th>New Paid</th><th>New Organic</th><th>Retained</th><th>Churned</th><th>Closing Base</th><th>Retention %</th><th>Churn %</th></tr></thead><tbody></tbody></table></div>
+        </div>
+      </div>
+      <div class="table-card" data-animate>
+        <div class="chart-header"><h3 id="patientChannelTitle">Channel Economics (Y5 anchor)</h3></div>
+        <div class="table-scroll"><table class="data-table" id="patientAcqTable"><thead><tr><th>Channel</th><th>Patients</th><th>Share</th><th>Visits</th><th>Revenue Proxy</th><th>Cost</th><th>Efficiency</th></tr></thead><tbody></tbody></table></div>
+      </div>
+    </section>
+
+    <!-- CASH FLOW -->
+    <section class="dashboard-section" id="section-cashflow">
+      <div class="chart-card chart-card-wide" data-animate><div class="chart-header"><h3 id="cashflowMainTitle">Cumulative & Annual Cash Flow</h3></div><div class="chart-container chart-container-lg"><canvas id="chart-cashflow"></canvas></div></div>
+      <div class="chart-card chart-card-wide" data-animate><div class="chart-header"><h3 id="dcfWaterfallTitle">DCF Waterfall: Cash Flows → NPV (12% WACC)</h3></div><div class="chart-container"><canvas id="chart-dcf-waterfall"></canvas></div></div>
+      <div class="charts-row" data-animate>
+        <div class="chart-card" data-animate><div class="chart-header"><h3 id="fundingBridgeTitle">Funding Bridge</h3></div><div class="chart-container"><canvas id="chart-funding-bridge"></canvas></div></div>
+        <div class="chart-card" data-animate><div class="chart-header"><h3 id="runwaySnapshotTitle">Runway Snapshot</h3></div><div class="module-metrics-grid" id="fundingMetrics"></div></div>
+      </div>
+      <div class="charts-row" data-animate>
+        <div class="chart-card" data-animate><div class="chart-header"><h3 id="exitValuationTitle">Exit Valuation (8× EBITDA)</h3></div><div class="chart-container"><canvas id="chart-exit"></canvas></div></div>
+        <div class="chart-card" data-animate><div class="chart-header"><h3 id="irrByExitTitle">IRR по Exit Multiple</h3></div><div class="chart-container"><canvas id="chart-irr-radar"></canvas></div></div>
+      </div>
+      <div class="table-card" data-animate><div class="chart-header"><h3 id="exitScenariosTitle">Сценарии Exit</h3></div><div class="table-scroll"><table class="data-table" id="exitTable"><thead><tr><th>Year</th><th>EBITDA</th><th>EV</th><th>Net</th><th>IRR</th></tr></thead><tbody></tbody></table></div></div>
+      <div class="equity-layout">
+        <div class="chart-card equity-assumptions-card" data-animate>
+          <div class="chart-header"><h3 id="investorModelAssumptionsTitle">Investor Model Assumptions</h3></div>
+          <div class="equity-controls" id="equityControls">
+            <div class="equity-control equity-mode-control"><span class="equity-label">Model Mode</span><div class="chart-tabs return-mode-inline" id="returnModeAssumptionTabs"><button class="chart-tab active" type="button" data-return-mode="compare">Compare</button><button class="chart-tab" type="button" data-return-mode="equity">Equity</button><button class="chart-tab" type="button" data-return-mode="revenue-share">Revenue Share</button></div></div>
+            <label class="equity-control"><span class="equity-label">Investor Capital</span><input class="equity-input" id="eq-totalInvestment" type="number" min="1000000" step="50000"></label>
+            <label class="equity-control"><span class="equity-label" id="eq-exitYearLabel">Exit / Horizon Year</span><select class="equity-input" id="eq-exitYear"><option value="3">Y3</option><option value="5" selected>Y5</option><option value="7">Y7</option><option value="10">Y10</option></select></label>
+            <div class="equity-section-label" id="returnSpecificFieldsLabel">Model-specific inputs</div>
+            <label class="equity-control" data-return-field="equity"><span class="equity-label">Equity Stake %</span><input class="equity-input" id="eq-equityStakePct" type="number" min="1" max="100" step="0.5"></label>
+            <label class="equity-control" data-return-field="equity"><span class="equity-label">Dividend Payout %</span><input class="equity-input" id="eq-dividendPayoutPct" type="number" min="0" max="100" step="1"></label>
+            <label class="equity-control" data-return-field="equity"><span class="equity-label">Preferred Return %</span><input class="equity-input" id="eq-preferredReturnPct" type="number" min="0" max="30" step="0.5"></label>
+            <label class="equity-control" data-return-field="revenue-share"><span class="equity-label">Investor Revenue Share %</span><input class="equity-input" id="eq-revenueShareRatePct" type="number" min="0" max="30" step="0.5"></label>
+            <label class="equity-control" data-return-field="revenue-share"><span class="equity-label">Target Return ×</span><input class="equity-input" id="eq-targetReturnMultiple" type="number" min="1" max="5" step="0.1"></label>
+            <label class="equity-control" data-return-field="revenue-share"><span class="equity-label">Grace Period (months)</span><input class="equity-input" id="eq-graceMonths" type="number" min="0" max="24" step="1"></label>
+          </div>
+          <div class="module-metrics-grid" id="equityMetrics"></div>
+        </div>
+        <div class="equity-return-stack">
+          <div class="chart-card" data-animate><div class="chart-header"><h3 id="investorComparisonTitle">Investor Return Comparison</h3><span class="chart-badge" id="investorReturnModeBadge">Compare</span></div><div class="chart-container chart-container-sm"><canvas id="chart-equity-proceeds"></canvas></div></div>
+          <div class="chart-card" data-animate><div class="chart-header"><h3 id="founderComparisonTitle">Founder Return Comparison</h3></div><div class="chart-container chart-container-sm"><canvas id="chart-founder-proceeds"></canvas></div><div class="module-metrics-grid module-metrics-grid-compact" id="founderMetrics"></div></div>
+        </div>
+      </div>
+      <div class="chart-card chart-card-wide" data-animate>
+        <div class="chart-header">
+          <h3 id="investorTimelineTitle">Investor Cash Flow Timeline</h3>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <div class="chart-tabs" id="investorTimelineTabs">
+              <button class="chart-tab active" type="button" data-timeline-mode="annual">Annual</button>
+              <button class="chart-tab" type="button" data-timeline-mode="cumulative">Cumulative</button>
+            </div>
+            <div class="chart-tabs" id="investorScenarioTabs">
+              <button class="chart-tab active" type="button" data-scenario-mode="native">Native</button>
+              <button class="chart-tab" type="button" data-scenario-mode="exit-aligned">Exit-aligned</button>
+            </div>
+          </div>
+        </div>
+        <div class="chart-container chart-container-lg"><canvas id="chart-investor-timeline"></canvas></div>
+      </div>
+      <div class="table-card" id="equityCompareCard" data-animate>
+        <div class="chart-header"><h3 id="equityCompareTableTitle">Equity vs Revenue Share</h3></div>
+        <div class="table-scroll"><table class="data-table" id="equityTable"><thead><tr><th>Metric</th><th>Equity Model</th><th>Revenue Share</th><th>Winner</th></tr></thead><tbody></tbody></table></div>
+        <div class="module-callout" id="equityAssumptions"></div>
+      </div>
+    </section>
+
+    <!-- CAPEX + AMORTIZATION -->
+    <section class="dashboard-section" id="section-capex">
+      <div class="charts-row" data-animate>
+        <div class="chart-card" data-animate><div class="chart-header"><h3 id="capexBreakdownTitle">CAPEX Breakdown</h3><span class="chart-badge">6.57M AED</span></div><div class="chart-container chart-container-lg"><canvas id="chart-capex-bar"></canvas></div></div>
+        <div class="chart-card" data-animate><div class="chart-header"><h3 id="netBookValueTitle">Net Book Value</h3></div><div class="chart-container chart-container-lg"><canvas id="chart-nbv"></canvas></div></div>
+      </div>
+      <div class="chart-card chart-card-wide" data-animate><div class="chart-header"><h3 id="depreciationScheduleTitle">Depreciation Schedule (Stacked)</h3></div><div class="chart-container chart-container-lg"><canvas id="chart-dep-area"></canvas></div></div>
+      <div class="table-card" data-animate><div class="chart-header"><h3 id="amortizationTableTitle">Amortization Table</h3></div>
+        <div class="table-scroll"><table class="data-table" id="amortTable">
+          <thead><tr><th>Asset</th><th>Cost</th><th>Life</th><th>Y1</th><th>Y2</th><th>Y3</th><th>Y4</th><th>Y5</th><th>Y6</th><th>Y7</th><th>Y8</th><th>Y9</th><th>Y10</th></tr></thead>
+          <tbody></tbody>
+        </table></div>
+      </div>
+    </section>
+
+    <!-- SENSITIVITY -->
+    <section class="dashboard-section" id="section-sensitivity">
+      <div class="charts-row" data-animate>
+        <div class="chart-card" data-animate><div class="chart-header"><h3 id="sensitivityStressTitle">Revenue Stress Test → EBITDA (Y5 anchor)</h3></div><div class="chart-container"><canvas id="chart-stress"></canvas></div></div>
+        <div class="chart-card" data-animate><div class="chart-header"><h3 id="sensitivityOpexStressTitle">OPEX Stress Test → EBITDA (Y5 anchor)</h3></div><div class="chart-container"><canvas id="chart-opex-stress"></canvas></div></div>
+      </div>
+      <div class="charts-row" data-animate>
+        <div class="chart-card" data-animate><div class="chart-header"><h3 id="sensitivityHeatmapTitle">Two-Way Heatmap: Revenue × OPEX (Y5 anchor)</h3></div><div class="heatmap-container" id="heatmapWrap"></div></div>
+        <div class="chart-card" data-animate><div class="chart-header"><h3 id="sensitivityStaffingTitle">Staffing Scenarios Impact (Y5 anchor)</h3></div><div class="chart-container"><canvas id="chart-staffing"></canvas></div></div>
+      </div>
+      <div class="chart-card chart-card-wide" data-animate><div class="chart-header"><h3 id="sensitivitySummaryTitle">Sensitivity Summary (Y5 anchor)</h3></div><div class="scenario-summary" id="sensitivitySummary"></div></div>
+      <div class="chart-card chart-card-wide" data-animate><div class="chart-header"><h3 id="tornadoTitle">Tornado: Driver Impact on 10Y NPV</h3></div><div class="chart-container chart-container-lg"><canvas id="chart-tornado"></canvas></div></div>
+      <div class="table-card" data-animate>
+        <div class="chart-header">
+          <h3 id="scenarioLibraryTitle">Scenario Library & Compare</h3>
+          <div class="scenario-actions">
+            <input type="text" id="scenarioNameInput" class="scenario-name-input" placeholder="Scenario name">
+            <button class="module-btn" id="scenarioSaveBtn" type="button">Save current</button>
+            <button class="module-btn module-btn-ghost" id="scenarioClearBtn" type="button">Clear all</button>
+          </div>
+        </div>
+        <div class="table-scroll"><table class="data-table" id="scenarioLibraryTable"><thead><tr><th>Name</th><th>Rev</th><th>Provider Comp</th><th>OPEX</th><th>Fixed Staff</th><th>WACC</th><th>Exit</th><th>NPV</th><th>10Y IRR</th><th>Payback</th><th>Actions</th></tr></thead><tbody></tbody></table></div>
+      </div>
+      <!-- MONTE CARLO -->
+      <div class="chart-card chart-card-wide mc-section" data-animate>
+        <div class="chart-header"><h3 id="mcSimulationTitle">🎲 Monte Carlo Simulation</h3>
+          <div class="mc-controls">
+            <div class="mc-profile-tabs" id="mcProfileTabs">
+              <button class="mc-profile-btn active" type="button" data-mc-profile="balanced">Base</button>
+              <button class="mc-profile-btn" type="button" data-mc-profile="cautious">Cautious</button>
+              <button class="mc-profile-btn" type="button" data-mc-profile="wide">Wide</button>
+            </div>
+            <button class="mc-run-btn" id="mcRunBtn">▶ Run 10K Simulations</button>
+            <span class="mc-status" id="mcStatus">Press to simulate</span>
+          </div>
+        </div>
+        <div class="mc-risk-summary" id="mcRiskSummary"></div>
+        <div class="mc-confidence" id="mcConfidence"></div>
+        <div class="charts-row">
+          <div class="chart-container"><canvas id="chart-mc-npv"></canvas></div>
+          <div class="chart-container"><canvas id="chart-mc-irr"></canvas></div>
+        </div>
+        <div class="mc-legend" id="mcLegend">NPV Distribution (left) · 5Y IRR Distribution (right) · <span style="color:#f43f5e">Red</span> = below threshold</div>
+        <div class="mc-assumptions" id="mcAssumptions"></div>
+      </div>
+    </section>
+
+    <!-- RISKS -->
+    <section class="dashboard-section" id="section-risks">
+      <div class="risk-grid" data-animate>
+        <div class="risk-card risk-medium"><span class="risk-level">MEDIUM</span><h4>Concentration Risk</h4><p id="riskConcentrationText">Revenue-sharing @ 40% — крупнейший cost.</p><div class="risk-mitigation" id="riskConcentrationMitigation">Стандартный рыночный rate, low switching cost</div></div>
+        <div class="risk-card risk-medium"><span class="risk-level">MEDIUM</span><h4>Utilization Ceiling</h4><p>Model saturates at 84% by Y7+. Space limits FTE.</p><div class="risk-mitigation" id="riskUtilizationMitigation">Рост после Y7 только через price increases</div></div>
+        <div class="risk-card risk-low"><span class="risk-level">LOW</span><h4>Y1 Cash Requirement</h4><p id="riskCashText">Y1 EBITDA: -322K. Total need = 6.57M.</p><div class="risk-mitigation" id="riskCashMitigation">Working capital buffer 337K is already included in the capex plan.</div></div>
+        <div class="risk-card risk-low"><span class="risk-level">LOW</span><h4>Dubai Market</h4><p>Summer seasonality -33% traffic.</p><div class="risk-mitigation" id="riskDubaiMitigation">Модель учитывает seasonality</div></div>
+      </div>
+      <div class="table-card" data-animate><div class="chart-header"><h3 id="integrityChecksTitle">Integrity Checks</h3></div><div class="checks-grid" id="checksGrid"></div></div>
+      <!-- FINANCIAL RATIOS -->
+      <div class="charts-row" data-animate>
+        <div class="chart-card" data-animate><div class="chart-header"><h3 id="ratioRadarTitle">Financial Ratios: Y1 vs Y5 vs Y10</h3></div><div class="chart-container chart-container-lg"><canvas id="chart-ratio-radar"></canvas></div></div>
+        <div class="chart-card" data-animate><div class="chart-header"><h3 id="ratioTrendTitle">Ratio Trends (10 лет)</h3></div><div class="chart-container chart-container-lg"><canvas id="chart-ratio-trend"></canvas></div></div>
+      </div>
+      <div class="ratio-cards" id="ratioCards" data-animate></div>
+      <div class="charts-row" data-animate>
+        <div class="chart-card" data-animate><div class="chart-header"><h3 id="assumptionsDefinitionsTitle">Assumptions & Definitions</h3></div><div class="module-panel" id="assumptionsPanel"></div></div>
+        <div class="chart-card" data-animate><div class="chart-header"><h3 id="benchmarkSourcesTitle">Benchmark Sources</h3></div><div class="module-panel" id="sourcesPanel"></div></div>
+      </div>
+      <div class="chart-card chart-card-wide" data-animate><div class="chart-header"><h3 id="templateComplianceSectionTitle">Template Compliance Check</h3></div><div class="module-panel" id="templateCompliancePanel"></div></div>
+      <div class="chart-card chart-card-wide" data-animate><div class="chart-header"><h3 id="importAuditSectionTitle">Import Audit Trail</h3></div><div class="module-panel" id="importAuditPanel"></div></div>
+      <div class="chart-card chart-card-wide" data-animate><div class="chart-header"><h3 id="excelChecklistSectionTitle">Excel Reconciliation Checklist</h3></div><div class="module-panel" id="excelChecklistPanel"></div></div>
+    </section>
+  </main>
+</div>
+
+<div class="card-focus-overlay" id="cardFocusOverlay" hidden aria-hidden="true">
+  <div class="card-focus-backdrop" id="cardFocusBackdrop"></div>
+  <div class="card-focus-shell" role="dialog" aria-modal="true" aria-labelledby="cardFocusTitle">
+    <div class="card-focus-toolbar">
+      <div class="card-focus-copy">
+        <span class="card-focus-kicker">Focus mode</span>
+        <h2 class="card-focus-title" id="cardFocusTitle">Chart</h2>
+      </div>
+      <button class="card-focus-close" id="cardFocusCloseBtn" type="button" aria-label="Close focus mode">✕</button>
+    </div>
+    <div class="card-focus-body" id="cardFocusBody"></div>
+  </div>
+</div>
+
+<footer id="main-footer"><p>Model: 3,132 formulas | 16 sheets | Cohort + Step-Function growth | Demand-driven hiring<br>Assessment: March 2026 | Currency: AED | Discount rate: 12% WACC</p></footer>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>window.ARISHA_DASHBOARD_CONFIG={allowedProjectIds:["arisha"],defaultProjectId:"arisha"};</script>
+<script src="dashboard.js?v=20260415-05"></script>
+
+<!-- DROP ZONE OVERLAY -->
+<div class="drop-overlay" id="dropOverlay">
+  <div class="drop-content">
+    <div class="drop-icon">📊</div>
+    <div class="drop-title">Drop Excel here</div>
+    <div class="drop-sub" id="dropOverlayHint">Arisha_Enhanced_V3.xlsx</div>
+  </div>
+</div>
+</body>
+</html>
