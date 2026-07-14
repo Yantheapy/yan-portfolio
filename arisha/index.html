@@ -21,10 +21,7 @@
     <div class="project-switcher" id="projectSwitcher" aria-label="Project selector">
       <button class="project-pill active" type="button" data-project="arisha">Arisha</button>
     </div>
-    <div class="lang-switcher" id="languageSwitcher" aria-label="Language selector">
-      <button class="lang-pill active" type="button" data-lang="ru">RU</button>
-      <button class="lang-pill" type="button" data-lang="en">EN</button>
-    </div>
+    <!-- Portfolio build: English only. The bilingual switcher lives in the source project. -->
     <nav class="header-nav" id="mainNav">
       <button class="nav-btn active" data-section="overview">Обзор</button>
       <button class="nav-btn" data-section="revenue">Доходы</button>
@@ -442,7 +439,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>window.ARISHA_DASHBOARD_CONFIG={allowedProjectIds:["arisha"],defaultProjectId:"arisha"};
-try{if(localStorage.getItem('arishaDashboard.language')===null){localStorage.setItem('arishaDashboard.language','"en"');}}catch(e){}</script>
+/* Portfolio build is English-only: pin the language on every load, so a visitor who
+   once chose RU on another build does not carry it back in from localStorage. */
+try{localStorage.setItem('arishaDashboard.language','"en"');}catch(e){}</script>
 <script src="dashboard.js?v=20260415-05"></script>
 
 <!-- DROP ZONE OVERLAY -->
