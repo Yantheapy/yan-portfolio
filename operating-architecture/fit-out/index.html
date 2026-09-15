@@ -203,6 +203,54 @@
   .sqsee .sqtxt{font-family:'Liberation Serif',Georgia,serif;font-style:italic;font-size:14.5px;color:var(--navy)}
   .twin{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:22px}
 
+  /* ===== toolkit ===== */
+  .tkgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px}
+  .tk{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--navy);padding:16px 18px 14px;display:flex;flex-direction:column}
+  .tk .to{font-size:10px;letter-spacing:1.8px;color:var(--muted);font-weight:bold;margin-bottom:6px}
+  .tk h3{font-family:'Liberation Serif',Georgia,serif;font-size:19px;color:var(--navy);line-height:1.15;margin-bottom:9px}
+  .tk .tw{font-size:13.2px;line-height:1.5;color:var(--ink)}
+  .tk .tm{font-size:12.3px;line-height:1.45;color:var(--muted);margin-top:8px}
+  .tk .tm b{color:var(--navy)}
+  .tk .tx{margin-top:auto;padding-top:9px;border-top:1px solid var(--line2);font-size:11px;letter-spacing:1.4px;color:var(--gold);font-weight:bold;line-height:1.5}
+  .tk .tx i{font-style:normal;color:var(--muted);letter-spacing:1px;font-weight:bold}
+  .mock{margin:11px 0 2px;background:#F6F2EA;border:1px solid var(--line);padding:9px 10px;font-size:10.5px;color:var(--ink);font-family:'Liberation Sans',Arial,sans-serif}
+  .mock .mt{font-size:9px;letter-spacing:1.6px;color:var(--muted);font-weight:bold;margin-bottom:6px;display:flex;justify-content:space-between}
+  .mock .mt i{font-style:normal;color:var(--terra)}
+  .mrow{display:grid;gap:6px;padding:4px 0;border-top:1px solid #E9E2D5;align-items:center}
+  .mrow.h{border-top:none;color:var(--muted);font-size:9px;letter-spacing:1.2px;font-weight:bold}
+  .mrow span{white-space:nowrap;min-width:0}
+  .pill{display:inline-block;padding:1px 6px;border:1px solid var(--line);border-radius:2px;font-size:9.5px;font-weight:bold;letter-spacing:.6px;color:var(--navy);background:#FFF}
+  .pill.ok{border-color:#B9CBB0;color:#3E6B3A;background:#EEF5EA}
+  .pill.no{border-color:#E4B9A5;color:var(--terra);background:#FBEFE8}
+  .pill.g{border-color:#E4D7A6;color:#7A5F0F;background:#FBF5DF}
+  .chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+  .chip{flex:1;min-width:0;background:#FFF;border:1px solid var(--line);padding:6px 7px;text-align:center}
+  .chip b{display:block;font-size:10px;letter-spacing:1px;color:var(--navy)}
+  .chip small{display:block;font-size:9px;color:var(--muted);margin-top:2px;line-height:1.3}
+  .chip.k{border-color:var(--gold)}
+  .bars{display:flex;flex-direction:column;gap:5px;margin-top:4px}
+  .bar{display:grid;grid-template-columns:64px 1fr;gap:8px;align-items:center;font-size:9.5px;color:var(--muted)}
+  .bar i{display:block;height:8px;background:var(--navy)}
+  .bar.t i{background:var(--terra)}
+  .kpis{display:flex;gap:6px;margin-bottom:6px}
+  .kpi{flex:1;background:#FFF;border:1px solid var(--line);padding:5px 6px}
+  .kpi b{display:block;font-size:8.5px;letter-spacing:1px;color:var(--muted)}
+  .kpi span{display:block;font-family:'Liberation Serif',Georgia,serif;font-size:13px;color:var(--navy);font-weight:bold;margin-top:1px}
+  .seg{display:inline-flex;border:1px solid var(--line);border-radius:2px;overflow:hidden;margin-right:6px}
+  .seg > span{padding:2px 7px;font-size:9.5px;font-weight:bold;color:var(--muted);background:#FFF}
+  .seg > span.on{background:var(--navy);color:#FFF}
+  .seg > span > span{padding:0;background:transparent;color:inherit}
+  .flowm{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:4px}
+  .fbox{background:#FFF;border:1px solid var(--line);padding:5px 7px;font-size:9.5px;font-weight:bold;color:var(--navy);text-align:center;line-height:1.25}
+  .fbox small{display:block;font-weight:normal;color:var(--muted);font-size:8.5px}
+  .fbox.g{border-color:var(--gold)}
+  .farr{color:var(--gold);font-weight:bold}
+  .logl{display:flex;gap:8px;padding:3px 0;border-top:1px solid #E9E2D5;font-size:10px}
+  .logl:first-child{border-top:none}
+  .logl .t{color:var(--muted);width:38px;flex:none;font-variant-numeric:tabular-nums}
+  .logl .ok{color:#3E6B3A;font-weight:bold}
+  .logl .no{color:var(--terra);font-weight:bold}
+
   /* ===== about ===== */
   .abgrid{display:grid;grid-template-columns:1.15fr .85fr;gap:26px}
   .ap{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--gold);padding:16px 20px;margin-bottom:16px}
@@ -231,6 +279,11 @@
   .foot .l span{color:var(--muted);font-weight:normal}
   .foot .r{font-size:11.5px;color:var(--muted)}
 
+  @media (max-width:1720px){
+    .hint{display:none}
+    .tab{padding:8px 11px}
+    .top-row{gap:16px}
+  }
   @media (max-width:1380px){
     h1{font-size:36px}
     .stageS .pain{font-size:11.2px}
@@ -271,7 +324,7 @@
     .spineB{flex-direction:column;align-items:stretch;gap:14px;padding:16px}
     .spineB .cells{flex-direction:column;gap:12px}
     .lawB{max-width:none}
-    .levels,.cols3,.wavesR,.howto,.sqrow,.lygrid,.vcgrid,.spgrid,.abgrid,.twin,.princ,.band{display:flex;flex-direction:column;gap:12px}
+    .levels,.cols3,.wavesR,.howto,.sqrow,.lygrid,.vcgrid,.spgrid,.abgrid,.twin,.princ,.band,.tkgrid{display:flex;flex-direction:column;gap:12px}
     .howto .h,.princ .p{border-right:none;border-bottom:1px solid var(--line)}
     .howto .h:last-child,.princ .p:last-child{border-bottom:none}
     .bseg{border-right:none}
@@ -309,9 +362,9 @@
 
 <div class="top"><div class="top-row">
   <div class="brand"><span class="en">Operating <em>architecture</em></span><span class="ru">Операционная <em>архитектура</em></span></div>
-  <div class="tabs" role="tablist"><button class="tab on" data-p="overview"><span class="n">1</span><span class="en">Overview</span><span class="ru">Обзор</span></button><button class="tab" data-p="chain"><span class="n">2</span><span class="en">Value chain</span><span class="ru">Цепочка</span></button><button class="tab" data-p="spine"><span class="n">3</span><span class="en">The spine</span><span class="ru">Хребет</span></button><button class="tab" data-p="layers"><span class="n">4</span><span class="en">Layers</span><span class="ru">Слои</span></button><button class="tab" data-p="sequencing"><span class="n">5</span><span class="en">Sequencing</span><span class="ru">Волны</span></button><button class="tab" data-p="about"><span class="n">6</span><span class="en">About</span><span class="ru">Обо мне</span></button></div>
+  <div class="tabs" role="tablist"><button class="tab on" data-p="overview"><span class="n">1</span><span class="en">Overview</span><span class="ru">Обзор</span></button><button class="tab" data-p="chain"><span class="n">2</span><span class="en">Value chain</span><span class="ru">Цепочка</span></button><button class="tab" data-p="spine"><span class="n">3</span><span class="en">The spine</span><span class="ru">Хребет</span></button><button class="tab" data-p="layers"><span class="n">4</span><span class="en">Layers</span><span class="ru">Слои</span></button><button class="tab" data-p="sequencing"><span class="n">5</span><span class="en">Sequencing</span><span class="ru">Волны</span></button><button class="tab" data-p="toolkit"><span class="n">6</span><span class="en">Toolkit</span><span class="ru">Инструменты</span></button><button class="tab" data-p="about"><span class="n">7</span><span class="en">About</span><span class="ru">Обо мне</span></button></div>
   <div class="badge"><span class="en">REFERENCE VIEW, NOT A PROPOSAL</span><span class="ru">РЕФЕРЕНС, НЕ ПРЕДЛОЖЕНИЕ</span></div>
-  <div class="counter" id="counter">1 / 6</div>
+  <div class="counter" id="counter">1 / 7</div>
   <div class="hint"><span class="en">&#8592; &#8594; keys · L language</span><span class="ru">&#8592; &#8594; клавиши · L язык</span></div>
   <div class="lang"><button data-l="en" class="on">EN</button><button data-l="ru">RU</button></div>
   <button class="pbtn" id="printbtn"><span class="en">Print</span><span class="ru">Печать</span></button>
@@ -588,6 +641,95 @@
   </div>
 </div>
 
+<div class="page" id="p-toolkit">
+  <div class="kicker"><div class="bar"></div><div class="txt"><span class="en">TOOLKIT · PATTERNS FROM LIVE MANDATES</span><span class="ru">ИНСТРУМЕНТЫ · ПАТТЕРНЫ ИЗ ЖИВЫХ МАНДАТОВ</span></div></div>
+  <h1><span class="en">What the instruments look like when they are <em>built</em></span><span class="ru">Как выглядят инструменты, когда они <em>построены</em></span></h1>
+  <div class="stand"><span class="en">Six patterns from six mandates, one per card. None of these is a screenshot: each card describes a mechanism that ran in production and the element of this reference it proves. Names, figures and client data stay out by design.</span><span class="ru">Шесть паттернов из шести мандатов, по одному на карточку. Ни одна из них не скриншот: каждая описывает механизм, который работал в продуктиве, и элемент этого референса, который он подтверждает. Имена, цифры и данные клиентов не показываются намеренно.</span></div>
+  <div class="tkgrid">
+    <div class="tk">
+      <div class="to"><span class="en">MEDICAL BUSINESS · DUBAI</span><span class="ru">МЕДИЦИНСКИЙ БИЗНЕС · ДУБАЙ</span></div>
+      <h3><span class="en">Audited registers on one factory</span><span class="ru">Реестры с аудитом на одной фабрике</span></h3>
+      <div class="tw"><span class="en">Five operational registers (incidents, risks, corrective actions, observations, cases) run on one code base: every record carries a revision, an owner, an audit trail and a 30-day backup. A write against a stale revision is rejected, not merged.</span><span class="ru">Пять операционных реестров (инциденты, риски, корректирующие действия, наблюдения, кейсы) работают на одной кодовой базе: у каждой записи ревизия, ответственный, журнал аудита и бэкап за 30 дней. Запись поверх устаревшей ревизии отклоняется, а не сливается.</span></div>
+      
+      <div class="mock"><div class="mt"><span><span class="en">REGISTER · CORRECTIVE ACTIONS</span><span class="ru">РЕЕСТР · КОРРЕКТИРУЮЩИЕ ДЕЙСТВИЯ</span></span><i><span class="en">REV-LOCKED</span><span class="ru">БЛОКИРОВКА РЕВИЗИЙ</span></i></div>
+        <div class="mrow h" style="grid-template-columns:44px 26px 1fr 76px 66px"><span>ID</span><span>REV</span><span><span class="en">OWNER</span><span class="ru">ОТВЕТСТВ.</span></span><span><span class="en">STATUS</span><span class="ru">СТАТУС</span></span><span><span class="en">EVIDENCE</span><span class="ru">ПОДТВ.</span></span></div>
+        <div class="mrow" style="grid-template-columns:44px 26px 1fr 76px 66px"><span>CA-014</span><span>r7</span><span><span class="en">site lead</span><span class="ru">прораб</span></span><span><span class="pill g"><span class="en">OPEN</span><span class="ru">ОТКРЫТО</span></span></span><span><span class="pill ok"><span class="en">2 files</span><span class="ru">2 файла</span></span></span></div>
+        <div class="mrow" style="grid-template-columns:44px 26px 1fr 76px 66px"><span>CA-013</span><span>r3</span><span><span class="en">procurement</span><span class="ru">закупки</span></span><span><span class="pill ok"><span class="en">CLOSED</span><span class="ru">ЗАКРЫТО</span></span></span><span><span class="pill ok"><span class="en">signed</span><span class="ru">подписано</span></span></span></div>
+        <div class="mrow" style="grid-template-columns:44px 26px 1fr 76px 66px"><span>CA-012</span><span>r5</span><span><span class="en">estimator</span><span class="ru">сметчик</span></span><span><span class="pill no"><span class="en">STALE REV</span><span class="ru">КОНФЛИКТ</span></span></span><span><span class="pill"><span class="en">rejected</span><span class="ru">отклонено</span></span></span></div>
+      </div>
+      <div class="tm"><span class="en"><b>Mechanism:</b> revision locking, audit log, a validation contract on every write.</span><span class="ru"><b>Механизм:</b> блокировка ревизий, журнал аудита, контракт валидации на каждую запись.</span></div>
+      <div class="tx"><i><span class="en">MAPS TO</span><span class="ru">СООТВЕТСТВУЕТ</span></i> · <span class="en">CHANGE-CONTROL LOG · PUNCH LIST · WARRANTY LOG</span><span class="ru">ЖУРНАЛ ИЗМЕНЕНИЙ · ДЕФЕКТНАЯ ВЕДОМОСТЬ · ЖУРНАЛ ГАРАНТИИ</span></div>
+    </div>
+    <div class="tk">
+      <div class="to"><span class="en">MEDICAL BUSINESS · DUBAI</span><span class="ru">МЕДИЦИНСКИЙ БИЗНЕС · ДУБАЙ</span></div>
+      <h3><span class="en">Role zones and one-time codes</span><span class="ru">Ролевые зоны и одноразовые коды</span></h3>
+      <div class="tw"><span class="en">One portal, several entrances: an admin zone, an isolated finance zone behind middleware, clinician access by a six-digit code sent to a work email. Each role sees its own filtered view of the same records; nobody maintains a parallel deck.</span><span class="ru">Один портал, несколько входов: зона администратора, изолированная финансовая зона за промежуточным слоем, вход врача по коду из шести цифр на рабочую почту. Каждая роль видит свой отфильтрованный вид тех же записей; параллельных презентаций никто не ведёт.</span></div>
+      
+      <div class="mock"><div class="mt"><span><span class="en">ONE PORTAL · FOUR ENTRANCES</span><span class="ru">ОДИН ПОРТАЛ · ЧЕТЫРЕ ВХОДА</span></span><i><span class="en">SAME RECORDS</span><span class="ru">ТЕ ЖЕ ЗАПИСИ</span></i></div>
+        <div class="chips">
+          <div class="chip k"><b><span class="en">ADMIN</span><span class="ru">АДМИН</span></b><small><span class="en">all zones</span><span class="ru">все зоны</span></small></div>
+          <div class="chip"><b><span class="en">FINANCE</span><span class="ru">ФИНАНСЫ</span></b><small><span class="en">isolated zone</span><span class="ru">изолированная зона</span></small></div>
+          <div class="chip"><b><span class="en">CLINICIAN</span><span class="ru">ВРАЧ</span></b><small><span class="en">6-digit code by email</span><span class="ru">код из 6 цифр на почту</span></small></div>
+          <div class="chip"><b><span class="en">CLIENT</span><span class="ru">КЛИЕНТ</span></b><small><span class="en">own project only</span><span class="ru">только свой проект</span></small></div>
+        </div>
+      </div>
+      <div class="tm"><span class="en"><b>Mechanism:</b> access rules in code, not in people's discipline; anonymised records outside the admin zone.</span><span class="ru"><b>Механизм:</b> правила доступа в коде, а не в дисциплине людей; анонимизация записей вне зоны администратора.</span></div>
+      <div class="tx"><i><span class="en">MAPS TO</span><span class="ru">СООТВЕТСТВУЕТ</span></i> · <span class="en">WHO SEES WHAT · CLIENT LAYER</span><span class="ru">КТО ЧТО ВИДИТ · КЛИЕНТСКИЙ СЛОЙ</span></div>
+    </div>
+    <div class="tk">
+      <div class="to"><span class="en">MEDICAL BUSINESS · DUBAI</span><span class="ru">МЕДИЦИНСКИЙ БИЗНЕС · ДУБАЙ</span></div>
+      <h3><span class="en">Revenue structure and a management dashboard</span><span class="ru">Структура выручки и управленческий дашборд</span></h3>
+      <div class="tw"><span class="en">Every invoice line mapped to a product line and a sub-product, one page as the single source of truth for prices, and a CEO dashboard where strategy cascades into a Kanban of initiatives with owners.</span><span class="ru">Каждая строка счёта привязана к продуктовой линии и субпродукту, одна страница как единственный источник правды по ценам, и дашборд CEO, где стратегия каскадируется в канбан инициатив с ответственными.</span></div>
+      
+      <div class="mock"><div class="mt"><span><span class="en">MANAGEMENT VIEW · ILLUSTRATIVE</span><span class="ru">УПРАВЛЕНЧЕСКИЙ ВИД · ИЛЛЮСТРАЦИЯ</span></span><i><span class="en">NO FIGURES</span><span class="ru">БЕЗ ЦИФР</span></i></div>
+        <div class="kpis"><div class="kpi"><b><span class="en">LIVE PROJECTS</span><span class="ru">ЖИВЫЕ ПРОЕКТЫ</span></b><span>&#9646;&#9646;&#9646;</span></div><div class="kpi"><b><span class="en">GATES PASSED</span><span class="ru">ГЕЙТЫ ПРОЙДЕНЫ</span></b><span>&#9646;&#9646;</span></div><div class="kpi"><b><span class="en">MARGIN VS PLAN</span><span class="ru">МАРЖА К ПЛАНУ</span></b><span>&#9646;&#9646;&#9646;&#9646;</span></div></div>
+        <div class="bars"><div class="bar"><span><span class="en">Line A</span><span class="ru">Линия A</span></span><i style="width:82%"></i></div><div class="bar"><span><span class="en">Line B</span><span class="ru">Линия B</span></span><i style="width:56%"></i></div><div class="bar t"><span><span class="en">Line C</span><span class="ru">Линия C</span></span><i style="width:31%"></i></div></div>
+      </div>
+      <div class="tm"><span class="en"><b>Mechanism:</b> one mapping table feeds finance, sales and the dashboard; prices are quoted from one place only.</span><span class="ru"><b>Механизм:</b> одна таблица маппинга питает финансы, продажи и дашборд; цены цитируются только из одного места.</span></div>
+      <div class="tx"><i><span class="en">MAPS TO</span><span class="ru">СООТВЕТСТВУЕТ</span></i> · <span class="en">ESTIMATE LIBRARY · MARGIN PER PROJECT · STATUS BOARD</span><span class="ru">БИБЛИОТЕКА СМЕТ · МАРЖА ПО ПРОЕКТУ · СТАТУС-БОРД</span></div>
+    </div>
+    <div class="tk">
+      <div class="to"><span class="en">PRIVATE CAPITAL DEAL · DUBAI</span><span class="ru">СДЕЛКА ЧАСТНОГО КАПИТАЛА · ДУБАЙ</span></div>
+      <h3><span class="en">A deal console with a live model</span><span class="ru">Консоль сделки с живой моделью</span></h3>
+      <div class="tw"><span class="en">A gated microsite for one transaction between a medical venture and a luxury developer: the financial model reads its parameters from a single file, one switch flips between deal routes and another between currencies, every page prints as a package.</span><span class="ru">Микросайт за гейтом для одной сделки между медицинским венчуром и девелопером люксовой недвижимости: финансовая модель читает параметры из одного файла, один переключатель меняет маршрут сделки, другой валюту, каждая страница печатается как пакет.</span></div>
+      
+      <div class="mock"><div class="mt"><span><span class="en">DEAL CONSOLE · GATED</span><span class="ru">КОНСОЛЬ СДЕЛКИ · ЗА ГЕЙТОМ</span></span><i><span class="en">LIVE MODEL</span><span class="ru">ЖИВАЯ МОДЕЛЬ</span></i></div>
+        <div style="margin-top:2px"><span class="seg"><span class="on"><span class="en">Route A</span><span class="ru">Маршрут A</span></span><span><span class="en">Route B</span><span class="ru">Маршрут B</span></span></span><span class="seg"><span class="on">AED</span><span>USD</span></span></div>
+        <div class="chips" style="margin-top:8px"><div class="chip"><b>P&amp;L</b><small><span class="en">from one parameter file</span><span class="ru">из одного файла параметров</span></small></div><div class="chip"><b><span class="en">CASH</span><span class="ru">ДЕНЬГИ</span></b><small><span class="en">monthly, both routes</span><span class="ru">помесячно, оба маршрута</span></small></div><div class="chip"><b><span class="en">SENSITIVITY</span><span class="ru">ЧУВСТВИТ.</span></b><small><span class="en">what breaks the case</span><span class="ru">что ломает кейс</span></small></div></div>
+      </div>
+      <div class="tm"><span class="en"><b>Mechanism:</b> parameters separated from presentation; routes compared on the same records; the external package produced from the same source.</span><span class="ru"><b>Механизм:</b> параметры отделены от представления; маршруты сравниваются на одних записях; внешний пакет собирается из того же источника.</span></div>
+      <div class="tx"><i><span class="en">MAPS TO</span><span class="ru">СООТВЕТСТВУЕТ</span></i> · <span class="en">FINANCE LAYER · CASH PLAN AND ACTS</span><span class="ru">ФИНАНСОВЫЙ СЛОЙ · ПЛАН ДЕНЕГ И АКТЫ</span></div>
+    </div>
+    <div class="tk">
+      <div class="to"><span class="en">CULTURAL AND CLINICAL VENTURES · UAE</span><span class="ru">КУЛЬТУРНЫЕ И КЛИНИЧЕСКИЕ ПРОЕКТЫ · ОАЭ</span></div>
+      <h3><span class="en">From one model to the investor package, by code</span><span class="ru">От одной модели к инвестиционному пакету, кодом</span></h3>
+      <div class="tw"><span class="en">Unified financial models with financing modes and phases, and investor packages, decks and memos generated by scripts from one content model in two languages, with a QA pass before anything ships. This reference page is built the same way.</span><span class="ru">Единые финансовые модели с режимами финансирования и фазами, а инвестиционные пакеты, деки и мемо собираются скриптами из одной модели контента на двух языках, с QA-проходом до выпуска. Эта страница собрана так же.</span></div>
+      
+      <div class="mock"><div class="mt"><span><span class="en">MODEL TO PACKAGE · BY CODE</span><span class="ru">ОТ МОДЕЛИ К ПАКЕТУ · КОДОМ</span></span><i><span class="en">TWO LANGUAGES</span><span class="ru">ДВА ЯЗЫКА</span></i></div>
+        <div class="flowm"><div class="fbox"><span class="en">Content model</span><span class="ru">Модель контента</span><small><span class="en">one source</span><span class="ru">один источник</span></small></div><span class="farr">&#8594;</span><div class="fbox"><span class="en">Build script</span><span class="ru">Скрипт сборки</span><small><span class="en">EN + RU</span><span class="ru">EN + RU</span></small></div><span class="farr">&#8594;</span><div class="fbox g"><span class="en">QA gate</span><span class="ru">QA-гейт</span><small><span class="en">checks before release</span><span class="ru">проверки до выпуска</span></small></div><span class="farr">&#8594;</span><div class="fbox"><span class="en">Deck · memo · web</span><span class="ru">Дек · мемо · веб</span><small><span class="en">this page included</span><span class="ru">включая эту страницу</span></small></div></div>
+      </div>
+      <div class="tm"><span class="en"><b>Mechanism:</b> one source, many outputs; a change in the model propagates to every document without re-typing.</span><span class="ru"><b>Механизм:</b> один источник, много выходов; изменение в модели доходит до каждого документа без перепечатывания.</span></div>
+      <div class="tx"><i><span class="en">MAPS TO</span><span class="ru">СООТВЕТСТВУЕТ</span></i> · <span class="en">AI LAYER · AUTO-GENERATED REPORTS · SCOPE BEFORE PRICE</span><span class="ru">СЛОЙ ИИ · АВТОМАТИЧЕСКИЕ ОТЧЁТЫ · СНАЧАЛА ОБЪЁМ, ПОТОМ ЦЕНА</span></div>
+    </div>
+    <div class="tk">
+      <div class="to"><span class="en">OWN PRACTICE · DAILY</span><span class="ru">СОБСТВЕННАЯ ПРАКТИКА · ЕЖЕДНЕВНО</span></div>
+      <h3><span class="en">Scheduled runs with a compliance gate</span><span class="ru">Прогоны по расписанию с комплаенс-гейтом</span></h3>
+      <div class="tw"><span class="en">My own practice runs on scheduled runs in phases: prologue, pulse, pipeline, review, epilogue. A scoring model ranks the queue, registers hold the state, and a compliance gate checks every outgoing text against a rule set before it leaves.</span><span class="ru">Моя собственная практика работает на прогонах по расписанию, по фазам: пролог, пульс, конвейер, ревизия, эпилог. Скоринговая модель ранжирует очередь, реестры держат состояние, а комплаенс-гейт проверяет каждый исходящий текст по набору правил до отправки.</span></div>
+      
+      <div class="mock"><div class="mt"><span><span class="en">DAILY RUN · LOG</span><span class="ru">ЕЖЕДНЕВНЫЙ ПРОГОН · ЖУРНАЛ</span></span><i><span class="en">SCHEDULED</span><span class="ru">ПО РАСПИСАНИЮ</span></i></div>
+        <div class="logl"><span class="t">09:00</span><span><span class="en">prologue: state read, queue ranked by score</span><span class="ru">пролог: состояние прочитано, очередь отранжирована</span></span><span class="ok">&#10003;</span></div>
+        <div class="logl"><span class="t">09:04</span><span><span class="en">pulse: open items older than 24h flagged</span><span class="ru">пульс: открытые узлы старше 24 ч помечены</span></span><span class="ok">&#10003;</span></div>
+        <div class="logl"><span class="t">09:11</span><span><span class="en">pipeline: two actions prepared</span><span class="ru">конвейер: два действия подготовлены</span></span><span class="ok">&#10003;</span></div>
+        <div class="logl"><span class="t">09:12</span><span><span class="en">compliance gate: one text blocked, rule 3</span><span class="ru">комплаенс-гейт: один текст заблокирован, правило 3</span></span><span class="no">&#9632;</span></div>
+        <div class="logl"><span class="t">09:15</span><span><span class="en">epilogue: registers and status board updated</span><span class="ru">эпилог: реестры и статус-борд обновлены</span></span><span class="ok">&#10003;</span></div>
+      </div>
+      <div class="tm"><span class="en"><b>Mechanism:</b> cadence enforced by a scheduler, not by memory; a gate that can say no.</span><span class="ru"><b>Механизм:</b> ритм задаёт планировщик, а не память; гейт, который умеет говорить «нет».</span></div>
+      <div class="tx"><i><span class="en">MAPS TO</span><span class="ru">СООТВЕТСТВУЕТ</span></i> · <span class="en">WEEKLY CADENCE · WAVE 3</span><span class="ru">НЕДЕЛЬНЫЙ РИТМ · ВОЛНА 3</span></div>
+    </div>
+  </div>
+  <div class="note mt"><span class="en"><b>What this page proves:</b> the spine is not a slide. Registers, gates, roles and cadence have run in live systems, built by the same hands that would build yours, without an implementation army. Which of the six patterns a fit-out company needs first is, again, what the diagnostic answers.</span><span class="ru"><b>Что доказывает эта страница:</b> хребет не слайд. Реестры, гейты, роли и ритм работали в живых системах, собранных теми же руками, которые соберут ваши, без армии внедренцев. Какой из шести паттернов нужен фит-аут компании первым, снова отвечает диагностика.</span></div>
+</div>
+
 <div class="page" id="p-about">
   <div class="kicker"><div class="bar"></div><div class="txt"><span class="en">ABOUT · WHY THIS ARCHITECT</span><span class="ru">ОБО МНЕ · ПОЧЕМУ ЭТОТ АРХИТЕКТОР</span></div></div>
   <h1><span class="en">The same discipline, proven on <em>capital&#8209;grade</em> projects</span><span class="ru">Та же дисциплина, проверенная на проектах <em>капитального</em> масштаба</span></h1>
@@ -639,7 +781,7 @@
 </div>
 <script>
 (function(){
-  var order = ['overview','chain','spine','layers','sequencing','about'];
+  var order = ['overview','chain','spine','layers','sequencing','toolkit','about'];
   var tabs = document.querySelectorAll('.tab');
   var pages = document.querySelectorAll('.page');
   var counter = document.getElementById('counter');
@@ -673,7 +815,7 @@
     if(e.target && /INPUT|TEXTAREA|SELECT/.test(e.target.tagName)) return;
     if(e.key === 'ArrowRight' || e.key === 'PageDown'){ step(1); e.preventDefault(); }
     if(e.key === 'ArrowLeft' || e.key === 'PageUp'){ step(-1); e.preventDefault(); }
-    if(e.key >= '1' && e.key <= '6'){ show(order[parseInt(e.key,10)-1]); }
+    if(e.key >= '1' && e.key <= '7'){ show(order[parseInt(e.key,10)-1]); }
     if(e.key === 'l' || e.key === 'L' || e.key === 'д' || e.key === 'Д'){ setLang(document.documentElement.lang === 'ru' ? 'en' : 'ru'); }
   });
   window.addEventListener('hashchange', function(){
