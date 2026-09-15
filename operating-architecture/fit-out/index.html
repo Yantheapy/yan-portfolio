@@ -61,6 +61,15 @@
   .note.mb{margin-bottom:22px}
 
   /* ===== overview ===== */
+  .levels{display:flex;gap:22px;margin:-6px 0 26px}
+  .lv{flex:1;background:var(--card);border:1px solid var(--line);border-top:3px solid var(--navy);padding:14px 16px 12px}
+  .lv.s{border-top-color:var(--terra)}
+  .lv .le{font-size:10.5px;letter-spacing:2.2px;font-weight:bold;color:var(--navy);margin-bottom:6px}
+  .lv.s .le{color:var(--terra)}
+  .lv .lt{font-size:13px;line-height:1.5;color:var(--ink)}
+  .lv .ld{font-size:12.3px;line-height:1.45;color:var(--muted);margin-top:7px;border-top:1px solid var(--line2);padding-top:7px}
+  .lv .ld b{color:var(--navy)}
+  .lv .lr{font-size:10.5px;letter-spacing:1.4px;color:var(--gold);font-weight:bold;margin-top:8px}
   .chain{display:flex;gap:0;align-items:stretch}
   .stageS{flex:1;background:var(--card);border:1px solid var(--line);border-top:3px solid var(--navy);padding:15px 14px 13px;position:relative}
   .stageS + .stageS{margin-left:24px}
@@ -262,7 +271,7 @@
     .spineB{flex-direction:column;align-items:stretch;gap:14px;padding:16px}
     .spineB .cells{flex-direction:column;gap:12px}
     .lawB{max-width:none}
-    .cols3,.wavesR,.howto,.sqrow,.lygrid,.vcgrid,.spgrid,.abgrid,.twin,.princ,.band{display:flex;flex-direction:column;gap:12px}
+    .levels,.cols3,.wavesR,.howto,.sqrow,.lygrid,.vcgrid,.spgrid,.abgrid,.twin,.princ,.band{display:flex;flex-direction:column;gap:12px}
     .howto .h,.princ .p{border-right:none;border-bottom:1px solid var(--line)}
     .howto .h:last-child,.princ .p:last-child{border-bottom:none}
     .bseg{border-right:none}
@@ -312,6 +321,27 @@
   <div class="kicker"><div class="bar"></div><div class="txt"><span class="en">REFERENCE VIEW · ONE SCREEN</span><span class="ru">РЕФЕРЕНС · ОДИН ЭКРАН</span></div></div>
   <h1><span class="en">An <em>operating system</em> for a premium fit&#8209;out and construction business</span><span class="ru"><em>Операционная система</em> для премиального фит-аута и строительства</span></h1>
   <div class="stand"><span class="en">One structure that makes every project legible: <b>who owes what, by when, with evidence attached.</b> Designed for a 50 to 200 person company running design, procurement and site delivery in&#8209;house on fixed&#8209;price contracts. Each block on this screen opens into its own tab above.</span><span class="ru">Одна структура, которая делает каждый проект читаемым: <b>кто что должен, к какому сроку, с приложенными подтверждениями.</b> Рассчитана на компанию от 50 до 200 человек, которая сама ведёт дизайн, закупки и работы на объекте по контрактам с фиксированной ценой. Каждый блок этого экрана раскрыт в своей вкладке выше.</span></div>
+
+  <div class="levels">
+    <div class="lv s">
+      <div class="le"><span class="en">STRATEGY · WHY</span><span class="ru">СТРАТЕГИЯ · ЗАЧЕМ</span></div>
+      <div class="lt"><span class="en">Fixed price survives only with one truth per project. Transparency sold to clients becomes an internal asset. The company scales without the founder as its integrator.</span><span class="ru">Фиксированная цена выживает только с одной правдой о проекте. Прозрачность, которую продают клиенту, становится внутренним активом. Компания растёт без основателя в роли интегратора.</span></div>
+      <div class="ld"><span class="en"><b>The decision:</b> build the operating system in waves, AI last.</span><span class="ru"><b>Решение:</b> строить операционную систему волнами, ИИ последним.</span></div>
+      <div class="lr"><span class="en">OVERVIEW · SEQUENCING</span><span class="ru">ОБЗОР · ВОЛНЫ</span></div>
+    </div>
+    <div class="lv">
+      <div class="le"><span class="en">TACTICS · HOW</span><span class="ru">ТАКТИКА · КАК</span></div>
+      <div class="lt"><span class="en">Diagnostic first, then three waves, each with an entry and an exit test. Layers in strict order. One owner of change inside the company. The weekly review as the management ritual.</span><span class="ru">Сначала диагностика, потом три волны, у каждой вход и тест выхода. Слои в строгом порядке. Один владелец изменений внутри компании. Недельный обзор как ритуал управления.</span></div>
+      <div class="ld"><span class="en"><b>The decision:</b> scope before price; no big bang.</span><span class="ru"><b>Решение:</b> сначала объём, потом цена; без большого взрыва.</span></div>
+      <div class="lr"><span class="en">SEQUENCING · LAYERS</span><span class="ru">ВОЛНЫ · СЛОИ</span></div>
+    </div>
+    <div class="lv">
+      <div class="le"><span class="en">OPERATIONS · WHAT, DAILY</span><span class="ru">ОПЕРАЦИИ · ЧТО, КАЖДЫЙ ДЕНЬ</span></div>
+      <div class="lt"><span class="en">Six stages, eight records, the gate loop, one status board and a matrix of who sees what.</span><span class="ru">Шесть стадий, восемь записей, петля гейта, один статус-борд и матрица «кто что видит».</span></div>
+      <div class="ld"><span class="en"><b>The rule:</b> nothing is entered twice; nothing is &quot;done&quot; without an artifact.</span><span class="ru"><b>Правило:</b> ничего не вводится дважды, ничего не «готово» без артефакта.</span></div>
+      <div class="lr"><span class="en">VALUE CHAIN · THE SPINE · LAYERS</span><span class="ru">ЦЕПОЧКА · ХРЕБЕТ · СЛОИ</span></div>
+    </div>
+  </div>
 
   <div class="sec-head"><div class="sec-label"><span class="en">PROJECT VALUE CHAIN</span><span class="ru">ЦЕПОЧКА ЦЕННОСТИ ПРОЕКТА</span></div><div class="sec-line"></div><div class="sec-tag"><span class="en">WHERE MANUAL WORK USUALLY LIVES</span><span class="ru">ГДЕ ОБЫЧНО ЖИВЁТ РУЧНАЯ РАБОТА</span></div></div>
   <div class="chain"><div class="stageS"><div class="no">01</div><div class="nm"><span class="en">Lead &amp; qualification</span><span class="ru">Лид и квалификация</span></div><div class="pain"><span class="en">Enquiries in chats and calls, <b>no single pipeline</b></span><span class="ru">Запросы в чатах и звонках, <b>нет единой воронки</b></span></div></div><div class="stageS"><div class="no">02</div><div class="nm"><span class="en">Estimate &amp; fixed&#8209;price proposal</span><span class="ru">Смета и предложение по фиксированной цене</span></div><div class="pain"><span class="en">Estimates rebuilt by hand, <b>margin invisible</b> at signing</span><span class="ru">Сметы каждый раз вручную, <b>маржа не видна</b> при подписании</span></div></div><div class="stageS"><div class="no">03</div><div class="nm"><span class="en">Design &amp; permits</span><span class="ru">Дизайн-проект и разрешения</span></div><div class="pain"><span class="en">Revisions unversioned, permit status <b>tracked in heads</b></span><span class="ru">Ревизии без версий, статус разрешений <b>держат в голове</b></span></div></div><div class="stageS"><div class="no">04</div><div class="nm"><span class="en">Procurement &amp; joinery</span><span class="ru">Закупки и столярные изделия</span></div><div class="pain"><span class="en">Orders untracked, deliveries vs site <b>unsynchronised</b></span><span class="ru">Заказы не отслеживаются, поставки <b>не в такт объекту</b></span></div></div><div class="stageS"><div class="no">05</div><div class="nm"><span class="en">Site execution &amp; QC</span><span class="ru">Работы на объекте и контроль качества</span></div><div class="pain"><span class="en">Progress in photo chats, <b>rework unmeasured</b></span><span class="ru">Прогресс в фото-чатах, <b>переделки не измеряются</b></span></div></div><div class="stageS"><div class="no">06</div><div class="nm"><span class="en">Handover &amp; warranty</span><span class="ru">Сдача и гарантия</span></div><div class="pain"><span class="en">Warranty cost <b>never attributed</b> to its cause</span><span class="ru">Стоимость гарантии <b>не привязана</b> к причине</span></div></div></div>
