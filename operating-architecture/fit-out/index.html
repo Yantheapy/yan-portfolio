@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Operating Architecture</title>
+<style>
+  :root{
+    --bg:#FAF7F1; --navy:#1B2440; --navy2:#26314F; --navy3:#333E60;
+    --terra:#B84A14; --gold:#C9A227; --ink:#23293B; --muted:#6B6F7E;
+    --line:#E3DDD1; --line2:#F0EBE1; --card:#FFFFFF; --neutral:#9AA0B0;
+    --sand:#FDF6E9; --sandline:#EAD9B0; --sandink:#6B5A2A;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);font-family:'Liberation Sans',Arial,Helvetica,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+  html:not([lang="ru"]) .ru{display:none !important}
+  html[lang="ru"] .en{display:none !important}
+
+  /* ===== top bar ===== */
+  .top{background:var(--navy);color:#FFF;padding:0 40px;position:sticky;top:env(safe-area-inset-top,0px);z-index:50;box-shadow:0 2px 10px rgba(27,36,64,.25)}
+  .top-row{display:flex;align-items:center;gap:20px;height:64px;max-width:1600px;margin:0 auto}
+  .brand{font-family:'Liberation Serif',Georgia,serif;font-size:19px;font-weight:bold;white-space:nowrap;letter-spacing:.2px}
+  .brand em{font-style:italic;color:var(--gold)}
+  .tabs{display:flex;gap:6px;flex:1}
+  .tab{background:transparent;border:1px solid transparent;color:#C9CEDC;font-family:inherit;font-size:13.5px;padding:8px 14px;cursor:pointer;letter-spacing:.3px;border-radius:2px;display:flex;align-items:center;gap:8px;white-space:nowrap}
+  .tab .n{font-family:'Liberation Serif',Georgia,serif;font-size:11.5px;color:var(--gold);opacity:.75}
+  .tab:hover{color:#FFF;border-color:#3A4568}
+  .tab.on{background:var(--navy2);color:#FFF;border-color:var(--gold)}
+  .tab.on .n{opacity:1}
+  .badge{font-size:10.5px;letter-spacing:1.6px;color:var(--gold);border:1px solid var(--gold);padding:6px 10px;white-space:nowrap;font-weight:bold}
+  .counter{font-family:'Liberation Serif',Georgia,serif;font-size:13px;color:#8E96AC;white-space:nowrap;min-width:38px;text-align:center}
+  .lang{display:flex;border:1px solid #3A4568;border-radius:2px;overflow:hidden}
+  .lang button{background:transparent;border:none;color:#C9CEDC;font-family:inherit;font-size:12px;font-weight:bold;letter-spacing:1px;padding:7px 10px;cursor:pointer}
+  .lang button.on{background:var(--gold);color:var(--navy)}
+  .lang button:not(.on):hover{color:#FFF}
+  .pbtn{background:transparent;border:1px solid #3A4568;color:#C9CEDC;font-family:inherit;font-size:12px;padding:7px 12px;cursor:pointer;border-radius:2px;white-space:nowrap}
+  .pbtn:hover{color:#FFF;border-color:var(--gold)}
+  .hint{font-size:10.5px;color:#6E7690;white-space:nowrap}
+
+  /* ===== page frame ===== */
+  .page{max-width:1600px;margin:0 auto;padding:38px 40px 34px;display:none;min-height:calc(100vh - 64px - 70px)}
+  .page.on{display:block}
+  .kicker{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+  .kicker .bar{width:46px;height:4px;background:var(--terra)}
+  .kicker .txt{font-size:12.5px;letter-spacing:3px;color:var(--terra);font-weight:bold}
+  h1{font-family:'Liberation Serif',Georgia,serif;font-size:40px;line-height:1.06;color:var(--navy);font-weight:bold;max-width:1000px;margin-bottom:12px}
+  h1 em{font-style:italic;color:var(--terra)}
+  .stand{font-size:16px;line-height:1.5;color:var(--muted);max-width:900px;margin-bottom:26px}
+  .stand b{color:var(--ink)}
+
+  .sec-head{display:flex;align-items:center;gap:12px;margin:26px 0 14px}
+  .sec-label{font-size:12.5px;letter-spacing:2.4px;font-weight:bold;color:var(--navy)}
+  .sec-line{flex:1;height:1px;background:var(--line)}
+  .sec-tag{font-size:11px;letter-spacing:1.6px;color:var(--gold);font-weight:bold}
+
+  .note{background:var(--sand);border:1px solid var(--sandline);border-left:4px solid var(--gold);padding:12px 16px;font-size:13.5px;color:var(--sandink);line-height:1.45}
+  .note b{color:var(--terra)}
+  .note.mt{margin-top:22px}
+  .note.mb{margin-bottom:22px}
+
+  /* ===== overview ===== */
+  .chain{display:flex;gap:0;align-items:stretch}
+  .stageS{flex:1;background:var(--card);border:1px solid var(--line);border-top:3px solid var(--navy);padding:15px 14px 13px;position:relative}
+  .stageS + .stageS{margin-left:24px}
+  .stageS:after{content:"";position:absolute;right:-19px;top:50%;margin-top:-7px;border-left:12px solid var(--gold);border-top:7px solid transparent;border-bottom:7px solid transparent}
+  .stageS:last-child:after{display:none}
+  .stageS .no{font-family:'Liberation Serif',Georgia,serif;font-size:14px;color:var(--gold);font-weight:bold;margin-bottom:3px}
+  .stageS .nm{font-size:14px;font-weight:bold;color:var(--navy);line-height:1.2;margin-bottom:7px;min-height:34px}
+  .stageS .pain{font-size:11.8px;line-height:1.4;color:var(--muted)}
+  .stageS .pain b{color:var(--terra)}
+
+  .spineB{background:var(--navy);margin:22px 0;padding:20px 24px 18px;display:flex;align-items:center;gap:26px}
+  .spineB .ttl{font-size:11.5px;letter-spacing:2.6px;color:var(--gold);font-weight:bold;white-space:nowrap}
+  .spineB .cells{display:flex;gap:22px;flex:1}
+  .cellB{border-left:2px solid var(--gold);padding-left:12px;flex:1}
+  .cellB .cn{font-family:'Liberation Serif',Georgia,serif;font-size:12.5px;color:var(--gold)}
+  .cellB .ct{font-size:13.5px;color:#FFF;font-weight:bold;line-height:1.2}
+  .cellB .cs{font-size:11.5px;color:#AEB4C4;line-height:1.3;margin-top:2px}
+  .lawB{font-family:'Liberation Serif',Georgia,serif;font-style:italic;font-size:16px;color:#FFF;max-width:290px;line-height:1.3;border-left:2px solid var(--terra);padding-left:14px}
+  .lawB span{color:var(--gold)}
+
+  .cols3{display:flex;gap:22px}
+  .colC{flex:1;background:var(--card);border:1px solid var(--line);padding:16px 17px 14px}
+  .colC.ai{border-top:3px solid var(--terra)}
+  .colC.g{border-top:3px solid var(--gold)}
+  .colC h3{font-size:12.5px;letter-spacing:2.2px;color:var(--navy);margin-bottom:9px}
+  .colC h3 i{font-style:normal;color:var(--terra)}
+  .colC .flow{font-size:13.5px;line-height:1.55}
+  .dot{color:var(--gold);font-weight:bold}
+  .colC .sub{font-size:12.2px;color:var(--muted);margin-top:8px;line-height:1.42}
+  .colC .sub b{color:var(--terra)}
+
+  .wavesR{display:flex;align-items:stretch;gap:22px;margin-top:22px}
+  .wavesR .wt{font-size:11.5px;letter-spacing:2.4px;font-weight:bold;color:var(--navy);display:flex;align-items:center;white-space:nowrap}
+  .waveR{flex:1;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--navy);padding:14px 16px}
+  .waveR.w1{border-left-color:var(--terra)}
+  .waveR .wn{font-size:11.5px;letter-spacing:1.8px;color:var(--muted);font-weight:bold;margin-bottom:5px}
+  .waveR .wn b{color:var(--terra)}
+  .waveR .wd{font-size:13.5px;line-height:1.42}
+
+  .howto{display:flex;gap:0;margin-top:26px;border:1px solid var(--line);background:var(--card)}
+  .howto .h{flex:1;padding:12px 16px;border-right:1px solid var(--line);font-size:12.5px;line-height:1.45;color:var(--muted)}
+  .howto .h:last-child{border-right:none}
+  .howto .h b{display:block;font-size:10.5px;letter-spacing:2px;color:var(--navy);margin-bottom:3px}
+
+  /* ===== value chain deep ===== */
+  .vcgrid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .vc{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--navy)}
+  .vc .vhead{display:flex;align-items:baseline;gap:12px;padding:16px 20px 10px;border-bottom:1px solid var(--line)}
+  .vc .vno{font-family:'Liberation Serif',Georgia,serif;font-size:26px;color:var(--gold);font-weight:bold}
+  .vc .vnm{font-family:'Liberation Serif',Georgia,serif;font-size:20px;color:var(--navy);font-weight:bold;flex:1}
+  .vc .rec{font-size:10.5px;letter-spacing:1.6px;color:var(--navy);border:1px solid var(--line);padding:4px 8px;white-space:nowrap;background:var(--bg)}
+  .vc .rec b{color:var(--gold)}
+  .vrow{display:grid;grid-template-columns:160px 1fr;gap:14px;padding:11px 20px;border-bottom:1px solid var(--line2);align-items:start}
+  .vrow:last-child{border-bottom:none;padding-bottom:15px}
+  .vlab{font-size:10.5px;letter-spacing:1.8px;font-weight:bold;padding-top:2px;line-height:1.4}
+  .vlab.p{color:var(--terra)} .vlab.s{color:var(--navy)} .vlab.e{color:var(--gold)}
+  .vtxt{font-size:13.5px;line-height:1.5}
+  .vtxt b{color:var(--terra)}
+
+  /* ===== spine deep ===== */
+  .spgrid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:26px}
+  .sp{background:var(--card);border:1px solid var(--line);padding:20px 22px 18px;border-left:4px solid var(--gold)}
+  .sp .sn{font-family:'Liberation Serif',Georgia,serif;font-size:15px;color:var(--gold);font-weight:bold}
+  .sp h3{font-family:'Liberation Serif',Georgia,serif;font-size:21px;color:var(--navy);margin:4px 0 10px}
+  .sp p{font-size:13.8px;line-height:1.55;color:var(--ink)}
+  .sp .why{margin-top:10px;font-size:12.5px;color:var(--muted);border-top:1px solid var(--line2);padding-top:9px;line-height:1.45}
+  .sp .why b{color:var(--terra)}
+
+  .gate{background:var(--navy);padding:24px 30px 20px;color:#FFF}
+  .gate .gt{font-size:11.5px;letter-spacing:2.6px;color:var(--gold);font-weight:bold;margin-bottom:6px;display:flex;justify-content:space-between;align-items:baseline;gap:20px}
+  .gate .gt .gs{font-size:11px;letter-spacing:1.2px;color:#8E96AC;font-weight:normal;text-align:right}
+  .gate svg{width:100%;height:auto;display:block}
+  .gnote{margin-top:12px;font-family:'Liberation Serif',Georgia,serif;font-style:italic;font-size:16.5px;color:#FFF;border-left:2px solid var(--terra);padding-left:14px}
+  .gnote span{color:var(--gold)}
+
+  .recs{display:flex;align-items:stretch;gap:0;margin-top:14px}
+  .rec1{flex:1;background:var(--card);border:1px solid var(--line);padding:12px 12px 11px;position:relative;border-top:3px solid var(--gold)}
+  .rec1 + .rec1{margin-left:18px}
+  .rec1:after{content:"";position:absolute;right:-15px;top:50%;margin-top:-6px;border-left:9px solid var(--neutral);border-top:6px solid transparent;border-bottom:6px solid transparent}
+  .rec1:last-child:after{display:none}
+  .rec1 .rn{font-size:10px;letter-spacing:1.6px;color:var(--muted);font-weight:bold;margin-bottom:4px}
+  .rec1 .rn b{color:var(--gold)}
+  .rec1 .rt{font-size:13px;font-weight:bold;color:var(--navy);line-height:1.25}
+  .rec1 .rd{font-size:11.5px;color:var(--muted);line-height:1.38;margin-top:5px}
+
+  /* ===== layers deep ===== */
+  .lygrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px}
+  .ly{background:var(--card);border:1px solid var(--line);padding:20px 22px 16px}
+  .ly.ai{border-top:4px solid var(--terra)} .ly.g{border-top:4px solid var(--gold)}
+  .ly h3{font-size:13px;letter-spacing:2.4px;color:var(--navy);margin-bottom:12px}
+  .ly h3 i{font-style:normal;color:var(--terra)}
+  .lyrow{margin-bottom:12px}
+  .lylab{font-size:10.5px;letter-spacing:1.8px;font-weight:bold;color:var(--muted);margin-bottom:4px}
+  .lytxt{font-size:13.5px;line-height:1.5}
+  .lyquote{border-top:1px solid var(--line2);padding-top:10px;font-size:12.8px;color:var(--muted);line-height:1.45}
+  .lyquote b{color:var(--terra)}
+
+  table.mx{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);font-size:13px}
+  .mx th{font-size:10.5px;letter-spacing:1.6px;color:var(--navy);text-align:center;padding:12px 8px;border-bottom:2px solid var(--navy);font-weight:bold;background:#FFF;line-height:1.35}
+  .mx th:first-child{text-align:left;padding-left:16px}
+  .mx td{padding:10px 8px;border-bottom:1px solid var(--line2);text-align:center;line-height:1}
+  .mx td:first-child{text-align:left;padding-left:16px;font-size:13px;color:var(--ink);font-weight:bold;line-height:1.35}
+  .mx td:first-child small{display:block;font-weight:normal;color:var(--muted);font-size:11.5px;margin-top:2px}
+  .mx tr:last-child td{border-bottom:none}
+  .d{display:inline-block;width:13px;height:13px;border-radius:50%;vertical-align:middle}
+  .d.o{background:var(--terra)} .d.r{border:2px solid var(--neutral);background:transparent}
+  .mx th.cl,.mx td.cl{background:#FCFAF5;border-left:1px solid var(--line)}
+  .legend{display:flex;gap:26px;margin-top:10px;font-size:12px;color:var(--muted);align-items:center}
+
+  /* ===== sequencing deep ===== */
+  .band{display:flex;align-items:stretch;margin-bottom:22px}
+  .bseg{flex:1;background:var(--navy);color:#FFF;padding:14px 18px;position:relative;border-right:1px solid var(--navy3)}
+  .bseg.w1{background:var(--terra)}
+  .bseg .bt{font-size:10.5px;letter-spacing:2px;font-weight:bold;color:rgba(255,255,255,.75)}
+  .bseg .bn{font-family:'Liberation Serif',Georgia,serif;font-size:19px;font-weight:bold;margin-top:2px}
+  .bseg .bd{font-size:12.3px;color:rgba(255,255,255,.8);margin-top:2px}
+  .bgate{width:160px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--sand);border-top:1px solid var(--sandline);border-bottom:1px solid var(--sandline);font-size:9.5px;letter-spacing:1.4px;color:var(--sandink);font-weight:bold;text-align:center;line-height:1.5;padding:0 8px}
+  .bgate i{font-style:normal;color:var(--gold);font-size:18px;line-height:1;margin-bottom:2px}
+
+  .sqrow{display:flex;gap:22px;align-items:stretch}
+  .sq{flex:1;background:var(--card);border:1px solid var(--line);border-top:4px solid var(--navy);padding:20px 22px 16px}
+  .sq.w1{border-top-color:var(--terra)}
+  .sq .wtag{font-size:11px;letter-spacing:2px;font-weight:bold;color:var(--muted);margin-bottom:2px}
+  .sq .wtag b{color:var(--terra)}
+  .sq h3{font-family:'Liberation Serif',Georgia,serif;font-size:20px;color:var(--navy);margin-bottom:12px}
+  .sqi{margin-bottom:11px}
+  .sqlab{font-size:10.5px;letter-spacing:1.8px;font-weight:bold;margin-bottom:3px}
+  .sqlab.in{color:var(--gold)} .sqlab.do{color:var(--navy)} .sqlab.out{color:var(--terra)} .sqlab.see{color:var(--muted)}
+  .sqtxt{font-size:13.3px;line-height:1.5}
+  .sqsee{border-top:1px solid var(--line2);padding-top:10px;margin-top:4px}
+  .sqsee .sqtxt{font-family:'Liberation Serif',Georgia,serif;font-style:italic;font-size:14.5px;color:var(--navy)}
+  .twin{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:22px}
+
+  /* ===== about ===== */
+  .abgrid{display:grid;grid-template-columns:1.15fr .85fr;gap:26px}
+  .ap{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--gold);padding:16px 20px;margin-bottom:16px}
+  .ap h3{font-size:12px;letter-spacing:2.2px;color:var(--navy);margin-bottom:7px}
+  .ap p{font-size:13.8px;line-height:1.55}
+  .ap p b{color:var(--terra)}
+  .ap .tie{margin-top:8px;font-size:12.3px;color:var(--muted);line-height:1.45;border-top:1px solid var(--line2);padding-top:7px}
+  .ap .tie b{color:var(--navy)}
+  .abside{background:var(--navy);color:#FFF;padding:24px 26px;align-self:start}
+  .abside h3{font-size:11.5px;letter-spacing:2.6px;color:var(--gold);font-weight:bold;margin-bottom:14px}
+  .abside .who{font-family:'Liberation Serif',Georgia,serif;font-size:24px;font-weight:bold;margin-bottom:4px}
+  .abside .role{font-size:13px;color:#C9CEDC;margin-bottom:14px;line-height:1.45}
+  .abside ul{list-style:none}
+  .abside li{font-size:12.8px;color:#E7EAF2;line-height:1.5;padding:7px 0;border-top:1px solid var(--navy3)}
+  .abside li b{color:var(--gold);font-weight:bold}
+  .abside .cta{margin-top:16px;font-size:12.5px;color:#AEB4C4;line-height:1.45;border-left:2px solid var(--terra);padding-left:12px}
+  .abside .cta b{color:#FFF;font-weight:bold}
+  .princ{display:flex;gap:0;margin-top:6px;border:1px solid var(--line);background:var(--card)}
+  .princ .p{flex:1;padding:12px 16px;border-right:1px solid var(--line);font-size:12.5px;line-height:1.45;color:var(--muted)}
+  .princ .p:last-child{border-right:none}
+  .princ .p b{display:block;font-size:10.5px;letter-spacing:2px;color:var(--navy);margin-bottom:3px}
+
+  /* ===== footer ===== */
+  .foot{max-width:1600px;margin:0 auto;padding:14px 40px 26px;border-top:2px solid var(--navy);display:flex;justify-content:space-between;align-items:baseline}
+  .foot .l{font-size:13px;color:var(--navy);font-weight:bold}
+  .foot .l span{color:var(--muted);font-weight:normal}
+  .foot .r{font-size:11.5px;color:var(--muted)}
+
+  @media (max-width:1380px){
+    h1{font-size:36px}
+    .stageS .pain{font-size:11.2px}
+    .lawB{font-size:15px;max-width:240px}
+    .hint{display:none}
+    .top{padding:0 30px}
+    .top-row{gap:12px}
+    .brand{font-size:17px}
+    .tab{padding:7px 9px;font-size:12.5px}
+    .tab .n{display:none}
+    .badge{font-size:10px;letter-spacing:1.2px;padding:5px 8px}
+    .pbtn{padding:6px 9px}
+    .lang button{padding:6px 8px}
+    .page{padding:32px 30px 30px}
+    .foot{padding-left:30px;padding-right:30px}
+  }
+
+  @media (max-width:1100px){
+    .top-row{flex-wrap:wrap;height:auto;padding:8px 0;row-gap:6px}
+    .tabs{order:5;flex:1 0 100%;overflow-x:auto;padding-bottom:2px}
+  }
+  @media (max-width:760px){
+    .top{padding:0 12px}
+    .top-row{gap:8px}
+    .brand{font-size:16px}
+    .tab{padding:6px 9px;font-size:12px}
+    .badge{font-size:9px;letter-spacing:1px;padding:4px 6px}
+    .counter{min-width:0}
+    .page{padding:22px 16px 26px;min-height:0}
+    h1{font-size:26px}
+    .stand{font-size:14.5px}
+    .sec-head{flex-wrap:wrap;gap:6px}
+    .sec-line{flex:1 0 100%;order:3}
+    .chain{flex-direction:column;gap:10px}
+    .stageS + .stageS{margin-left:0}
+    .stageS:after{display:none}
+    .stageS .nm{min-height:0}
+    .spineB{flex-direction:column;align-items:stretch;gap:14px;padding:16px}
+    .spineB .cells{flex-direction:column;gap:12px}
+    .lawB{max-width:none}
+    .cols3,.wavesR,.howto,.sqrow,.lygrid,.vcgrid,.spgrid,.abgrid,.twin,.princ,.band{display:flex;flex-direction:column;gap:12px}
+    .howto .h,.princ .p{border-right:none;border-bottom:1px solid var(--line)}
+    .howto .h:last-child,.princ .p:last-child{border-bottom:none}
+    .bseg{border-right:none}
+    .bgate{width:auto;padding:8px}
+    .vrow{grid-template-columns:1fr;gap:4px}
+    .vc .vhead{flex-wrap:wrap}
+    .gate{padding:16px 12px}
+    .gate .gt{flex-direction:column;gap:4px}
+    .gate .gt .gs{text-align:left}
+    .gwrap{overflow-x:auto}
+    .gwrap svg{min-width:860px}
+    .recs{flex-wrap:wrap;gap:10px}
+    .rec1{flex:1 1 44%}
+    .rec1 + .rec1{margin-left:0}
+    .rec1:after{display:none}
+    .mxwrap{overflow-x:auto}
+    table.mx{min-width:760px}
+    .legend{flex-wrap:wrap;gap:10px}
+    .foot{flex-direction:column;gap:6px;padding:12px 16px 20px}
+  }
+  @page{size:A3 landscape;margin:10mm}
+  @media print{
+    body{min-width:0;background:#FFF}
+    .top{position:static;box-shadow:none}
+    .tabs,.pbtn,.counter,.hint,.lang{display:none !important}
+    .page{display:block !important;page-break-after:always;min-height:0;padding-top:20px;zoom:.74}
+    .top,.foot{zoom:.74}
+    #p-about{page-break-after:auto}
+    .foot{page-break-inside:avoid}
+    .gate,.spineB,.abside,.bseg{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+
+<div class="top"><div class="top-row">
+  <div class="brand"><span class="en">Operating <em>architecture</em></span><span class="ru">Операционная <em>архитектура</em></span></div>
+  <div class="tabs" role="tablist"><button class="tab on" data-p="overview"><span class="n">1</span><span class="en">Overview</span><span class="ru">Обзор</span></button><button class="tab" data-p="chain"><span class="n">2</span><span class="en">Value chain</span><span class="ru">Цепочка</span></button><button class="tab" data-p="spine"><span class="n">3</span><span class="en">The spine</span><span class="ru">Хребет</span></button><button class="tab" data-p="layers"><span class="n">4</span><span class="en">Layers</span><span class="ru">Слои</span></button><button class="tab" data-p="sequencing"><span class="n">5</span><span class="en">Sequencing</span><span class="ru">Волны</span></button><button class="tab" data-p="about"><span class="n">6</span><span class="en">About</span><span class="ru">Обо мне</span></button></div>
+  <div class="badge"><span class="en">REFERENCE VIEW, NOT A PROPOSAL</span><span class="ru">РЕФЕРЕНС, НЕ ПРЕДЛОЖЕНИЕ</span></div>
+  <div class="counter" id="counter">1 / 6</div>
+  <div class="hint"><span class="en">&#8592; &#8594; keys · L language</span><span class="ru">&#8592; &#8594; клавиши · L язык</span></div>
+  <div class="lang"><button data-l="en" class="on">EN</button><button data-l="ru">RU</button></div>
+  <button class="pbtn" id="printbtn"><span class="en">Print</span><span class="ru">Печать</span></button>
+</div></div>
+
+<div class="page on" id="p-overview">
+  <div class="kicker"><div class="bar"></div><div class="txt"><span class="en">REFERENCE VIEW · ONE SCREEN</span><span class="ru">РЕФЕРЕНС · ОДИН ЭКРАН</span></div></div>
+  <h1><span class="en">An <em>operating system</em> for a premium fit&#8209;out and construction business</span><span class="ru"><em>Операционная система</em> для премиального фит-аута и строительства</span></h1>
+  <div class="stand"><span class="en">One structure that makes every project legible: <b>who owes what, by when, with evidence attached.</b> Designed for a 50 to 200 person company running design, procurement and site delivery in&#8209;house on fixed&#8209;price contracts. Each block on this screen opens into its own tab above.</span><span class="ru">Одна структура, которая делает каждый проект читаемым: <b>кто что должен, к какому сроку, с приложенными подтверждениями.</b> Рассчитана на компанию от 50 до 200 человек, которая сама ведёт дизайн, закупки и работы на объекте по контрактам с фиксированной ценой. Каждый блок этого экрана раскрыт в своей вкладке выше.</span></div>
+
+  <div class="sec-head"><div class="sec-label"><span class="en">PROJECT VALUE CHAIN</span><span class="ru">ЦЕПОЧКА ЦЕННОСТИ ПРОЕКТА</span></div><div class="sec-line"></div><div class="sec-tag"><span class="en">WHERE MANUAL WORK USUALLY LIVES</span><span class="ru">ГДЕ ОБЫЧНО ЖИВЁТ РУЧНАЯ РАБОТА</span></div></div>
+  <div class="chain"><div class="stageS"><div class="no">01</div><div class="nm"><span class="en">Lead &amp; qualification</span><span class="ru">Лид и квалификация</span></div><div class="pain"><span class="en">Enquiries in chats and calls, <b>no single pipeline</b></span><span class="ru">Запросы в чатах и звонках, <b>нет единой воронки</b></span></div></div><div class="stageS"><div class="no">02</div><div class="nm"><span class="en">Estimate &amp; fixed&#8209;price proposal</span><span class="ru">Смета и предложение по фиксированной цене</span></div><div class="pain"><span class="en">Estimates rebuilt by hand, <b>margin invisible</b> at signing</span><span class="ru">Сметы каждый раз вручную, <b>маржа не видна</b> при подписании</span></div></div><div class="stageS"><div class="no">03</div><div class="nm"><span class="en">Design &amp; permits</span><span class="ru">Дизайн-проект и разрешения</span></div><div class="pain"><span class="en">Revisions unversioned, permit status <b>tracked in heads</b></span><span class="ru">Ревизии без версий, статус разрешений <b>держат в голове</b></span></div></div><div class="stageS"><div class="no">04</div><div class="nm"><span class="en">Procurement &amp; joinery</span><span class="ru">Закупки и столярные изделия</span></div><div class="pain"><span class="en">Orders untracked, deliveries vs site <b>unsynchronised</b></span><span class="ru">Заказы не отслеживаются, поставки <b>не в такт объекту</b></span></div></div><div class="stageS"><div class="no">05</div><div class="nm"><span class="en">Site execution &amp; QC</span><span class="ru">Работы на объекте и контроль качества</span></div><div class="pain"><span class="en">Progress in photo chats, <b>rework unmeasured</b></span><span class="ru">Прогресс в фото-чатах, <b>переделки не измеряются</b></span></div></div><div class="stageS"><div class="no">06</div><div class="nm"><span class="en">Handover &amp; warranty</span><span class="ru">Сдача и гарантия</span></div><div class="pain"><span class="en">Warranty cost <b>never attributed</b> to its cause</span><span class="ru">Стоимость гарантии <b>не привязана</b> к причине</span></div></div></div>
+
+  <div class="spineB">
+    <div class="ttl"><span class="en">THE SPINE</span><span class="ru">ХРЕБЕТ</span></div>
+    <div class="cells"><div class="cellB"><div class="cn">01</div><div class="ct"><span class="en">One project baseline</span><span class="ru">Одна базовая версия проекта</span></div><div class="cs"><span class="en">a single source document per project</span><span class="ru">один исходный документ на проект</span></div></div><div class="cellB"><div class="cn">02</div><div class="ct"><span class="en">Change&#8209;control log</span><span class="ru">Журнал изменений</span></div><div class="cs"><span class="en">every deviation priced and signed</span><span class="ru">каждое отклонение оценено и подписано</span></div></div><div class="cellB"><div class="cn">03</div><div class="ct"><span class="en">Stage gates</span><span class="ru">Гейты этапов</span></div><div class="cs"><span class="en">no stage passes without evidence</span><span class="ru">этап не проходит без подтверждений</span></div></div><div class="cellB"><div class="cn">04</div><div class="ct"><span class="en">Weekly cadence</span><span class="ru">Недельный ритм</span></div><div class="cs"><span class="en">one operating review, one status view</span><span class="ru">один операционный обзор, один статус</span></div></div></div>
+    <div class="lawB"><span class="en">This is what makes <span>fixed price survivable</span> at scale.</span><span class="ru">Именно это делает <span>фиксированную цену выживаемой</span> в масштабе.</span></div>
+  </div>
+
+  <div class="cols3">
+    <div class="colC g"><h3><span class="en">FINANCE LAYER</span><span class="ru">ФИНАНСОВЫЙ СЛОЙ</span></h3><div class="flow"><span class="en">Estimate <span class="dot">·</span> cash plan <span class="dot">·</span> progress acts <span class="dot">·</span> margin per project</span><span class="ru">Смета <span class="dot">·</span> план денег <span class="dot">·</span> акты выполненных работ <span class="dot">·</span> маржа по проекту</span></div><div class="sub"><span class="en">Every project carries its own P&amp;L, visible weekly, not discovered at handover.</span><span class="ru">У каждого проекта своя экономика, видна еженедельно, а не обнаруживается при сдаче.</span></div></div>
+    <div class="colC g"><h3><span class="en">CLIENT LAYER</span><span class="ru">КЛИЕНТСКИЙ СЛОЙ</span></h3><div class="flow"><span class="en">One status view per project <span class="dot">·</span> remote owner reporting <span class="dot">·</span> changes priced before work starts</span><span class="ru">Один статус по проекту <span class="dot">·</span> отчётность для удалённого собственника <span class="dot">·</span> изменения оценены до начала работ</span></div><div class="sub"><span class="en">Transparency sold to clients becomes the same view the company runs on.</span><span class="ru">Прозрачность, которую продают клиенту, становится тем же видом, по которому работает компания.</span></div></div>
+    <div class="colC ai"><h3><span class="en"><i>AI LAYER</i></span><span class="ru"><i>СЛОЙ ИИ</i></span></h3><div class="flow"><span class="en">Document and estimate parsing <span class="dot">·</span> auto status reports <span class="dot">·</span> procurement matching <span class="dot">·</span> project memory</span><span class="ru">Разбор документов и смет <span class="dot">·</span> автоматические статус-отчёты <span class="dot">·</span> подбор закупок <span class="dot">·</span> память проектов</span></div><div class="sub"><span class="en"><b>AI lands last, on clean processes.</b> Automating a broken process scales the breakage.</span><span class="ru"><b>ИИ приходит последним, на чистые процессы.</b> Автоматизация сломанного процесса масштабирует поломку.</span></div></div>
+  </div>
+
+  <div class="wavesR">
+    <div class="wt"><span class="en">SEQUENCING</span><span class="ru">ПОСЛЕДОВАТЕЛЬНОСТЬ</span></div>
+    <div class="waveR w1"><div class="wn"><span class="en"><b>WAVE 1</b> · FIRST 90 DAYS</span><span class="ru"><b>ВОЛНА 1</b> · ПЕРВЫЕ 90 ДНЕЙ</span></div><div class="wd"><span class="en">Estimate pipeline plus a single project status board. Quick wins that pay for the programme.</span><span class="ru">Сметный конвейер плюс единый статус-борд проектов. Быстрые победы, которые окупают программу.</span></div></div>
+    <div class="waveR"><div class="wn"><span class="en">WAVE 2</span><span class="ru">ВОЛНА 2</span></div><div class="wd"><span class="en">Process core: ERP or BPM backbone, finance integration, one data model for all departments.</span><span class="ru">Ядро процессов: ERP или BPM как основа, интеграция с финансами, одна модель данных для всех департаментов.</span></div></div>
+    <div class="waveR"><div class="wn"><span class="en">WAVE 3</span><span class="ru">ВОЛНА 3</span></div><div class="wd"><span class="en">AI automation across documents, reporting and procurement, on processes that already hold.</span><span class="ru">ИИ-автоматизация документов, отчётности и закупок поверх процессов, которые уже держат.</span></div></div>
+  </div>
+
+  <div class="howto">
+    <div class="h"><b><span class="en">CHAIN</span><span class="ru">ЦЕПОЧКА</span></b><span class="en">what the company does, stage by stage, and where manual work usually hides</span><span class="ru">что делает компания, этап за этапом, и где обычно прячется ручная работа</span></div>
+    <div class="h"><b><span class="en">SPINE</span><span class="ru">ХРЕБЕТ</span></b><span class="en">how any of it stays true: one baseline, priced changes, gated progress, weekly review</span><span class="ru">как всё это остаётся правдой: одна базовая версия, оценённые изменения, прогресс через гейты, недельный обзор</span></div>
+    <div class="h"><b><span class="en">LAYERS</span><span class="ru">СЛОИ</span></b><span class="en">who reads the same records: finance, the client, and only then the AI</span><span class="ru">кто читает те же записи: финансы, клиент и только потом ИИ</span></div>
+    <div class="h"><b><span class="en">WAVES</span><span class="ru">ВОЛНЫ</span></b><span class="en">the order it is built in, each wave with an entry condition and an exit test</span><span class="ru">порядок построения: у каждой волны условие входа и тест выхода</span></div>
+  </div>
+</div>
+
+<div class="page" id="p-chain">
+  <div class="kicker"><div class="bar"></div><div class="txt"><span class="en">VALUE CHAIN · SIX STAGES IN DEPTH</span><span class="ru">ЦЕПОЧКА ЦЕННОСТИ · ШЕСТЬ СТАДИЙ ПОДРОБНО</span></div></div>
+  <h1><span class="en">Where the manual work lives, and what <em>replaces</em> it</span><span class="ru">Где живёт ручная работа и что её <em>заменяет</em></span></h1>
+  <div class="note mb"><span class="en"><b>These are hypotheses, not a diagnosis.</b> They describe where manual work typically lives in this segment. Which of them apply, and how hard each one bites, is exactly what a short diagnostic establishes before anything is built.</span><span class="ru"><b>Это гипотезы, не диагноз.</b> Они описывают, где в этом сегменте обычно живёт ручная работа. Какие из них относятся к вам и насколько сильно каждая бьёт, как раз и устанавливает короткая диагностика до того, как что-либо строится.</span></div>
+  <div class="vcgrid">
+    <div class="vc">
+      <div class="vhead"><div class="vno">01</div><div class="vnm"><span class="en">Lead &amp; qualification</span><span class="ru">Лид и квалификация</span></div><div class="rec"><span class="en">RECORD <b>·</b> LEAD CARD</span><span class="ru">ЗАПИСЬ <b>·</b> КАРТОЧКА ЛИДА</span></div></div>
+      <div class="vrow"><div class="vlab p"><span class="en">TYPICAL PAIN<br>(HYPOTHESIS)</span><span class="ru">ТИПОВАЯ БОЛЬ<br>(ГИПОТЕЗА)</span></div><div class="vtxt"><span class="en">Enquiries arrive through chats, calls and referrals and live in personal phones. <b>No single pipeline</b>, follow&#8209;ups by memory, lost leads invisible.</span><span class="ru">Запросы приходят через чаты, звонки и рекомендации и живут в личных телефонах. <b>Нет единой воронки</b>, напоминания по памяти, потерянные лиды невидимы.</span></div></div>
+      <div class="vrow"><div class="vlab s"><span class="en">SYSTEM ELEMENT</span><span class="ru">ЭЛЕМЕНТ СИСТЕМЫ</span></div><div class="vtxt"><span class="en">One lead register with stages, owners and next&#8209;action dates. Every enquiry enters it the day it arrives, whatever the channel.</span><span class="ru">Один реестр лидов со стадиями, ответственными и датами следующего шага. Каждый запрос попадает туда в день поступления, из любого канала.</span></div></div>
+      <div class="vrow"><div class="vlab e"><span class="en">EVIDENCE ARTIFACT</span><span class="ru">АРТЕФАКТ-ПОДТВЕРЖДЕНИЕ</span></div><div class="vtxt"><span class="en">A lead card with source, owner, next action and outcome. Conversion and loss reasons become measurable for the first time.</span><span class="ru">Карточка лида с источником, ответственным, следующим шагом и результатом. Конверсия и причины потерь впервые становятся измеримыми.</span></div></div>
+    </div>
+    <div class="vc">
+      <div class="vhead"><div class="vno">02</div><div class="vnm"><span class="en">Estimate &amp; fixed&#8209;price proposal</span><span class="ru">Смета и предложение по фиксированной цене</span></div><div class="rec"><span class="en">RECORD <b>·</b> COSTED ESTIMATE</span><span class="ru">ЗАПИСЬ <b>·</b> СМЕТА С МАРЖОЙ</span></div></div>
+      <div class="vrow"><div class="vlab p"><span class="en">TYPICAL PAIN<br>(HYPOTHESIS)</span><span class="ru">ТИПОВАЯ БОЛЬ<br>(ГИПОТЕЗА)</span></div><div class="vtxt"><span class="en">Every estimate rebuilt by hand in a fresh spreadsheet. Rates drift between estimators, <b>margin is invisible at the moment of signing</b>.</span><span class="ru">Каждая смета собирается вручную в новой таблице. Расценки расходятся между сметчиками, <b>маржа не видна в момент подписания</b>.</span></div></div>
+      <div class="vrow"><div class="vlab s"><span class="en">SYSTEM ELEMENT</span><span class="ru">ЭЛЕМЕНТ СИСТЕМЫ</span></div><div class="vtxt"><span class="en">A priced library of assemblies and rates feeding a costed proposal. One estimate format, versioned, with margin computed alongside price.</span><span class="ru">Библиотека расценок и типовых узлов, из которой собирается предложение. Один формат сметы, с версиями, маржа считается рядом с ценой.</span></div></div>
+      <div class="vrow"><div class="vlab e"><span class="en">EVIDENCE ARTIFACT</span><span class="ru">АРТЕФАКТ-ПОДТВЕРЖДЕНИЕ</span></div><div class="vtxt"><span class="en">A versioned estimate with an approved margin line. The signed estimate becomes the project baseline, not a separate document.</span><span class="ru">Смета с версией и утверждённой строкой маржи. Подписанная смета становится базовой версией проекта, а не отдельным документом.</span></div></div>
+    </div>
+    <div class="vc">
+      <div class="vhead"><div class="vno">03</div><div class="vnm"><span class="en">Design &amp; permits</span><span class="ru">Дизайн-проект и разрешения</span></div><div class="rec"><span class="en">RECORD <b>·</b> DESIGN BASELINE</span><span class="ru">ЗАПИСЬ <b>·</b> БАЗОВАЯ ВЕРСИЯ ДИЗАЙНА</span></div></div>
+      <div class="vrow"><div class="vlab p"><span class="en">TYPICAL PAIN<br>(HYPOTHESIS)</span><span class="ru">ТИПОВАЯ БОЛЬ<br>(ГИПОТЕЗА)</span></div><div class="vtxt"><span class="en">Design revisions unversioned, the current drawing is whichever file was sent last. Permit and approval status <b>tracked in people's heads</b>, scope drifts quietly.</span><span class="ru">Ревизии дизайна без версий, актуальный чертёж тот, что отправили последним. Статус разрешений и согласований <b>держат в голове</b>, объём работ тихо расползается.</span></div></div>
+      <div class="vrow"><div class="vlab s"><span class="en">SYSTEM ELEMENT</span><span class="ru">ЭЛЕМЕНТ СИСТЕМЫ</span></div><div class="vtxt"><span class="en">A versioned design baseline per project plus a permit tracker with authority, status and expiry dates in one view.</span><span class="ru">Базовая версия дизайна с версиями по каждому проекту плюс трекер разрешений: инстанция, статус и сроки действия в одном виде.</span></div></div>
+      <div class="vrow"><div class="vlab e"><span class="en">EVIDENCE ARTIFACT</span><span class="ru">АРТЕФАКТ-ПОДТВЕРЖДЕНИЕ</span></div><div class="vtxt"><span class="en">One current revision, one permit status, both answerable in ten seconds without calling anyone.</span><span class="ru">Одна актуальная ревизия, один статус разрешения, и на оба вопроса ответ за десять секунд без единого звонка.</span></div></div>
+    </div>
+    <div class="vc">
+      <div class="vhead"><div class="vno">04</div><div class="vnm"><span class="en">Procurement &amp; joinery</span><span class="ru">Закупки и столярные изделия</span></div><div class="rec"><span class="en">RECORD <b>·</b> PURCHASE ORDER</span><span class="ru">ЗАПИСЬ <b>·</b> ЗАКАЗ ПОСТАВЩИКУ</span></div></div>
+      <div class="vrow"><div class="vlab p"><span class="en">TYPICAL PAIN<br>(HYPOTHESIS)</span><span class="ru">ТИПОВАЯ БОЛЬ<br>(ГИПОТЕЗА)</span></div><div class="vtxt"><span class="en">Purchase requests in chats, no link between orders and the site schedule. Deliveries arrive early, late or twice; <b>storage and idle time absorb the margin</b>.</span><span class="ru">Заявки на закупку в чатах, заказы не связаны с графиком объекта. Поставки приходят рано, поздно или дважды; <b>хранение и простои съедают маржу</b>.</span></div></div>
+      <div class="vrow"><div class="vlab s"><span class="en">SYSTEM ELEMENT</span><span class="ru">ЭЛЕМЕНТ СИСТЕМЫ</span></div><div class="vtxt"><span class="en">A request&#8209;to&#8209;order&#8209;to&#8209;delivery pipeline where every order is tied to a project line and a need&#8209;by date from the site schedule.</span><span class="ru">Конвейер «заявка, заказ, поставка», где каждый заказ привязан к строке проекта и к дате потребности из графика объекта.</span></div></div>
+      <div class="vrow"><div class="vlab e"><span class="en">EVIDENCE ARTIFACT</span><span class="ru">АРТЕФАКТ-ПОДТВЕРЖДЕНИЕ</span></div><div class="vtxt"><span class="en">Every order carries its project, line and need&#8209;by date. Late and orphan orders surface weekly, not at closeout.</span><span class="ru">У каждого заказа есть проект, строка и дата потребности. Опоздавшие и ничейные заказы всплывают еженедельно, а не при закрытии проекта.</span></div></div>
+    </div>
+    <div class="vc">
+      <div class="vhead"><div class="vno">05</div><div class="vnm"><span class="en">Site execution &amp; QC</span><span class="ru">Работы на объекте и контроль качества</span></div><div class="rec"><span class="en">RECORD <b>·</b> SITE LOG &amp; PUNCH LIST</span><span class="ru">ЗАПИСЬ <b>·</b> ЖУРНАЛ ОБЪЕКТА И ДЕФЕКТНАЯ ВЕДОМОСТЬ</span></div></div>
+      <div class="vrow"><div class="vlab p"><span class="en">TYPICAL PAIN<br>(HYPOTHESIS)</span><span class="ru">ТИПОВАЯ БОЛЬ<br>(ГИПОТЕЗА)</span></div><div class="vtxt"><span class="en">Progress lives in photo chats, punch lists on paper. <b>Rework is unmeasured</b>, so the same defects repeat across projects.</span><span class="ru">Прогресс живёт в фото-чатах, дефектные ведомости на бумаге. <b>Переделки не измеряются</b>, поэтому одни и те же дефекты повторяются от проекта к проекту.</span></div></div>
+      <div class="vrow"><div class="vlab s"><span class="en">SYSTEM ELEMENT</span><span class="ru">ЭЛЕМЕНТ СИСТЕМЫ</span></div><div class="vtxt"><span class="en">A daily site log and a digital punch list with photo evidence, tied to stages. QC sign&#8209;off is a record, not a conversation.</span><span class="ru">Ежедневный журнал объекта и цифровая дефектная ведомость с фотоподтверждениями, привязанные к этапам. Приёмка качества становится записью, а не разговором.</span></div></div>
+      <div class="vrow"><div class="vlab e"><span class="en">EVIDENCE ARTIFACT</span><span class="ru">АРТЕФАКТ-ПОДТВЕРЖДЕНИЕ</span></div><div class="vtxt"><span class="en">Each stage closes with photos, measurements and sign&#8209;offs attached. Rework gets a cause code and a cost.</span><span class="ru">Каждый этап закрывается с приложенными фото, замерами и подписями. У переделки появляются код причины и стоимость.</span></div></div>
+    </div>
+    <div class="vc">
+      <div class="vhead"><div class="vno">06</div><div class="vnm"><span class="en">Handover &amp; warranty</span><span class="ru">Сдача и гарантия</span></div><div class="rec"><span class="en">RECORD <b>·</b> WARRANTY TICKET</span><span class="ru">ЗАПИСЬ <b>·</b> ГАРАНТИЙНАЯ ЗАЯВКА</span></div></div>
+      <div class="vrow"><div class="vlab p"><span class="en">TYPICAL PAIN<br>(HYPOTHESIS)</span><span class="ru">ТИПОВАЯ БОЛЬ<br>(ГИПОТЕЗА)</span></div><div class="vtxt"><span class="en">Aftercare calls unlogged, handled ad hoc by whoever answers. <b>Warranty cost is never attributed</b> to the project or the cause that created it.</span><span class="ru">Обращения после сдачи не фиксируются и решаются тем, кто взял трубку. <b>Стоимость гарантии никогда не относится</b> на проект и причину, которые её породили.</span></div></div>
+      <div class="vrow"><div class="vlab s"><span class="en">SYSTEM ELEMENT</span><span class="ru">ЭЛЕМЕНТ СИСТЕМЫ</span></div><div class="vtxt"><span class="en">A warranty ticket log tied to project, trade and root cause, feeding back into QC standards and the estimate library.</span><span class="ru">Журнал гарантийных заявок с привязкой к проекту, виду работ и корневой причине, который возвращает данные в стандарты качества и в библиотеку смет.</span></div></div>
+      <div class="vrow"><div class="vlab e"><span class="en">EVIDENCE ARTIFACT</span><span class="ru">АРТЕФАКТ-ПОДТВЕРЖДЕНИЕ</span></div><div class="vtxt"><span class="en">Warranty cost per project and per cause is a number. The guarantee stops being a black box and starts pricing itself.</span><span class="ru">Стоимость гарантии по проекту и по причине становится числом. Гарантия перестаёт быть чёрным ящиком и начинает сама себя оценивать.</span></div></div>
+    </div>
+  </div>
+  <div class="note mt"><span class="en"><b>How the diagnostic uses this page.</b> Each stage is scored on three questions: how often the manual step happens, what it costs when it goes wrong, and who inside the company owns the fix. The score decides the wave a stage lands in, not the enthusiasm of the room.</span><span class="ru"><b>Как диагностика использует эту страницу.</b> Каждая стадия оценивается по трём вопросам: как часто случается ручной шаг, во что он обходится, когда идёт не так, и кто внутри компании отвечает за исправление. Оценка решает, в какую волну попадает стадия, а не энтузиазм в переговорной.</span></div>
+</div>
+
+<div class="page" id="p-spine">
+  <div class="kicker"><div class="bar"></div><div class="txt"><span class="en">THE SPINE · FOUR DISCIPLINES</span><span class="ru">ХРЕБЕТ · ЧЕТЫРЕ ДИСЦИПЛИНЫ</span></div></div>
+  <h1><span class="en">The four disciplines every stage <em>hangs on</em></span><span class="ru">Четыре дисциплины, на которых <em>держится</em> каждый этап</span></h1>
+  <div class="stand"><span class="en">The value chain describes what the company does. The spine describes how any of it stays true: one source of record, priced deviations, gated progress, and a fixed rhythm of review. Remove any one of the four and fixed price becomes a bet.</span><span class="ru">Цепочка ценности описывает, что делает компания. Хребет описывает, как всё это остаётся правдой: один источник записи, оценённые отклонения, прогресс через гейты и фиксированный ритм обзора. Уберите любую из четырёх, и фиксированная цена превращается в ставку.</span></div>
+  <div class="spgrid">
+    <div class="sp">
+      <div class="sn">01</div><h3><span class="en">One project baseline</span><span class="ru">Одна базовая версия проекта</span></h3>
+      <p><span class="en">A single source document per project: scope, budget and schedule in one place, signed once. Every other artefact references it rather than copying it.</span><span class="ru">Один исходный документ на проект: объём, бюджет и график в одном месте, подписанные один раз. Все остальные документы ссылаются на него, а не копируют.</span></p>
+      <p class="why"><span class="en"><b>Why it matters:</b> when three versions of the truth exist, the most expensive one wins. The baseline is what "on track" is measured against.</span><span class="ru"><b>Почему это важно:</b> когда существуют три версии правды, побеждает самая дорогая. Базовая версия и есть то, относительно чего измеряется «идём по плану».</span></p>
+    </div>
+    <div class="sp">
+      <div class="sn">02</div><h3><span class="en">Change&#8209;control log</span><span class="ru">Журнал изменений</span></h3>
+      <p><span class="en">Every deviation from the baseline is priced and signed before the work happens, and logged after. The log is the memory of the project.</span><span class="ru">Каждое отклонение от базовой версии оценивается и подписывается до выполнения работ и фиксируется после. Журнал и есть память проекта.</span></p>
+      <p class="why"><span class="en"><b>Why it matters:</b> in fit&#8209;out, margin rarely dies in the estimate. It dies in thirty unpriced "small changes" nobody wrote down.</span><span class="ru"><b>Почему это важно:</b> в фит-ауте маржа редко умирает в смете. Она умирает в тридцати неоценённых «мелких правках», которые никто не записал.</span></p>
+    </div>
+    <div class="sp">
+      <div class="sn">03</div><h3><span class="en">Stage gates</span><span class="ru">Гейты этапов</span></h3>
+      <p><span class="en">A stage closes only with evidence attached: photos, measurements, sign&#8209;offs, acts. A verbal "done" does not close a gate for anyone, at any level.</span><span class="ru">Этап закрывается только с приложенными подтверждениями: фото, замеры, подписи, акты. Устное «готово» не закрывает гейт никому, ни на каком уровне.</span></p>
+      <p class="why"><span class="en"><b>Why it matters:</b> evidence at the gate is cheaper than discovery at handover. It is also the only honest basis for progress payments.</span><span class="ru"><b>Почему это важно:</b> подтверждение на гейте дешевле, чем открытие при сдаче. Это же единственная честная основа для промежуточных платежей.</span></p>
+    </div>
+    <div class="sp">
+      <div class="sn">04</div><h3><span class="en">Weekly cadence</span><span class="ru">Недельный ритм</span></h3>
+      <p><span class="en">One operating review a week, one status view for everyone, decisions logged with owners and dates. Not more meetings; one that counts.</span><span class="ru">Один операционный обзор в неделю, один статус для всех, решения записаны с ответственными и датами. Не больше встреч, а одна, которая имеет значение.</span></p>
+      <p class="why"><span class="en"><b>Why it matters:</b> a system nobody reviews decays in a month. The cadence is what keeps the other three disciplines alive.</span><span class="ru"><b>Почему это важно:</b> система, которую никто не проверяет, разваливается за месяц. Ритм и есть то, что держит остальные три дисциплины живыми.</span></p>
+    </div>
+  </div>
+  <div class="gate">
+    <div class="gt"><span class="en">HOW A GATE WORKS</span><span class="ru">КАК РАБОТАЕТ ГЕЙТ</span><span class="en gs">PASS OPENS THE NEXT STAGE · FAIL ROUTES THROUGH CHANGE CONTROL AND RETURNS TO THE GATE</span><span class="ru gs">ПРОЙДЕН: ОТКРЫВАЕТСЯ СЛЕДУЮЩИЙ ЭТАП · НЕ ПРОЙДЕН: ЧЕРЕЗ КОНТРОЛЬ ИЗМЕНЕНИЙ ОБРАТНО К ГЕЙТУ</span></div>
+    <div class="gwrap">
+    <svg viewBox="0 0 1240 332" xmlns="http://www.w3.org/2000/svg" font-family="Liberation Sans, Arial, sans-serif">
+      <defs>
+        <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#C9A227"/></marker>
+        <marker id="at" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#B84A14"/></marker>
+        <marker id="am" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8E96AC"/></marker>
+      </defs>
+      <path d="M1100,252 L1180,252 L1180,22 L410,22 L410,58" fill="none" stroke="#C9A227" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#ag)"/>
+      <text class="en" x="795" y="14" text-anchor="middle" font-size="11.5" letter-spacing="1.5" fill="#C9A227" font-weight="bold">RE-ENTER THE GATE WITH THE UPDATED BASELINE</text><text class="ru" x="795" y="14" text-anchor="middle" font-size="11.5" letter-spacing="1.5" fill="#C9A227" font-weight="bold">ВОЗВРАТ К ГЕЙТУ С ОБНОВЛЁННОЙ БАЗОВОЙ ВЕРСИЕЙ</text>
+
+      <rect x="20" y="62" width="200" height="84" fill="#26314F" stroke="#3A4568"/>
+      <text x="120" y="98" fill="#FFFFFF" font-weight="bold" font-size="15" text-anchor="middle"><tspan class="en">Stage N</tspan><tspan class="ru">Этап N</tspan></text>
+      <text x="120" y="120" fill="#AEB4C4" font-size="11.5" text-anchor="middle"><tspan class="en">work under the baseline</tspan><tspan class="ru">работа по базовой версии</tspan></text>
+      <path d="M220,104 L300,104" stroke="#C9A227" stroke-width="2" marker-end="url(#ag)"/>
+
+      <rect x="300" y="50" width="220" height="108" fill="#2E3859" stroke="#C9A227" stroke-width="2"/>
+      <text x="410" y="88" text-anchor="middle" font-size="12" letter-spacing="2.6" font-weight="bold" fill="#C9A227"><tspan class="en">GATE</tspan><tspan class="ru">ГЕЙТ</tspan></text>
+      <text x="410" y="112" text-anchor="middle" font-size="14" font-weight="bold" fill="#FFFFFF"><tspan class="en">evidence attached?</tspan><tspan class="ru">подтверждения приложены?</tspan></text>
+      <text x="410" y="134" text-anchor="middle" font-size="11" fill="#AEB4C4"><tspan class="en">photos · measurements · sign-offs · acts</tspan><tspan class="ru">фото · замеры · подписи · акты</tspan></text>
+
+      <path d="M520,104 L600,104" stroke="#C9A227" stroke-width="2" marker-end="url(#ag)"/>
+      <text x="560" y="94" text-anchor="middle" fill="#C9A227" font-weight="bold" letter-spacing="1.8" font-size="11"><tspan class="en">PASS</tspan><tspan class="ru">ПРОЙДЕН</tspan></text>
+      <rect x="600" y="62" width="200" height="84" fill="#26314F" stroke="#3A4568"/>
+      <text x="700" y="98" fill="#FFFFFF" font-weight="bold" font-size="15" text-anchor="middle"><tspan class="en">Stage N+1</tspan><tspan class="ru">Этап N+1</tspan></text>
+      <text x="700" y="120" fill="#AEB4C4" font-size="11.5" text-anchor="middle"><tspan class="en">opens only on pass</tspan><tspan class="ru">открывается только после прохода</tspan></text>
+
+      <path d="M800,104 L880,104" stroke="#8E96AC" stroke-width="2" stroke-dasharray="4 4" marker-end="url(#am)"/>
+      <rect x="880" y="62" width="220" height="84" fill="#26314F" stroke="#3A4568" stroke-dasharray="5 3"/>
+      <text x="990" y="92" fill="#FFFFFF" font-weight="bold" font-size="15" text-anchor="middle"><tspan class="en">Weekly review</tspan><tspan class="ru">Недельный обзор</tspan></text>
+      <text x="990" y="111" fill="#AEB4C4" font-size="11.5" text-anchor="middle"><tspan class="en">reads every gate state,</tspan><tspan class="ru">читает состояние каждого гейта,</tspan></text>
+      <text x="990" y="127" fill="#AEB4C4" font-size="11.5" text-anchor="middle"><tspan class="en">logs decisions with owners and dates</tspan><tspan class="ru">решения: ответственные и даты</tspan></text>
+
+      <path d="M410,158 L410,210" stroke="#B84A14" stroke-width="2" marker-end="url(#at)"/>
+      <text x="426" y="190" fill="#B84A14" font-weight="bold" letter-spacing="1.8" font-size="11"><tspan class="en">FAIL</tspan><tspan class="ru">НЕ ПРОЙДЕН</tspan></text>
+      <rect x="300" y="210" width="220" height="84" fill="#26314F" stroke="#B84A14"/>
+      <text x="410" y="246" fill="#FFFFFF" font-weight="bold" font-size="15" text-anchor="middle"><tspan class="en">Deviation found</tspan><tspan class="ru">Найдено отклонение</tspan></text>
+      <text x="410" y="268" fill="#AEB4C4" font-size="11.5" text-anchor="middle"><tspan class="en">missing evidence or a change in scope</tspan><tspan class="ru">нет подтверждения или изменён объём</tspan></text>
+
+      <path d="M520,252 L600,252" stroke="#B84A14" stroke-width="2" marker-end="url(#at)"/>
+      <rect x="600" y="210" width="200" height="84" fill="#26314F" stroke="#B84A14"/>
+      <text x="700" y="246" fill="#FFFFFF" font-weight="bold" font-size="15" text-anchor="middle"><tspan class="en">Priced and signed</tspan><tspan class="ru">Оценено и подписано</tspan></text>
+      <text x="700" y="268" fill="#AEB4C4" font-size="11.5" text-anchor="middle"><tspan class="en">before the work, not after</tspan><tspan class="ru">до работ, а не после</tspan></text>
+
+      <path d="M800,252 L880,252" stroke="#B84A14" stroke-width="2" marker-end="url(#at)"/>
+      <rect x="880" y="210" width="220" height="84" fill="#26314F" stroke="#C9A227"/>
+      <text x="990" y="246" fill="#FFFFFF" font-weight="bold" font-size="15" text-anchor="middle"><tspan class="en">Baseline updated</tspan><tspan class="ru">Базовая версия обновлена</tspan></text>
+      <text x="990" y="268" fill="#AEB4C4" font-size="11.5" text-anchor="middle"><tspan class="en">entry in the change-control log</tspan><tspan class="ru">запись в журнале изменений</tspan></text>
+
+      <line x1="20" y1="320" x2="50" y2="320" stroke="#C9A227" stroke-width="2"/><text x="58" y="324" font-size="11" fill="#AEB4C4"><tspan class="en">pass path</tspan><tspan class="ru">путь прохода</tspan></text>
+      <line x1="150" y1="320" x2="180" y2="320" stroke="#B84A14" stroke-width="2"/><text x="188" y="324" font-size="11" fill="#AEB4C4"><tspan class="en">fail path, through change control</tspan><tspan class="ru">путь отказа, через контроль изменений</tspan></text>
+      <line x1="430" y1="320" x2="460" y2="320" stroke="#8E96AC" stroke-width="2" stroke-dasharray="4 4"/><text x="468" y="324" font-size="11" fill="#AEB4C4"><tspan class="en">read by the weekly cadence</tspan><tspan class="ru">читается недельным ритмом</tspan></text>
+    </svg></div>
+    <div class="gnote"><span class="en">No stage passes without evidence. This is what makes <span>fixed price survivable</span> at scale.</span><span class="ru">Ни один этап не проходит без подтверждений. Именно это делает <span>фиксированную цену выживаемой</span> в масштабе.</span></div>
+  </div>
+  <div class="sec-head"><div class="sec-label"><span class="en">ONE DATA SPINE · EIGHT RECORDS</span><span class="ru">ОДИН ХРЕБЕТ ДАННЫХ · ВОСЕМЬ ЗАПИСЕЙ</span></div><div class="sec-line"></div><div class="sec-tag"><span class="en">EVERY LAYER READS THESE, NOTHING IS ENTERED TWICE</span><span class="ru">ИХ ЧИТАЕТ КАЖДЫЙ СЛОЙ, НИЧЕГО НЕ ВВОДИТСЯ ДВАЖДЫ</span></div></div>
+  <div class="recs"><div class="rec1"><div class="rn"><span class="en">STAGE <b>01</b></span><span class="ru">СТАДИЯ <b>01</b></span></div><div class="rt"><span class="en">Lead card</span><span class="ru">Карточка лида</span></div><div class="rd"><span class="en">source, owner, next action, outcome</span><span class="ru">источник, ответственный, следующий шаг, результат</span></div></div><div class="rec1"><div class="rn"><span class="en">STAGE <b>02</b></span><span class="ru">СТАДИЯ <b>02</b></span></div><div class="rt"><span class="en">Costed estimate</span><span class="ru">Смета с маржой</span></div><div class="rd"><span class="en">from the rate library, margin line included</span><span class="ru">из библиотеки расценок, со строкой маржи</span></div></div><div class="rec1"><div class="rn"><span class="en">STAGE <b>02</b></span><span class="ru">СТАДИЯ <b>02</b></span></div><div class="rt"><span class="en">Project baseline</span><span class="ru">Базовая версия проекта</span></div><div class="rd"><span class="en">signed scope, budget and schedule</span><span class="ru">подписанные объём, бюджет и график</span></div></div><div class="rec1"><div class="rn"><span class="en">SPINE</span><span class="ru">ХРЕБЕТ</span></div><div class="rt"><span class="en">Change order</span><span class="ru">Заказ на изменение</span></div><div class="rd"><span class="en">priced, signed, logged against the baseline</span><span class="ru">оценён, подписан, записан к базовой версии</span></div></div><div class="rec1"><div class="rn"><span class="en">STAGE <b>04</b></span><span class="ru">СТАДИЯ <b>04</b></span></div><div class="rt"><span class="en">Purchase order</span><span class="ru">Заказ поставщику</span></div><div class="rd"><span class="en">project line, need&#8209;by date, delivery status</span><span class="ru">строка проекта, дата потребности, статус поставки</span></div></div><div class="rec1"><div class="rn"><span class="en">STAGE <b>05</b></span><span class="ru">СТАДИЯ <b>05</b></span></div><div class="rt"><span class="en">Site log &amp; punch item</span><span class="ru">Журнал объекта и дефект</span></div><div class="rd"><span class="en">photo evidence, stage, cause code</span><span class="ru">фотоподтверждение, этап, код причины</span></div></div><div class="rec1"><div class="rn"><span class="en">GATE</span><span class="ru">ГЕЙТ</span></div><div class="rt"><span class="en">Progress act</span><span class="ru">Акт выполненных работ</span></div><div class="rd"><span class="en">released only on a passed gate</span><span class="ru">выпускается только после пройденного гейта</span></div></div><div class="rec1"><div class="rn"><span class="en">STAGE <b>06</b></span><span class="ru">СТАДИЯ <b>06</b></span></div><div class="rt"><span class="en">Warranty ticket</span><span class="ru">Гарантийная заявка</span></div><div class="rd"><span class="en">project, trade, root cause, cost</span><span class="ru">проект, вид работ, корневая причина, стоимость</span></div></div></div>
+</div>
+
+<div class="page" id="p-layers">
+  <div class="kicker"><div class="bar"></div><div class="txt"><span class="en">THREE LAYERS OVER THE CHAIN</span><span class="ru">ТРИ СЛОЯ ПОВЕРХ ЦЕПОЧКИ</span></div></div>
+  <h1><span class="en">Finance, client and AI: three layers on <em>one</em> data spine</span><span class="ru">Финансы, клиент и ИИ: три слоя на <em>одном</em> хребте данных</span></h1>
+  <div class="stand"><span class="en">The layers are not separate systems. Each one reads the same eight records the chain produces, which is why they arrive in this order and not the reverse.</span><span class="ru">Слои не отдельные системы. Каждый читает те же восемь записей, которые производит цепочка, и поэтому они появляются именно в этом порядке, а не в обратном.</span></div>
+  <div class="lygrid">
+    <div class="ly g">
+      <h3><span class="en">FINANCE LAYER</span><span class="ru">ФИНАНСОВЫЙ СЛОЙ</span></h3>
+      <div class="lyrow"><div class="lylab"><span class="en">WHAT IT GIVES</span><span class="ru">ЧТО ДАЁТ</span></div><div class="lytxt"><span class="en">Estimate <span class="dot">·</span> cash plan <span class="dot">·</span> progress acts <span class="dot">·</span> margin per project, visible weekly. A portfolio view across all live projects.</span><span class="ru">Смета <span class="dot">·</span> план денег <span class="dot">·</span> акты выполненных работ <span class="dot">·</span> маржа по проекту, видна еженедельно. Портфельный вид по всем живым проектам.</span></div></div>
+      <div class="lyrow"><div class="lylab"><span class="en">WHAT IT NEEDS</span><span class="ru">ЧТО ДЛЯ ЭТОГО НУЖНО</span></div><div class="lytxt"><span class="en">One estimate format, project cost codes, acts tied to gates. All produced by the chain, not by extra reporting work.</span><span class="ru">Один формат сметы, коды затрат по проектам, акты, привязанные к гейтам. Всё это производит цепочка, а не дополнительная отчётная работа.</span></div></div>
+      <div class="lyquote"><span class="en">Every project carries its own P&amp;L, <b>visible weekly, not discovered at handover.</b></span><span class="ru">У каждого проекта своя экономика, <b>видна еженедельно, а не обнаруживается при сдаче.</b></span></div>
+    </div>
+    <div class="ly g">
+      <h3><span class="en">CLIENT LAYER</span><span class="ru">КЛИЕНТСКИЙ СЛОЙ</span></h3>
+      <div class="lyrow"><div class="lylab"><span class="en">WHAT IT GIVES</span><span class="ru">ЧТО ДАЁТ</span></div><div class="lytxt"><span class="en">One status view per project <span class="dot">·</span> remote owner reporting <span class="dot">·</span> change requests priced before work starts <span class="dot">·</span> a handover record the client keeps.</span><span class="ru">Один статус по проекту <span class="dot">·</span> отчётность для удалённого собственника <span class="dot">·</span> запросы на изменения оценены до начала работ <span class="dot">·</span> запись о сдаче, которая остаётся у клиента.</span></div></div>
+      <div class="lyrow"><div class="lylab"><span class="en">WHAT IT NEEDS</span><span class="ru">ЧТО ДЛЯ ЭТОГО НУЖНО</span></div><div class="lytxt"><span class="en">The same site log, gates and change&#8209;control the company already runs on. The client sees a filtered view of the truth, not a parallel deck.</span><span class="ru">Тот же журнал объекта, гейты и контроль изменений, на которых уже работает компания. Клиент видит отфильтрованный вид той же правды, а не параллельную презентацию.</span></div></div>
+      <div class="lyquote"><span class="en">Transparency sold to clients becomes <b>the same view the company runs on.</b></span><span class="ru">Прозрачность, которую продают клиенту, становится <b>тем же видом, по которому работает компания.</b></span></div>
+    </div>
+    <div class="ly ai">
+      <h3><span class="en"><i>AI LAYER</i></span><span class="ru"><i>СЛОЙ ИИ</i></span></h3>
+      <div class="lyrow"><div class="lylab"><span class="en">WHAT IT GIVES</span><span class="ru">ЧТО ДАЁТ</span></div><div class="lytxt"><span class="en">Document and estimate parsing <span class="dot">·</span> auto&#8209;generated status reports <span class="dot">·</span> procurement matching <span class="dot">·</span> a searchable memory of every project.</span><span class="ru">Разбор документов и смет <span class="dot">·</span> автоматические статус-отчёты <span class="dot">·</span> подбор закупок <span class="dot">·</span> память всех проектов с поиском.</span></div></div>
+      <div class="lyrow"><div class="lylab"><span class="en">WHAT IT NEEDS</span><span class="ru">ЧТО ДЛЯ ЭТОГО НУЖНО</span></div><div class="lytxt"><span class="en">Structured records from waves one and two. AI reads the spine; it cannot invent one.</span><span class="ru">Структурированные записи из первой и второй волн. ИИ читает хребет, придумать его он не может.</span></div></div>
+      <div class="lyquote"><span class="en"><b>AI lands last, on clean processes.</b> Automating a broken process scales the breakage.</span><span class="ru"><b>ИИ приходит последним, на чистые процессы.</b> Автоматизация сломанного процесса масштабирует поломку.</span></div>
+    </div>
+  </div>
+  <div class="sec-head"><div class="sec-label"><span class="en">WHO SEES WHAT</span><span class="ru">КТО ЧТО ВИДИТ</span></div><div class="sec-line"></div><div class="sec-tag"><span class="en">ONE RECORD, MANY VIEWS</span><span class="ru">ОДНА ЗАПИСЬ, МНОГО ВИДОВ</span></div></div>
+  <div class="mxwrap"><table class="mx">
+    <thead><tr><th><span class="en">VIEW</span><span class="ru">ВИД</span></th><th><span class="en">FOUNDER</span><span class="ru">ОСНОВАТЕЛЬ</span></th><th><span class="en">PROJECT<br>MANAGER</span><span class="ru">РУКОВОДИТЕЛЬ<br>ПРОЕКТА</span></th><th><span class="en">ESTIMATOR</span><span class="ru">СМЕТЧИК</span></th><th><span class="en">PROCUREMENT</span><span class="ru">ЗАКУПКИ</span></th><th><span class="en">SITE LEAD</span><span class="ru">ПРОРАБ</span></th><th><span class="en">FINANCE</span><span class="ru">ФИНАНСЫ</span></th><th class="cl"><span class="en">CLIENT</span><span class="ru">КЛИЕНТ</span></th></tr></thead>
+    <tbody>
+      <tr><td><span class="en">Status board<small>every live project: stage, owner, gate state, money position</small></span><span class="ru">Статус-борд<small>все живые проекты: этап, ответственный, состояние гейта, деньги</small></span></td><td><span class="d o"></span></td><td><span class="d o"></span></td><td><span class="d r"></span></td><td><span class="d r"></span></td><td><span class="d r"></span></td><td><span class="d r"></span></td><td class="cl"><span class="d r"></span></td></tr>
+      <tr><td><span class="en">Estimate library and rates<small>assemblies, rates, approved margin rules</small></span><span class="ru">Библиотека смет и расценок<small>типовые узлы, расценки, правила маржи</small></span></td><td><span class="d r"></span></td><td><span class="d r"></span></td><td><span class="d o"></span></td><td><span class="d o"></span></td><td></td><td><span class="d r"></span></td><td class="cl"></td></tr>
+      <tr><td><span class="en">Margin per project<small>estimate vs actual, weekly</small></span><span class="ru">Маржа по проекту<small>смета против факта, еженедельно</small></span></td><td><span class="d o"></span></td><td><span class="d r"></span></td><td><span class="d r"></span></td><td></td><td></td><td><span class="d o"></span></td><td class="cl"></td></tr>
+      <tr><td><span class="en">Change&#8209;control log<small>every deviation, priced and signed</small></span><span class="ru">Журнал изменений<small>каждое отклонение, оценено и подписано</small></span></td><td><span class="d r"></span></td><td><span class="d o"></span></td><td><span class="d r"></span></td><td><span class="d r"></span></td><td><span class="d r"></span></td><td><span class="d r"></span></td><td class="cl"><span class="d r"></span></td></tr>
+      <tr><td><span class="en">Procurement pipeline<small>request to order to delivery, need&#8209;by dates</small></span><span class="ru">Конвейер закупок<small>заявка, заказ, поставка, даты потребности</small></span></td><td><span class="d r"></span></td><td><span class="d o"></span></td><td></td><td><span class="d o"></span></td><td><span class="d r"></span></td><td><span class="d r"></span></td><td class="cl"></td></tr>
+      <tr><td><span class="en">Site log and punch list<small>daily progress, photo evidence, QC sign&#8209;offs</small></span><span class="ru">Журнал объекта и дефектная ведомость<small>ежедневный прогресс, фото, приёмка качества</small></span></td><td><span class="d r"></span></td><td><span class="d o"></span></td><td></td><td></td><td><span class="d o"></span></td><td></td><td class="cl"><span class="d r"></span></td></tr>
+      <tr><td><span class="en">Cash plan and acts<small>progress acts released on passed gates</small></span><span class="ru">План денег и акты<small>акты выпускаются после пройденных гейтов</small></span></td><td><span class="d o"></span></td><td><span class="d r"></span></td><td></td><td><span class="d r"></span></td><td></td><td><span class="d o"></span></td><td class="cl"><span class="d r"></span></td></tr>
+      <tr><td><span class="en">Warranty log<small>tickets by project, trade and root cause</small></span><span class="ru">Журнал гарантии<small>заявки по проекту, виду работ и причине</small></span></td><td><span class="d r"></span></td><td><span class="d r"></span></td><td><span class="d r"></span></td><td></td><td><span class="d o"></span></td><td><span class="d r"></span></td><td class="cl"><span class="d r"></span></td></tr>
+      </tbody>
+  </table></div>
+  <div class="legend"><span><span class="d o"></span>&nbsp; <span class="en">owns and edits</span><span class="ru">ведёт и редактирует</span></span><span><span class="d r"></span>&nbsp; <span class="en">reads (the client reads a filtered view of their own project only)</span><span class="ru">читает (клиент видит только отфильтрованный вид своего проекта)</span></span><span><span class="en">blank: not needed for the role</span><span class="ru">пусто: этой роли не нужно</span></span></div>
+</div>
+
+<div class="page" id="p-sequencing">
+  <div class="kicker"><div class="bar"></div><div class="txt"><span class="en">SEQUENCING · THREE WAVES</span><span class="ru">ПОСЛЕДОВАТЕЛЬНОСТЬ · ТРИ ВОЛНЫ</span></div></div>
+  <h1><span class="en">Built in <em>waves</em>, each one paying for the next</span><span class="ru">Строится <em>волнами</em>, каждая окупает следующую</span></h1>
+  <div class="stand"><span class="en">Nothing here is a big&#8209;bang implementation. Each wave has an entry condition, a scope and an exit test, and the next wave starts only when the previous one holds in daily use.</span><span class="ru">Здесь нет внедрения «большим взрывом». У каждой волны есть условие входа, объём и тест выхода, и следующая волна начинается только тогда, когда предыдущая держится в ежедневной работе.</span></div>
+  <div class="band">
+    <div class="bseg w1"><div class="bt"><span class="en">WAVE 1 · FIRST 90 DAYS</span><span class="ru">ВОЛНА 1 · ПЕРВЫЕ 90 ДНЕЙ</span></div><div class="bn"><span class="en">Legibility</span><span class="ru">Читаемость</span></div><div class="bd"><span class="en">estimate pipeline and one status board</span><span class="ru">сметный конвейер и один статус-борд</span></div></div>
+    <div class="bgate"><i>&#9670;</i><span class="en">EXIT TEST<br>HOLDS IN DAILY USE</span><span class="ru">ТЕСТ ВЫХОДА<br>ДЕРЖИТСЯ В РАБОТЕ</span></div>
+    <div class="bseg"><div class="bt"><span class="en">WAVE 2</span><span class="ru">ВОЛНА 2</span></div><div class="bn"><span class="en">Process core</span><span class="ru">Ядро процессов</span></div><div class="bd"><span class="en">one backbone, one data model</span><span class="ru">одна основа, одна модель данных</span></div></div>
+    <div class="bgate"><i>&#9670;</i><span class="en">EXIT TEST<br>NO RE&#8209;ENTRY</span><span class="ru">ТЕСТ ВЫХОДА<br>НЕТ ДВОЙНОГО ВВОДА</span></div>
+    <div class="bseg"><div class="bt"><span class="en">WAVE 3</span><span class="ru">ВОЛНА 3</span></div><div class="bn"><span class="en">AI on top</span><span class="ru">ИИ сверху</span></div><div class="bd"><span class="en">on records that already hold</span><span class="ru">на записях, которые уже держат</span></div></div>
+  </div>
+  <div class="sqrow">
+    <div class="sq w1">
+      <div class="wtag"><span class="en"><b>WAVE 1</b> · FIRST 90 DAYS</span><span class="ru"><b>ВОЛНА 1</b> · ПЕРВЫЕ 90 ДНЕЙ</span></div>
+      <h3><span class="en">Legibility</span><span class="ru">Читаемость</span></h3>
+      <div class="sqi"><div class="sqlab in"><span class="en">ENTRY</span><span class="ru">ВХОД</span></div><div class="sqtxt"><span class="en">Access to current estimates, the live project list and the people who own them.</span><span class="ru">Доступ к текущим сметам, списку живых проектов и людям, которые за них отвечают.</span></div></div>
+      <div class="sqi"><div class="sqlab do"><span class="en">SCOPE</span><span class="ru">ОБЪЁМ</span></div><div class="sqtxt"><span class="en">The estimate pipeline in one format with a rate library, and a single status board for every live project: stage, owner, gate state, money position. The weekly review starts in week one.</span><span class="ru">Сметный конвейер в одном формате с библиотекой расценок и единый статус-борд по каждому живому проекту: этап, ответственный, состояние гейта, деньги. Недельный обзор начинается с первой недели.</span></div></div>
+      <div class="sqi"><div class="sqlab out"><span class="en">EXIT TEST</span><span class="ru">ТЕСТ ВЫХОДА</span></div><div class="sqtxt"><span class="en">Every live project on one board. Margin per signed proposal visible. Quick wins that pay for the programme.</span><span class="ru">Все живые проекты на одном борде. Маржа по каждому подписанному предложению видна. Быстрые победы, которые окупают программу.</span></div></div>
+      <div class="sqi sqsee"><div class="sqlab see"><span class="en">WHAT THE FOUNDER SEES</span><span class="ru">ЧТО ВИДИТ ОСНОВАТЕЛЬ</span></div><div class="sqtxt"><span class="en">One board instead of ten chats. The margin of every proposal before it is signed.</span><span class="ru">Один борд вместо десяти чатов. Маржа каждого предложения до его подписания.</span></div></div>
+    </div>
+    <div class="sq ">
+      <div class="wtag"><span class="en">WAVE 2</span><span class="ru">ВОЛНА 2</span></div>
+      <h3><span class="en">Process core</span><span class="ru">Ядро процессов</span></h3>
+      <div class="sqi"><div class="sqlab in"><span class="en">ENTRY</span><span class="ru">ВХОД</span></div><div class="sqtxt"><span class="en">The wave&#8209;one board adopted in daily use, not maintained by one enthusiast.</span><span class="ru">Борд первой волны прижился в ежедневной работе, а не держится на одном энтузиасте.</span></div></div>
+      <div class="sqi"><div class="sqlab do"><span class="en">SCOPE</span><span class="ru">ОБЪЁМ</span></div><div class="sqtxt"><span class="en">ERP or BPM backbone, finance integration, one data model for all departments. Procurement, acts and the cash plan move into the system; the change&#8209;control log becomes the only way to alter a baseline.</span><span class="ru">ERP или BPM как основа, интеграция с финансами, одна модель данных для всех департаментов. Закупки, акты и план денег переезжают в систему; журнал изменений становится единственным способом поменять базовую версию.</span></div></div>
+      <div class="sqi"><div class="sqlab out"><span class="en">EXIT TEST</span><span class="ru">ТЕСТ ВЫХОДА</span></div><div class="sqtxt"><span class="en">Orders, acts and the cash plan live in one place. Manual re&#8209;entry between departments approaches zero.</span><span class="ru">Заказы, акты и план денег живут в одном месте. Ручной повторный ввод между департаментами стремится к нулю.</span></div></div>
+      <div class="sqi sqsee"><div class="sqlab see"><span class="en">WHAT THE FOUNDER SEES</span><span class="ru">ЧТО ВИДИТ ОСНОВАТЕЛЬ</span></div><div class="sqtxt"><span class="en">One system where a number is entered once and read everywhere.</span><span class="ru">Одна система, где число вводится один раз и читается везде.</span></div></div>
+    </div>
+    <div class="sq ">
+      <div class="wtag"><span class="en">WAVE 3</span><span class="ru">ВОЛНА 3</span></div>
+      <h3><span class="en">AI on top</span><span class="ru">ИИ сверху</span></h3>
+      <div class="sqi"><div class="sqlab in"><span class="en">ENTRY</span><span class="ru">ВХОД</span></div><div class="sqtxt"><span class="en">Clean, structured records flowing from waves one and two.</span><span class="ru">Чистые структурированные записи, которые идут из первой и второй волн.</span></div></div>
+      <div class="sqi"><div class="sqlab do"><span class="en">SCOPE</span><span class="ru">ОБЪЁМ</span></div><div class="sqtxt"><span class="en">AI across documents, reporting and procurement: parsing incoming drawings and quotes, drafting status reports, matching requests to suppliers, and a searchable memory of every project.</span><span class="ru">ИИ в документах, отчётности и закупках: разбор входящих чертежей и коммерческих предложений, черновики статус-отчётов, подбор поставщиков под заявки и память всех проектов с поиском.</span></div></div>
+      <div class="sqi"><div class="sqlab out"><span class="en">EXIT TEST</span><span class="ru">ТЕСТ ВЫХОДА</span></div><div class="sqtxt"><span class="en">Status reports generate themselves. New estimates start from the library, not from a blank sheet.</span><span class="ru">Статус-отчёты формируются сами. Новые сметы начинаются с библиотеки, а не с чистого листа.</span></div></div>
+      <div class="sqi sqsee"><div class="sqlab see"><span class="en">WHAT THE FOUNDER SEES</span><span class="ru">ЧТО ВИДИТ ОСНОВАТЕЛЬ</span></div><div class="sqtxt"><span class="en">Reports that write themselves, and a company that remembers every project it has done.</span><span class="ru">Отчёты, которые пишут себя сами, и компания, которая помнит каждый сделанный проект.</span></div></div>
+    </div>
+  </div>
+  <div class="twin">
+    <div class="note"><span class="en"><b>Deliberately absent from this page:</b> prices and calendar promises. Scope and sequence are a method; cost and dates come out of a diagnostic of the actual company, not a reference view.</span><span class="ru"><b>Чего на этой странице нет намеренно:</b> цен и календарных обещаний. Объём и последовательность описывают метод; стоимость и сроки даёт диагностика конкретной компании, а не референс.</span></div>
+    <div class="note"><span class="en"><b>What stays manual on purpose:</b> design judgement, client relationships and site craftsmanship. The system removes re&#8209;entry, guesswork and memory as a filing system. It does not replace the people who build.</span><span class="ru"><b>Что остаётся ручным намеренно:</b> дизайнерское суждение, отношения с клиентом и мастерство на объекте. Система убирает повторный ввод, догадки и память как систему хранения. Она не заменяет людей, которые строят.</span></div>
+  </div>
+</div>
+
+<div class="page" id="p-about">
+  <div class="kicker"><div class="bar"></div><div class="txt"><span class="en">ABOUT · WHY THIS ARCHITECT</span><span class="ru">ОБО МНЕ · ПОЧЕМУ ЭТОТ АРХИТЕКТОР</span></div></div>
+  <h1><span class="en">The same discipline, proven on <em>capital&#8209;grade</em> projects</span><span class="ru">Та же дисциплина, проверенная на проектах <em>капитального</em> масштаба</span></h1>
+  <div class="stand"><span class="en">This reference is not a theory page. Each element of the spine has run in live mandates, under investors, regulators and fixed budgets.</span><span class="ru">Этот референс не теория. Каждый элемент хребта работал в живых мандатах: под инвесторами, регуляторами и фиксированными бюджетами.</span></div>
+  <div class="abgrid">
+    <div class="abmain">
+      <div class="ap">
+        <h3><span class="en">DEVELOPMENT PORTFOLIO GOVERNANCE</span><span class="ru">УПРАВЛЕНИЕ ПОРТФЕЛЕМ ДЕВЕЛОПЕРА</span></h3>
+        <p><span class="en">Project direction in a development group with portfolio governance over <b>AED 240M+</b>: one baseline document, a change&#8209;control log and release gates, where no tranche passes without evidence attached. Investment cases for healthcare and education assets structured inside a real&#8209;estate developer, as owner's representative to the CEO and the board.</span><span class="ru">Директор проектов в девелоперской группе с управлением портфелем <b>более 240 млн AED</b>: один базовый документ, журнал изменений и гейты выпуска, где ни один транш не проходит без приложенных подтверждений. Инвестиционные кейсы медицинских и образовательных объектов, структурированные внутри девелопера, в роли представителя собственника перед CEO и советом директоров.</span></p>
+        <div class="tie"><span class="en"><b>Maps to:</b> the spine, disciplines 01 to 03. The reference describes the same mechanism, applied to a contractor's projects instead of a developer's tranches.</span><span class="ru"><b>Соответствует:</b> хребет, дисциплины с 01 по 03. Референс описывает тот же механизм, применённый к проектам подрядчика вместо траншей девелопера.</span></div>
+      </div>
+      <div class="ap">
+        <h3><span class="en">M&amp;A AND OPERATING INTEGRATION</span><span class="ru">M&amp;A И ОПЕРАЦИОННАЯ ИНТЕГРАЦИЯ</span></h3>
+        <p><span class="en">Around <b>RUB 1B of M&amp;A</b> executed end to end across different markets, four deals from due diligence through signing to operating integration, where the discipline of baselines and evidence decides whether the modelled value survives contact with reality.</span><span class="ru">Сделки M&amp;A <b>примерно на 1 млрд рублей</b>, проведённые от начала до конца на разных рынках: четыре сделки от due diligence через подписание до операционной интеграции, где дисциплина базовых версий и подтверждений решает, переживёт ли смоделированная стоимость встречу с реальностью.</span></p>
+        <div class="tie"><span class="en"><b>Maps to:</b> wave 2. Integration is the same problem as a process core: one data model across units that used to run their own.</span><span class="ru"><b>Соответствует:</b> волна 2. Интеграция та же задача, что и ядро процессов: одна модель данных для подразделений, которые раньше жили каждое по-своему.</span></div>
+      </div>
+      <div class="ap">
+        <h3><span class="en">DEAL STRUCTURING FOR PRIVATE CAPITAL</span><span class="ru">СТРУКТУРИРОВАНИЕ СДЕЛОК ДЛЯ ЧАСТНОГО КАПИТАЛА</span></h3>
+        <p><span class="en">Operating partner to the founder of a UHNW medical venture in Dubai, in a transaction with a major luxury real&#8209;estate developer: deal routes modelled <b>asset&#8209;heavy against asset&#8209;light</b>, packages built to term&#8209;sheet grade, an external package delivered in 24 hours.</span><span class="ru">Операционный партнёр основателя медицинского венчура для сверхсостоятельных клиентов в Дубае, в сделке с крупным девелопером люксовой недвижимости: маршруты сделки смоделированы <b>с активами на балансе и без них</b>, пакеты уровня term sheet, внешний пакет подготовлен за 24 часа.</span></p>
+        <div class="tie"><span class="en"><b>Maps to:</b> the finance layer. Margin, cash and evidence read the same way whether the counterparty is an investor or a client.</span><span class="ru"><b>Соответствует:</b> финансовый слой. Маржа, деньги и подтверждения читаются одинаково, будь контрагент инвестором или клиентом.</span></div>
+      </div>
+      <div class="ap">
+        <h3><span class="en">AI AS AN OPERATING LAYER, DAILY</span><span class="ru">ИИ КАК ОПЕРАЦИОННЫЙ СЛОЙ, КАЖДЫЙ ДЕНЬ</span></h3>
+        <p><span class="en">My own practice runs on an AI operating layer: <b>automated daily runs, scoring models, registries and a compliance gate</b> before anything ships. I build the decision software myself: financial models, dashboards, AI&#8209;assisted operating tools.</span><span class="ru">Моя собственная практика работает на операционном слое ИИ: <b>автоматические ежедневные прогоны, скоринговые модели, реестры и комплаенс-гейт</b> перед любой отправкой. Софт для решений я собираю сам: финансовые модели, дашборды, операционные инструменты с ИИ.</span></p>
+        <div class="tie"><span class="en"><b>Maps to:</b> wave 3. It is not a slide for me; it is how my week already works, on top of records I keep clean first.</span><span class="ru"><b>Соответствует:</b> волна 3. Для меня это не слайд, а то, как уже устроена моя неделя, поверх записей, которые я сначала держу чистыми.</span></div>
+      </div>
+    </div>
+    <div class="abside">
+      <h3><span class="en">THE ARCHITECT</span><span class="ru">АРХИТЕКТОР</span></h3>
+      <div class="who"><span class="en">Yan Ngouen</span><span class="ru">Янь Нгуен</span></div>
+      <div class="role"><span class="en">Physician by training · C&#8209;level operator across healthcare, education and development projects · based in Dubai</span><span class="ru">Врач по образованию · руководитель C-уровня в медицинских, образовательных и девелоперских проектах · Дубай</span></div>
+      <ul>
+        <li><span class="en"><b>Executive MSc</b> in Health Economics, Policy and Management · LSE</span><span class="ru"><b>Executive MSc</b> по экономике здравоохранения, политике и управлению · LSE</span></li>
+        <li><span class="en"><b>MBA with Distinction</b> · Frankfurt School of Finance &amp; Management</span><span class="ru"><b>MBA с отличием</b> · Frankfurt School of Finance &amp; Management</span></li>
+        <li><span class="en"><b>TRIUM Global EMBA</b> · NYU Stern / LSE / HEC Paris · in progress</span><span class="ru"><b>TRIUM Global EMBA</b> · NYU Stern / LSE / HEC Paris · в процессе</span></li>
+        <li><span class="en"><b>Builds his own tools:</b> financial models, dashboards and AI&#8209;augmented decision software</span><span class="ru"><b>Собирает инструменты сам:</b> финансовые модели, дашборды и софт для решений с ИИ</span></li>
+        <li><span class="en"><b>Public portfolio:</b> yantheapy.github.io · linkedin.com/in/yan-ngouen</span><span class="ru"><b>Портфолио:</b> yantheapy.github.io · linkedin.com/in/yan-ngouen</span></li>
+      </ul>
+      <div class="cta"><span class="en"><b>Next step, if the shape fits:</b> a short diagnostic of the actual company. Its output is your map, your wave plan and your quick wins, priced as a fixed piece of work.</span><span class="ru"><b>Следующий шаг, если формат подходит:</b> короткая диагностика конкретной компании. Её результат: ваша карта, ваш план волн и ваши быстрые победы, как фиксированный объём работы с фиксированной ценой.</span></div>
+    </div>
+  </div>
+  <div class="sec-head"><div class="sec-label"><span class="en">HOW I WORK</span><span class="ru">КАК Я РАБОТАЮ</span></div><div class="sec-line"></div><div class="sec-tag"><span class="en">FOUR RULES, NO EXCEPTIONS</span><span class="ru">ЧЕТЫРЕ ПРАВИЛА, БЕЗ ИСКЛЮЧЕНИЙ</span></div></div>
+  <div class="princ"><div class="p"><b><span class="en">DIAGNOSTIC FIRST</span><span class="ru">СНАЧАЛА ДИАГНОСТИКА</span></b><span class="en">the map comes before the build; the reference view is the method, the map is the product</span><span class="ru">карта раньше стройки: референс показывает метод, карта и есть продукт</span></div><div class="p"><b><span class="en">SCOPE BEFORE PRICE</span><span class="ru">СНАЧАЛА ОБЪЁМ, ПОТОМ ЦЕНА</span></b><span class="en">each piece of work has an entry, a scope and an exit test; commercial terms follow the scope, never precede it</span><span class="ru">у каждой работы есть вход, объём и тест выхода; коммерческие условия идут за объёмом и никогда перед ним</span></div><div class="p"><b><span class="en">EVIDENCE AT EVERY GATE</span><span class="ru">ПОДТВЕРЖДЕНИЕ НА КАЖДОМ ГЕЙТЕ</span></b><span class="en">the same rule applied to my own work: nothing is "done" without an artifact</span><span class="ru">то же правило к моей собственной работе: ничего не «готово» без артефакта</span></div><div class="p"><b><span class="en">NO BIG BANG</span><span class="ru">БЕЗ БОЛЬШОГО ВЗРЫВА</span></b><span class="en">waves that pay for the next one, adopted in daily use before the next starts</span><span class="ru">волны, которые окупают следующую и приживаются в ежедневной работе до старта следующей</span></div></div>
+</div>
+
+<div class="foot">
+  <div class="l"><span class="en">Yan Ngouen <span>· operating architecture for project businesses · linkedin.com/in/yan-ngouen</span></span><span class="ru">Янь Нгуен <span>· операционная архитектура для проектного бизнеса · linkedin.com/in/yan-ngouen</span></span></div>
+  <div class="r"><span class="en">Reference view, not a proposal · September 2026</span><span class="ru">Референс, не коммерческое предложение · сентябрь 2026</span></div>
+</div>
+<script>
+(function(){
+  var order = ['overview','chain','spine','layers','sequencing','about'];
+  var tabs = document.querySelectorAll('.tab');
+  var pages = document.querySelectorAll('.page');
+  var counter = document.getElementById('counter');
+  var titles = {en:'Operating Architecture', ru:'Операционная архитектура'};
+  var current = 'overview';
+  function show(id){
+    if(order.indexOf(id) < 0) id = 'overview';
+    current = id;
+    pages.forEach(function(p){ p.classList.toggle('on', p.id === 'p-'+id); });
+    tabs.forEach(function(t){ t.classList.toggle('on', t.dataset.p === id); });
+    counter.textContent = (order.indexOf(id)+1) + ' / ' + order.length;
+    try{ history.replaceState(null,'','#'+id); }catch(e){}
+    window.scrollTo(0,0);
+  }
+  function step(d){
+    var i = order.indexOf(current) + d;
+    if(i < 0) i = order.length - 1;
+    if(i >= order.length) i = 0;
+    show(order[i]);
+  }
+  function setLang(l){
+    if(l !== 'ru') l = 'en';
+    document.documentElement.lang = l;
+    document.title = titles[l];
+    document.querySelectorAll('.lang button').forEach(function(b){ b.classList.toggle('on', b.dataset.l === l); });
+    try{ localStorage.setItem('oa-lang', l); }catch(e){}
+  }
+  tabs.forEach(function(t){ t.addEventListener('click', function(){ show(t.dataset.p); }); });
+  document.querySelectorAll('.lang button').forEach(function(b){ b.addEventListener('click', function(){ setLang(b.dataset.l); }); });
+  document.addEventListener('keydown', function(e){
+    if(e.target && /INPUT|TEXTAREA|SELECT/.test(e.target.tagName)) return;
+    if(e.key === 'ArrowRight' || e.key === 'PageDown'){ step(1); e.preventDefault(); }
+    if(e.key === 'ArrowLeft' || e.key === 'PageUp'){ step(-1); e.preventDefault(); }
+    if(e.key >= '1' && e.key <= '6'){ show(order[parseInt(e.key,10)-1]); }
+    if(e.key === 'l' || e.key === 'L' || e.key === 'д' || e.key === 'Д'){ setLang(document.documentElement.lang === 'ru' ? 'en' : 'ru'); }
+  });
+  window.addEventListener('hashchange', function(){
+    var h = (location.hash||'').replace('#','');
+    if(h && h !== current) show(h);
+  });
+  document.getElementById('printbtn').addEventListener('click', function(){ window.print(); });
+  var saved = null;
+  try{ saved = localStorage.getItem('oa-lang'); }catch(e){}
+  var q = (location.search||'').indexOf('lang=ru') >= 0 ? 'ru' : ((location.search||'').indexOf('lang=en') >= 0 ? 'en' : null);
+  setLang(q || saved || 'en');
+  var h = (location.hash||'').replace('#','');
+  show(h || 'overview');
+})();
+</script>
+</body>
+</html>
