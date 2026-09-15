@@ -4,26 +4,44 @@
 <meta charset="utf-8">
 <meta name="robots" content="noindex,nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Reference view of an operating system for a premium fit-out and construction business: value chain, spine, layers, sequencing, toolkit. EN/RU.">
+<meta property="og:title" content="Operating Architecture">
+<meta property="og:description" content="Reference view, not a proposal: an operating system for a premium fit-out and construction business.">
 <title>Operating Architecture</title>
 <style>
   :root{
     --bg:#FAF7F1; --navy:#1B2440; --navy2:#26314F; --navy3:#333E60;
     --terra:#B84A14; --gold:#C9A227; --ink:#23293B; --muted:#6B6F7E;
     --line:#E3DDD1; --line2:#F0EBE1; --card:#FFFFFF; --neutral:#9AA0B0;
-    --sand:#FDF6E9; --sandline:#EAD9B0; --sandink:#6B5A2A;
+    --sand:#FDF6E9; --sandline:#EAD9B0; --sandink:#6B5A2A; --goldtext:#7A5F0F;
   }
   *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
   body{background:var(--bg);font-family:'Liberation Sans',Arial,Helvetica,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
   html:not([lang="ru"]) .ru{display:none !important}
   html[lang="ru"] .en{display:none !important}
+  :focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  h1{text-wrap:balance}
+  .lk{background:none;border:none;padding:0;font:inherit;color:inherit;cursor:pointer;letter-spacing:inherit;font-weight:inherit;text-decoration:underline;text-decoration-color:rgba(122,95,15,.35);text-underline-offset:3px}
+  .lk:hover{text-decoration-color:var(--goldtext)}
+  .go{cursor:pointer;position:relative;transition:outline-color .15s}
+  .go:hover{outline:2px solid var(--gold);outline-offset:4px}
+  .go:hover:after{content:attr(data-open);position:absolute;top:-11px;right:10px;background:var(--gold);color:var(--navy);font-size:10px;letter-spacing:1.4px;font-weight:bold;padding:3px 9px;z-index:2;font-family:'Liberation Sans',Arial,sans-serif}
+  html[lang="ru"] .go:hover:after{content:attr(data-open-ru)}
+  .pnav{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:30px;padding-top:14px;border-top:1px solid var(--line)}
+  .pnav .lk2{background:var(--card);border:1px solid var(--line);color:var(--navy);font-family:inherit;font-size:13px;padding:9px 14px;cursor:pointer;border-radius:2px}
+  .pnav .lk2:hover{border-color:var(--gold)}
+  .pnav .lk2 b{font-family:'Liberation Serif',Georgia,serif;font-weight:bold}
+  .pnav .pc{font-family:'Liberation Serif',Georgia,serif;font-size:12.5px;color:var(--muted)}
+  .swipe{display:none;font-size:11px;color:var(--muted);letter-spacing:1px;margin-top:6px;text-align:right}
 
   /* ===== top bar ===== */
   .top{background:var(--navy);color:#FFF;padding:0 40px;position:sticky;top:env(safe-area-inset-top,0px);z-index:50;box-shadow:0 2px 10px rgba(27,36,64,.25)}
   .top-row{display:flex;align-items:center;gap:20px;height:64px;max-width:1600px;margin:0 auto}
   .brand{font-family:'Liberation Serif',Georgia,serif;font-size:19px;font-weight:bold;white-space:nowrap;letter-spacing:.2px}
   .brand em{font-style:italic;color:var(--gold)}
-  .tabs{display:flex;gap:6px;flex:1}
+  .tabs{display:flex;gap:6px;flex:1;min-width:0}
+  .badge,.counter,.lang,.pbtn{flex:none}
   .tab{background:transparent;border:1px solid transparent;color:#C9CEDC;font-family:inherit;font-size:13.5px;padding:8px 14px;cursor:pointer;letter-spacing:.3px;border-radius:2px;display:flex;align-items:center;gap:8px;white-space:nowrap}
   .tab .n{font-family:'Liberation Serif',Georgia,serif;font-size:11.5px;color:var(--gold);opacity:.75}
   .tab:hover{color:#FFF;border-color:#3A4568}
@@ -53,7 +71,7 @@
   .sec-head{display:flex;align-items:center;gap:12px;margin:26px 0 14px}
   .sec-label{font-size:12.5px;letter-spacing:2.4px;font-weight:bold;color:var(--navy)}
   .sec-line{flex:1;height:1px;background:var(--line)}
-  .sec-tag{font-size:11px;letter-spacing:1.6px;color:var(--gold);font-weight:bold}
+  .sec-tag{font-size:11px;letter-spacing:1.6px;color:var(--goldtext);font-weight:bold}
 
   .note{background:var(--sand);border:1px solid var(--sandline);border-left:4px solid var(--gold);padding:12px 16px;font-size:13.5px;color:var(--sandink);line-height:1.45}
   .note b{color:var(--terra)}
@@ -69,13 +87,13 @@
   .lv .lt{font-size:13px;line-height:1.5;color:var(--ink)}
   .lv .ld{font-size:12.3px;line-height:1.45;color:var(--muted);margin-top:7px;border-top:1px solid var(--line2);padding-top:7px}
   .lv .ld b{color:var(--navy)}
-  .lv .lr{font-size:10.5px;letter-spacing:1.4px;color:var(--gold);font-weight:bold;margin-top:8px}
+  .lv .lr{font-size:10.5px;letter-spacing:1.4px;color:var(--goldtext);font-weight:bold;margin-top:8px;display:flex;gap:10px;flex-wrap:wrap}
   .chain{display:flex;gap:0;align-items:stretch}
   .stageS{flex:1;background:var(--card);border:1px solid var(--line);border-top:3px solid var(--navy);padding:15px 14px 13px;position:relative}
   .stageS + .stageS{margin-left:24px}
   .stageS:after{content:"";position:absolute;right:-19px;top:50%;margin-top:-7px;border-left:12px solid var(--gold);border-top:7px solid transparent;border-bottom:7px solid transparent}
   .stageS:last-child:after{display:none}
-  .stageS .no{font-family:'Liberation Serif',Georgia,serif;font-size:14px;color:var(--gold);font-weight:bold;margin-bottom:3px}
+  .stageS .no{font-family:'Liberation Serif',Georgia,serif;font-size:14px;color:var(--goldtext);font-weight:bold;margin-bottom:3px}
   .stageS .nm{font-size:14px;font-weight:bold;color:var(--navy);line-height:1.2;margin-bottom:7px;min-height:34px}
   .stageS .pain{font-size:11.8px;line-height:1.4;color:var(--muted)}
   .stageS .pain b{color:var(--terra)}
@@ -103,6 +121,7 @@
 
   .wavesR{display:flex;align-items:stretch;gap:22px;margin-top:22px}
   .wavesR .wt{font-size:11.5px;letter-spacing:2.4px;font-weight:bold;color:var(--navy);display:flex;align-items:center;white-space:nowrap}
+  .cols3{position:relative}
   .waveR{flex:1;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--navy);padding:14px 16px}
   .waveR.w1{border-left-color:var(--terra)}
   .waveR .wn{font-size:11.5px;letter-spacing:1.8px;color:var(--muted);font-weight:bold;margin-bottom:5px}
@@ -118,21 +137,21 @@
   .vcgrid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
   .vc{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--navy)}
   .vc .vhead{display:flex;align-items:baseline;gap:12px;padding:16px 20px 10px;border-bottom:1px solid var(--line)}
-  .vc .vno{font-family:'Liberation Serif',Georgia,serif;font-size:26px;color:var(--gold);font-weight:bold}
+  .vc .vno{font-family:'Liberation Serif',Georgia,serif;font-size:26px;color:var(--goldtext);font-weight:bold}
   .vc .vnm{font-family:'Liberation Serif',Georgia,serif;font-size:20px;color:var(--navy);font-weight:bold;flex:1}
   .vc .rec{font-size:10.5px;letter-spacing:1.6px;color:var(--navy);border:1px solid var(--line);padding:4px 8px;white-space:nowrap;background:var(--bg)}
-  .vc .rec b{color:var(--gold)}
+  .vc .rec b{color:var(--goldtext)}
   .vrow{display:grid;grid-template-columns:160px 1fr;gap:14px;padding:11px 20px;border-bottom:1px solid var(--line2);align-items:start}
   .vrow:last-child{border-bottom:none;padding-bottom:15px}
   .vlab{font-size:10.5px;letter-spacing:1.8px;font-weight:bold;padding-top:2px;line-height:1.4}
-  .vlab.p{color:var(--terra)} .vlab.s{color:var(--navy)} .vlab.e{color:var(--gold)}
+  .vlab.p{color:var(--terra)} .vlab.s{color:var(--navy)} .vlab.e{color:var(--goldtext)}
   .vtxt{font-size:13.5px;line-height:1.5}
   .vtxt b{color:var(--terra)}
 
   /* ===== spine deep ===== */
   .spgrid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:26px}
   .sp{background:var(--card);border:1px solid var(--line);padding:20px 22px 18px;border-left:4px solid var(--gold)}
-  .sp .sn{font-family:'Liberation Serif',Georgia,serif;font-size:15px;color:var(--gold);font-weight:bold}
+  .sp .sn{font-family:'Liberation Serif',Georgia,serif;font-size:15px;color:var(--goldtext);font-weight:bold}
   .sp h3{font-family:'Liberation Serif',Georgia,serif;font-size:21px;color:var(--navy);margin:4px 0 10px}
   .sp p{font-size:13.8px;line-height:1.55;color:var(--ink)}
   .sp .why{margin-top:10px;font-size:12.5px;color:var(--muted);border-top:1px solid var(--line2);padding-top:9px;line-height:1.45}
@@ -151,7 +170,7 @@
   .rec1:after{content:"";position:absolute;right:-15px;top:50%;margin-top:-6px;border-left:9px solid var(--neutral);border-top:6px solid transparent;border-bottom:6px solid transparent}
   .rec1:last-child:after{display:none}
   .rec1 .rn{font-size:10px;letter-spacing:1.6px;color:var(--muted);font-weight:bold;margin-bottom:4px}
-  .rec1 .rn b{color:var(--gold)}
+  .rec1 .rn b{color:var(--goldtext)}
   .rec1 .rt{font-size:13px;font-weight:bold;color:var(--navy);line-height:1.25}
   .rec1 .rd{font-size:11.5px;color:var(--muted);line-height:1.38;margin-top:5px}
 
@@ -197,7 +216,7 @@
   .sq h3{font-family:'Liberation Serif',Georgia,serif;font-size:20px;color:var(--navy);margin-bottom:12px}
   .sqi{margin-bottom:11px}
   .sqlab{font-size:10.5px;letter-spacing:1.8px;font-weight:bold;margin-bottom:3px}
-  .sqlab.in{color:var(--gold)} .sqlab.do{color:var(--navy)} .sqlab.out{color:var(--terra)} .sqlab.see{color:var(--muted)}
+  .sqlab.in{color:var(--goldtext)} .sqlab.do{color:var(--navy)} .sqlab.out{color:var(--terra)} .sqlab.see{color:var(--muted)}
   .sqtxt{font-size:13.3px;line-height:1.5}
   .sqsee{border-top:1px solid var(--line2);padding-top:10px;margin-top:4px}
   .sqsee .sqtxt{font-family:'Liberation Serif',Georgia,serif;font-style:italic;font-size:14.5px;color:var(--navy)}
@@ -211,22 +230,22 @@
   .tk .tw{font-size:13.2px;line-height:1.5;color:var(--ink)}
   .tk .tm{font-size:12.3px;line-height:1.45;color:var(--muted);margin-top:8px}
   .tk .tm b{color:var(--navy)}
-  .tk .tx{margin-top:auto;padding-top:9px;border-top:1px solid var(--line2);font-size:11px;letter-spacing:1.4px;color:var(--gold);font-weight:bold;line-height:1.5}
+  .tk .tx{margin-top:auto;padding-top:9px;border-top:1px solid var(--line2);font-size:11px;letter-spacing:1.4px;color:var(--goldtext);font-weight:bold;line-height:1.5}
   .tk .tx i{font-style:normal;color:var(--muted);letter-spacing:1px;font-weight:bold}
-  .mock{margin:11px 0 2px;background:#F6F2EA;border:1px solid var(--line);padding:9px 10px;font-size:10.5px;color:var(--ink);font-family:'Liberation Sans',Arial,sans-serif}
+  .mock{margin:11px 0 2px;background:#F6F2EA;border:1px solid var(--line);padding:9px 10px;font-size:11px;color:var(--ink);font-family:'Liberation Sans',Arial,sans-serif}
   .mock .mt{font-size:9px;letter-spacing:1.6px;color:var(--muted);font-weight:bold;margin-bottom:6px;display:flex;justify-content:space-between}
   .mock .mt i{font-style:normal;color:var(--terra)}
   .mrow{display:grid;gap:6px;padding:4px 0;border-top:1px solid #E9E2D5;align-items:center}
-  .mrow.h{border-top:none;color:var(--muted);font-size:9px;letter-spacing:1.2px;font-weight:bold}
+  .mrow.h{border-top:none;color:var(--muted);font-size:9.5px;letter-spacing:1.2px;font-weight:bold}
   .mrow span{white-space:nowrap;min-width:0}
-  .pill{display:inline-block;padding:1px 6px;border:1px solid var(--line);border-radius:2px;font-size:9.5px;font-weight:bold;letter-spacing:.6px;color:var(--navy);background:#FFF}
+  .pill{display:inline-block;padding:1px 6px;border:1px solid var(--line);border-radius:2px;font-size:10px;font-weight:bold;letter-spacing:.6px;color:var(--navy);background:#FFF}
   .pill.ok{border-color:#B9CBB0;color:#3E6B3A;background:#EEF5EA}
   .pill.no{border-color:#E4B9A5;color:var(--terra);background:#FBEFE8}
   .pill.g{border-color:#E4D7A6;color:#7A5F0F;background:#FBF5DF}
   .chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
   .chip{flex:1;min-width:0;background:#FFF;border:1px solid var(--line);padding:6px 7px;text-align:center}
   .chip b{display:block;font-size:10px;letter-spacing:1px;color:var(--navy)}
-  .chip small{display:block;font-size:9px;color:var(--muted);margin-top:2px;line-height:1.3}
+  .chip small{display:block;font-size:9.5px;color:var(--muted);margin-top:2px;line-height:1.3}
   .chip.k{border-color:var(--gold)}
   .bars{display:flex;flex-direction:column;gap:5px;margin-top:4px}
   .bar{display:grid;grid-template-columns:64px 1fr;gap:8px;align-items:center;font-size:9.5px;color:var(--muted)}
@@ -234,18 +253,18 @@
   .bar.t i{background:var(--terra)}
   .kpis{display:flex;gap:6px;margin-bottom:6px}
   .kpi{flex:1;background:#FFF;border:1px solid var(--line);padding:5px 6px}
-  .kpi b{display:block;font-size:8.5px;letter-spacing:1px;color:var(--muted)}
+  .kpi b{display:block;font-size:9px;letter-spacing:1px;color:var(--muted)}
   .kpi span{display:block;font-family:'Liberation Serif',Georgia,serif;font-size:13px;color:var(--navy);font-weight:bold;margin-top:1px}
   .seg{display:inline-flex;border:1px solid var(--line);border-radius:2px;overflow:hidden;margin-right:6px}
   .seg > span{padding:2px 7px;font-size:9.5px;font-weight:bold;color:var(--muted);background:#FFF}
   .seg > span.on{background:var(--navy);color:#FFF}
   .seg > span > span{padding:0;background:transparent;color:inherit}
   .flowm{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:4px}
-  .fbox{background:#FFF;border:1px solid var(--line);padding:5px 7px;font-size:9.5px;font-weight:bold;color:var(--navy);text-align:center;line-height:1.25}
+  .fbox{background:#FFF;border:1px solid var(--line);padding:5px 7px;font-size:10px;font-weight:bold;color:var(--navy);text-align:center;line-height:1.25}
   .fbox small{display:block;font-weight:normal;color:var(--muted);font-size:8.5px}
   .fbox.g{border-color:var(--gold)}
   .farr{color:var(--gold);font-weight:bold}
-  .logl{display:flex;gap:8px;padding:3px 0;border-top:1px solid #E9E2D5;font-size:10px}
+  .logl{display:flex;gap:8px;padding:3px 0;border-top:1px solid #E9E2D5;font-size:10.5px}
   .logl:first-child{border-top:none}
   .logl .t{color:var(--muted);width:38px;flex:none;font-variant-numeric:tabular-nums}
   .logl .ok{color:#3E6B3A;font-weight:bold}
@@ -292,9 +311,10 @@
     .top{padding:0 30px}
     .top-row{gap:12px}
     .brand{font-size:17px}
-    .tab{padding:7px 9px;font-size:12.5px}
+    .tab{padding:7px 8px;font-size:12px}
     .tab .n{display:none}
-    .badge{font-size:10px;letter-spacing:1.2px;padding:5px 8px}
+    .tabs{gap:2px}
+    .badge{font-size:10px;letter-spacing:1px;padding:5px 7px}
     .pbtn{padding:6px 9px}
     .lang button{padding:6px 8px}
     .page{padding:32px 30px 30px}
@@ -344,12 +364,21 @@
     table.mx{min-width:760px}
     .legend{flex-wrap:wrap;gap:10px}
     .foot{flex-direction:column;gap:6px;padding:12px 16px 20px}
+    .top{position:static}
+    .tabs{order:5;flex:1 0 100%;flex-wrap:wrap;overflow:visible;gap:4px}
+    .tab{padding:8px 10px;font-size:12.5px}
+    .vc .rec{flex-basis:100%;white-space:normal;margin-top:4px}
+    .mx td:first-child,.mx th:first-child{position:sticky;left:0;background:#FFF;z-index:1;box-shadow:2px 0 0 var(--line)}
+    .swipe{display:block}
+    .go:hover{outline:none}
+    .go:hover:after{display:none}
+    .pnav{flex-wrap:wrap}
   }
   @page{size:A3 landscape;margin:10mm}
   @media print{
     body{min-width:0;background:#FFF}
     .top{position:static;box-shadow:none}
-    .tabs,.pbtn,.counter,.hint,.lang{display:none !important}
+    .tabs,.pbtn,.counter,.hint,.lang,.pnav,.swipe{display:none !important}
     .page{display:block !important;page-break-after:always;min-height:0;padding-top:20px;zoom:.74}
     .top,.foot{zoom:.74}
     #p-about{page-break-after:auto}
@@ -362,71 +391,66 @@
 
 <div class="top"><div class="top-row">
   <div class="brand"><span class="en">Operating <em>architecture</em></span><span class="ru">Операционная <em>архитектура</em></span></div>
-  <div class="tabs" role="tablist"><button class="tab on" data-p="overview"><span class="n">1</span><span class="en">Overview</span><span class="ru">Обзор</span></button><button class="tab" data-p="chain"><span class="n">2</span><span class="en">Value chain</span><span class="ru">Цепочка</span></button><button class="tab" data-p="spine"><span class="n">3</span><span class="en">The spine</span><span class="ru">Хребет</span></button><button class="tab" data-p="layers"><span class="n">4</span><span class="en">Layers</span><span class="ru">Слои</span></button><button class="tab" data-p="sequencing"><span class="n">5</span><span class="en">Sequencing</span><span class="ru">Волны</span></button><button class="tab" data-p="toolkit"><span class="n">6</span><span class="en">Toolkit</span><span class="ru">Инструменты</span></button><button class="tab" data-p="about"><span class="n">7</span><span class="en">About</span><span class="ru">Обо мне</span></button></div>
+  <div class="tabs" role="tablist"><button class="tab on" role="tab" id="tab-overview" aria-controls="p-overview" aria-selected="true" title="1" data-p="overview"><span class="n">1</span><span class="en">Overview</span><span class="ru">Обзор</span></button><button class="tab" role="tab" id="tab-chain" aria-controls="p-chain" aria-selected="false" title="2" data-p="chain"><span class="n">2</span><span class="en">Value chain</span><span class="ru">Цепочка</span></button><button class="tab" role="tab" id="tab-spine" aria-controls="p-spine" aria-selected="false" title="3" data-p="spine"><span class="n">3</span><span class="en">The spine</span><span class="ru">Хребет</span></button><button class="tab" role="tab" id="tab-layers" aria-controls="p-layers" aria-selected="false" title="4" data-p="layers"><span class="n">4</span><span class="en">Layers</span><span class="ru">Слои</span></button><button class="tab" role="tab" id="tab-sequencing" aria-controls="p-sequencing" aria-selected="false" title="5" data-p="sequencing"><span class="n">5</span><span class="en">Sequencing</span><span class="ru">Волны</span></button><button class="tab" role="tab" id="tab-toolkit" aria-controls="p-toolkit" aria-selected="false" title="6" data-p="toolkit"><span class="n">6</span><span class="en">Toolkit</span><span class="ru">Инструменты</span></button><button class="tab" role="tab" id="tab-about" aria-controls="p-about" aria-selected="false" title="7" data-p="about"><span class="n">7</span><span class="en">About</span><span class="ru">Обо мне</span></button></div>
   <div class="badge"><span class="en">REFERENCE VIEW, NOT A PROPOSAL</span><span class="ru">РЕФЕРЕНС, НЕ ПРЕДЛОЖЕНИЕ</span></div>
   <div class="counter" id="counter">1 / 7</div>
   <div class="hint"><span class="en">&#8592; &#8594; keys · L language</span><span class="ru">&#8592; &#8594; клавиши · L язык</span></div>
-  <div class="lang"><button data-l="en" class="on">EN</button><button data-l="ru">RU</button></div>
+  <div class="lang" role="group" aria-label="Language"><button data-l="en" class="on" aria-pressed="true" title="L">EN</button><button data-l="ru" aria-pressed="false" title="L">RU</button></div>
   <button class="pbtn" id="printbtn"><span class="en">Print</span><span class="ru">Печать</span></button>
 </div></div>
 
-<div class="page on" id="p-overview">
-  <div class="kicker"><div class="bar"></div><div class="txt"><span class="en">REFERENCE VIEW · ONE SCREEN</span><span class="ru">РЕФЕРЕНС · ОДИН ЭКРАН</span></div></div>
+<div class="page on" id="p-overview" role="tabpanel" aria-labelledby="tab-overview">
+  <div class="kicker"><div class="bar"></div><div class="txt"><span class="en">REFERENCE VIEW · AT A GLANCE</span><span class="ru">РЕФЕРЕНС · ОДНИМ ВЗГЛЯДОМ</span></div></div>
   <h1><span class="en">An <em>operating system</em> for a premium fit&#8209;out and construction business</span><span class="ru"><em>Операционная система</em> для премиального фит-аута и строительства</span></h1>
-  <div class="stand"><span class="en">One structure that makes every project legible: <b>who owes what, by when, with evidence attached.</b> Designed for a 50 to 200 person company running design, procurement and site delivery in&#8209;house on fixed&#8209;price contracts. Each block on this screen opens into its own tab above.</span><span class="ru">Одна структура, которая делает каждый проект читаемым: <b>кто что должен, к какому сроку, с приложенными подтверждениями.</b> Рассчитана на компанию от 50 до 200 человек, которая сама ведёт дизайн, закупки и работы на объекте по контрактам с фиксированной ценой. Каждый блок этого экрана раскрыт в своей вкладке выше.</span></div>
+  <div class="stand"><span class="en">One structure that makes every project legible: <b>who owes what, by when, with evidence attached.</b> Designed for a 50 to 200 person company running design, procurement and site delivery in&#8209;house on fixed&#8209;price contracts. Every block on this screen is clickable and opens its own tab.</span><span class="ru">Одна структура, которая делает каждый проект читаемым: <b>кто что должен, к какому сроку, с приложенными подтверждениями.</b> Рассчитана на компанию от 50 до 200 человек, которая сама ведёт дизайн, закупки и работы на объекте по контрактам с фиксированной ценой. Каждый блок этого экрана кликабелен и открывает свою вкладку.</span></div>
 
   <div class="levels">
     <div class="lv s">
       <div class="le"><span class="en">STRATEGY · WHY</span><span class="ru">СТРАТЕГИЯ · ЗАЧЕМ</span></div>
       <div class="lt"><span class="en">Fixed price survives only with one truth per project. Transparency sold to clients becomes an internal asset. The company scales without the founder as its integrator.</span><span class="ru">Фиксированная цена выживает только с одной правдой о проекте. Прозрачность, которую продают клиенту, становится внутренним активом. Компания растёт без основателя в роли интегратора.</span></div>
       <div class="ld"><span class="en"><b>The decision:</b> build the operating system in waves, AI last.</span><span class="ru"><b>Решение:</b> строить операционную систему волнами, ИИ последним.</span></div>
-      <div class="lr"><span class="en">OVERVIEW · SEQUENCING</span><span class="ru">ОБЗОР · ВОЛНЫ</span></div>
+      <div class="lr"><button class="lk" data-go="sequencing"><span class="en">SEQUENCING</span><span class="ru">ВОЛНЫ</span></button><button class="lk" data-go="about"><span class="en">ABOUT</span><span class="ru">ОБО МНЕ</span></button></div>
     </div>
     <div class="lv">
       <div class="le"><span class="en">TACTICS · HOW</span><span class="ru">ТАКТИКА · КАК</span></div>
       <div class="lt"><span class="en">Diagnostic first, then three waves, each with an entry and an exit test. Layers in strict order. One owner of change inside the company. The weekly review as the management ritual.</span><span class="ru">Сначала диагностика, потом три волны, у каждой вход и тест выхода. Слои в строгом порядке. Один владелец изменений внутри компании. Недельный обзор как ритуал управления.</span></div>
       <div class="ld"><span class="en"><b>The decision:</b> scope before price; no big bang.</span><span class="ru"><b>Решение:</b> сначала объём, потом цена; без большого взрыва.</span></div>
-      <div class="lr"><span class="en">SEQUENCING · LAYERS</span><span class="ru">ВОЛНЫ · СЛОИ</span></div>
+      <div class="lr"><button class="lk" data-go="sequencing"><span class="en">SEQUENCING</span><span class="ru">ВОЛНЫ</span></button><button class="lk" data-go="layers"><span class="en">LAYERS</span><span class="ru">СЛОИ</span></button></div>
     </div>
     <div class="lv">
       <div class="le"><span class="en">OPERATIONS · WHAT, DAILY</span><span class="ru">ОПЕРАЦИИ · ЧТО, КАЖДЫЙ ДЕНЬ</span></div>
       <div class="lt"><span class="en">Six stages, eight records, the gate loop, one status board and a matrix of who sees what.</span><span class="ru">Шесть стадий, восемь записей, петля гейта, один статус-борд и матрица «кто что видит».</span></div>
       <div class="ld"><span class="en"><b>The rule:</b> nothing is entered twice; nothing is &quot;done&quot; without an artifact.</span><span class="ru"><b>Правило:</b> ничего не вводится дважды, ничего не «готово» без артефакта.</span></div>
-      <div class="lr"><span class="en">VALUE CHAIN · THE SPINE · LAYERS</span><span class="ru">ЦЕПОЧКА · ХРЕБЕТ · СЛОИ</span></div>
+      <div class="lr"><button class="lk" data-go="chain"><span class="en">VALUE CHAIN</span><span class="ru">ЦЕПОЧКА</span></button><button class="lk" data-go="spine"><span class="en">THE SPINE</span><span class="ru">ХРЕБЕТ</span></button><button class="lk" data-go="layers"><span class="en">LAYERS</span><span class="ru">СЛОИ</span></button></div>
     </div>
   </div>
 
   <div class="sec-head"><div class="sec-label"><span class="en">PROJECT VALUE CHAIN</span><span class="ru">ЦЕПОЧКА ЦЕННОСТИ ПРОЕКТА</span></div><div class="sec-line"></div><div class="sec-tag"><span class="en">WHERE MANUAL WORK USUALLY LIVES</span><span class="ru">ГДЕ ОБЫЧНО ЖИВЁТ РУЧНАЯ РАБОТА</span></div></div>
-  <div class="chain"><div class="stageS"><div class="no">01</div><div class="nm"><span class="en">Lead &amp; qualification</span><span class="ru">Лид и квалификация</span></div><div class="pain"><span class="en">Enquiries in chats and calls, <b>no single pipeline</b></span><span class="ru">Запросы в чатах и звонках, <b>нет единой воронки</b></span></div></div><div class="stageS"><div class="no">02</div><div class="nm"><span class="en">Estimate &amp; fixed&#8209;price proposal</span><span class="ru">Смета и предложение по фиксированной цене</span></div><div class="pain"><span class="en">Estimates rebuilt by hand, <b>margin invisible</b> at signing</span><span class="ru">Сметы каждый раз вручную, <b>маржа не видна</b> при подписании</span></div></div><div class="stageS"><div class="no">03</div><div class="nm"><span class="en">Design &amp; permits</span><span class="ru">Дизайн-проект и разрешения</span></div><div class="pain"><span class="en">Revisions unversioned, permit status <b>tracked in heads</b></span><span class="ru">Ревизии без версий, статус разрешений <b>держат в голове</b></span></div></div><div class="stageS"><div class="no">04</div><div class="nm"><span class="en">Procurement &amp; joinery</span><span class="ru">Закупки и столярные изделия</span></div><div class="pain"><span class="en">Orders untracked, deliveries vs site <b>unsynchronised</b></span><span class="ru">Заказы не отслеживаются, поставки <b>не в такт объекту</b></span></div></div><div class="stageS"><div class="no">05</div><div class="nm"><span class="en">Site execution &amp; QC</span><span class="ru">Работы на объекте и контроль качества</span></div><div class="pain"><span class="en">Progress in photo chats, <b>rework unmeasured</b></span><span class="ru">Прогресс в фото-чатах, <b>переделки не измеряются</b></span></div></div><div class="stageS"><div class="no">06</div><div class="nm"><span class="en">Handover &amp; warranty</span><span class="ru">Сдача и гарантия</span></div><div class="pain"><span class="en">Warranty cost <b>never attributed</b> to its cause</span><span class="ru">Стоимость гарантии <b>не привязана</b> к причине</span></div></div></div>
+  <div class="chain go" data-go="chain" data-open="OPEN VALUE CHAIN &#8594;" data-open-ru="ОТКРЫТЬ ЦЕПОЧКУ &#8594;"><div class="stageS"><div class="no">01</div><div class="nm"><span class="en">Lead &amp; qualification</span><span class="ru">Лид и квалификация</span></div><div class="pain"><span class="en">Enquiries in chats and calls, <b>no single pipeline</b></span><span class="ru">Запросы в чатах и звонках, <b>нет единой воронки</b></span></div></div><div class="stageS"><div class="no">02</div><div class="nm"><span class="en">Estimate &amp; fixed&#8209;price proposal</span><span class="ru">Смета и предложение по фиксированной цене</span></div><div class="pain"><span class="en">Estimates rebuilt by hand, <b>margin invisible</b> at signing</span><span class="ru">Сметы каждый раз вручную, <b>маржа не видна</b> при подписании</span></div></div><div class="stageS"><div class="no">03</div><div class="nm"><span class="en">Design &amp; permits</span><span class="ru">Дизайн-проект и разрешения</span></div><div class="pain"><span class="en">Revisions unversioned, permit status <b>tracked in heads</b></span><span class="ru">Ревизии без версий, статус разрешений <b>держат в голове</b></span></div></div><div class="stageS"><div class="no">04</div><div class="nm"><span class="en">Procurement &amp; joinery</span><span class="ru">Закупки и столярные изделия</span></div><div class="pain"><span class="en">Orders untracked, deliveries vs site <b>unsynchronised</b></span><span class="ru">Заказы не отслеживаются, поставки <b>не в такт объекту</b></span></div></div><div class="stageS"><div class="no">05</div><div class="nm"><span class="en">Site execution &amp; QC</span><span class="ru">Работы на объекте и контроль качества</span></div><div class="pain"><span class="en">Progress in photo chats, <b>rework unmeasured</b></span><span class="ru">Прогресс в фото-чатах, <b>переделки не измеряются</b></span></div></div><div class="stageS"><div class="no">06</div><div class="nm"><span class="en">Handover &amp; warranty</span><span class="ru">Сдача и гарантия</span></div><div class="pain"><span class="en">Warranty cost <b>never attributed</b> to its cause</span><span class="ru">Стоимость гарантии <b>не привязана</b> к причине</span></div></div></div>
 
-  <div class="spineB">
+  <div class="spineB go" data-go="spine" data-open="OPEN THE SPINE &#8594;" data-open-ru="ОТКРЫТЬ ХРЕБЕТ &#8594;">
     <div class="ttl"><span class="en">THE SPINE</span><span class="ru">ХРЕБЕТ</span></div>
     <div class="cells"><div class="cellB"><div class="cn">01</div><div class="ct"><span class="en">One project baseline</span><span class="ru">Одна базовая версия проекта</span></div><div class="cs"><span class="en">a single source document per project</span><span class="ru">один исходный документ на проект</span></div></div><div class="cellB"><div class="cn">02</div><div class="ct"><span class="en">Change&#8209;control log</span><span class="ru">Журнал изменений</span></div><div class="cs"><span class="en">every deviation priced and signed</span><span class="ru">каждое отклонение оценено и подписано</span></div></div><div class="cellB"><div class="cn">03</div><div class="ct"><span class="en">Stage gates</span><span class="ru">Гейты этапов</span></div><div class="cs"><span class="en">no stage passes without evidence</span><span class="ru">этап не проходит без подтверждений</span></div></div><div class="cellB"><div class="cn">04</div><div class="ct"><span class="en">Weekly cadence</span><span class="ru">Недельный ритм</span></div><div class="cs"><span class="en">one operating review, one status view</span><span class="ru">один операционный обзор, один статус</span></div></div></div>
     <div class="lawB"><span class="en">This is what makes <span>fixed price survivable</span> at scale.</span><span class="ru">Именно это делает <span>фиксированную цену выживаемой</span> в масштабе.</span></div>
   </div>
 
-  <div class="cols3">
+  <div class="cols3 go" data-go="layers" data-open="OPEN LAYERS &#8594;" data-open-ru="ОТКРЫТЬ СЛОИ &#8594;">
     <div class="colC g"><h3><span class="en">FINANCE LAYER</span><span class="ru">ФИНАНСОВЫЙ СЛОЙ</span></h3><div class="flow"><span class="en">Estimate <span class="dot">·</span> cash plan <span class="dot">·</span> progress acts <span class="dot">·</span> margin per project</span><span class="ru">Смета <span class="dot">·</span> план денег <span class="dot">·</span> акты выполненных работ <span class="dot">·</span> маржа по проекту</span></div><div class="sub"><span class="en">Every project carries its own P&amp;L, visible weekly, not discovered at handover.</span><span class="ru">У каждого проекта своя экономика, видна еженедельно, а не обнаруживается при сдаче.</span></div></div>
     <div class="colC g"><h3><span class="en">CLIENT LAYER</span><span class="ru">КЛИЕНТСКИЙ СЛОЙ</span></h3><div class="flow"><span class="en">One status view per project <span class="dot">·</span> remote owner reporting <span class="dot">·</span> changes priced before work starts</span><span class="ru">Один статус по проекту <span class="dot">·</span> отчётность для удалённого собственника <span class="dot">·</span> изменения оценены до начала работ</span></div><div class="sub"><span class="en">Transparency sold to clients becomes the same view the company runs on.</span><span class="ru">Прозрачность, которую продают клиенту, становится тем же видом, по которому работает компания.</span></div></div>
     <div class="colC ai"><h3><span class="en"><i>AI LAYER</i></span><span class="ru"><i>СЛОЙ ИИ</i></span></h3><div class="flow"><span class="en">Document and estimate parsing <span class="dot">·</span> auto status reports <span class="dot">·</span> procurement matching <span class="dot">·</span> project memory</span><span class="ru">Разбор документов и смет <span class="dot">·</span> автоматические статус-отчёты <span class="dot">·</span> подбор закупок <span class="dot">·</span> память проектов</span></div><div class="sub"><span class="en"><b>AI lands last, on clean processes.</b> Automating a broken process scales the breakage.</span><span class="ru"><b>ИИ приходит последним, на чистые процессы.</b> Автоматизация сломанного процесса масштабирует поломку.</span></div></div>
   </div>
 
-  <div class="wavesR">
+  <div class="wavesR go" data-go="sequencing" data-open="OPEN SEQUENCING &#8594;" data-open-ru="ОТКРЫТЬ ВОЛНЫ &#8594;">
     <div class="wt"><span class="en">SEQUENCING</span><span class="ru">ПОСЛЕДОВАТЕЛЬНОСТЬ</span></div>
     <div class="waveR w1"><div class="wn"><span class="en"><b>WAVE 1</b> · FIRST 90 DAYS</span><span class="ru"><b>ВОЛНА 1</b> · ПЕРВЫЕ 90 ДНЕЙ</span></div><div class="wd"><span class="en">Estimate pipeline plus a single project status board. Quick wins that pay for the programme.</span><span class="ru">Сметный конвейер плюс единый статус-борд проектов. Быстрые победы, которые окупают программу.</span></div></div>
     <div class="waveR"><div class="wn"><span class="en">WAVE 2</span><span class="ru">ВОЛНА 2</span></div><div class="wd"><span class="en">Process core: ERP or BPM backbone, finance integration, one data model for all departments.</span><span class="ru">Ядро процессов: ERP или BPM как основа, интеграция с финансами, одна модель данных для всех департаментов.</span></div></div>
     <div class="waveR"><div class="wn"><span class="en">WAVE 3</span><span class="ru">ВОЛНА 3</span></div><div class="wd"><span class="en">AI automation across documents, reporting and procurement, on processes that already hold.</span><span class="ru">ИИ-автоматизация документов, отчётности и закупок поверх процессов, которые уже держат.</span></div></div>
   </div>
 
-  <div class="howto">
-    <div class="h"><b><span class="en">CHAIN</span><span class="ru">ЦЕПОЧКА</span></b><span class="en">what the company does, stage by stage, and where manual work usually hides</span><span class="ru">что делает компания, этап за этапом, и где обычно прячется ручная работа</span></div>
-    <div class="h"><b><span class="en">SPINE</span><span class="ru">ХРЕБЕТ</span></b><span class="en">how any of it stays true: one baseline, priced changes, gated progress, weekly review</span><span class="ru">как всё это остаётся правдой: одна базовая версия, оценённые изменения, прогресс через гейты, недельный обзор</span></div>
-    <div class="h"><b><span class="en">LAYERS</span><span class="ru">СЛОИ</span></b><span class="en">who reads the same records: finance, the client, and only then the AI</span><span class="ru">кто читает те же записи: финансы, клиент и только потом ИИ</span></div>
-    <div class="h"><b><span class="en">WAVES</span><span class="ru">ВОЛНЫ</span></b><span class="en">the order it is built in, each wave with an entry condition and an exit test</span><span class="ru">порядок построения: у каждой волны условие входа и тест выхода</span></div>
-  </div>
+<div class="pnav"><span></span><span class="pc">1 / 7</span><button class="lk2" data-go="chain"><span class="en">Next</span><span class="ru">Дальше</span>: <b><span class="en">Value chain</span><span class="ru">Цепочка</span></b> &#8594;</button></div>
 </div>
 
-<div class="page" id="p-chain">
+<div class="page" id="p-chain" role="tabpanel" aria-labelledby="tab-chain">
   <div class="kicker"><div class="bar"></div><div class="txt"><span class="en">VALUE CHAIN · SIX STAGES IN DEPTH</span><span class="ru">ЦЕПОЧКА ЦЕННОСТИ · ШЕСТЬ СТАДИЙ ПОДРОБНО</span></div></div>
   <h1><span class="en">Where the manual work lives, and what <em>replaces</em> it</span><span class="ru">Где живёт ручная работа и что её <em>заменяет</em></span></h1>
   <div class="note mb"><span class="en"><b>These are hypotheses, not a diagnosis.</b> They describe where manual work typically lives in this segment. Which of them apply, and how hard each one bites, is exactly what a short diagnostic establishes before anything is built.</span><span class="ru"><b>Это гипотезы, не диагноз.</b> Они описывают, где в этом сегменте обычно живёт ручная работа. Какие из них относятся к вам и насколько сильно каждая бьёт, как раз и устанавливает короткая диагностика до того, как что-либо строится.</span></div>
@@ -469,9 +493,10 @@
     </div>
   </div>
   <div class="note mt"><span class="en"><b>How the diagnostic uses this page.</b> Each stage is scored on three questions: how often the manual step happens, what it costs when it goes wrong, and who inside the company owns the fix. The score decides the wave a stage lands in, not the enthusiasm of the room.</span><span class="ru"><b>Как диагностика использует эту страницу.</b> Каждая стадия оценивается по трём вопросам: как часто случается ручной шаг, во что он обходится, когда идёт не так, и кто внутри компании отвечает за исправление. Оценка решает, в какую волну попадает стадия, а не энтузиазм в переговорной.</span></div>
+<div class="pnav"><button class="lk2" data-go="overview">&#8592; <span class="en">Overview</span><span class="ru">Обзор</span></button><span class="pc">2 / 7</span><button class="lk2" data-go="spine"><span class="en">Next</span><span class="ru">Дальше</span>: <b><span class="en">The spine</span><span class="ru">Хребет</span></b> &#8594;</button></div>
 </div>
 
-<div class="page" id="p-spine">
+<div class="page" id="p-spine" role="tabpanel" aria-labelledby="tab-spine">
   <div class="kicker"><div class="bar"></div><div class="txt"><span class="en">THE SPINE · FOUR DISCIPLINES</span><span class="ru">ХРЕБЕТ · ЧЕТЫРЕ ДИСЦИПЛИНЫ</span></div></div>
   <h1><span class="en">The four disciplines every stage <em>hangs on</em></span><span class="ru">Четыре дисциплины, на которых <em>держится</em> каждый этап</span></h1>
   <div class="stand"><span class="en">The value chain describes what the company does. The spine describes how any of it stays true: one source of record, priced deviations, gated progress, and a fixed rhythm of review. Remove any one of the four and fixed price becomes a bet.</span><span class="ru">Цепочка ценности описывает, что делает компания. Хребет описывает, как всё это остаётся правдой: один источник записи, оценённые отклонения, прогресс через гейты и фиксированный ритм обзора. Уберите любую из четырёх, и фиксированная цена превращается в ставку.</span></div>
@@ -551,13 +576,15 @@
       <line x1="150" y1="320" x2="180" y2="320" stroke="#B84A14" stroke-width="2"/><text x="188" y="324" font-size="11" fill="#AEB4C4"><tspan class="en">fail path, through change control</tspan><tspan class="ru">путь отказа, через контроль изменений</tspan></text>
       <line x1="430" y1="320" x2="460" y2="320" stroke="#8E96AC" stroke-width="2" stroke-dasharray="4 4"/><text x="468" y="324" font-size="11" fill="#AEB4C4"><tspan class="en">read by the weekly cadence</tspan><tspan class="ru">читается недельным ритмом</tspan></text>
     </svg></div>
+    <div class="swipe"><span class="en">&#8592; swipe to see the whole diagram &#8594;</span><span class="ru">&#8592; листайте, схема шире экрана &#8594;</span></div>
     <div class="gnote"><span class="en">No stage passes without evidence. This is what makes <span>fixed price survivable</span> at scale.</span><span class="ru">Ни один этап не проходит без подтверждений. Именно это делает <span>фиксированную цену выживаемой</span> в масштабе.</span></div>
   </div>
   <div class="sec-head"><div class="sec-label"><span class="en">ONE DATA SPINE · EIGHT RECORDS</span><span class="ru">ОДИН ХРЕБЕТ ДАННЫХ · ВОСЕМЬ ЗАПИСЕЙ</span></div><div class="sec-line"></div><div class="sec-tag"><span class="en">EVERY LAYER READS THESE, NOTHING IS ENTERED TWICE</span><span class="ru">ИХ ЧИТАЕТ КАЖДЫЙ СЛОЙ, НИЧЕГО НЕ ВВОДИТСЯ ДВАЖДЫ</span></div></div>
   <div class="recs"><div class="rec1"><div class="rn"><span class="en">STAGE <b>01</b></span><span class="ru">СТАДИЯ <b>01</b></span></div><div class="rt"><span class="en">Lead card</span><span class="ru">Карточка лида</span></div><div class="rd"><span class="en">source, owner, next action, outcome</span><span class="ru">источник, ответственный, следующий шаг, результат</span></div></div><div class="rec1"><div class="rn"><span class="en">STAGE <b>02</b></span><span class="ru">СТАДИЯ <b>02</b></span></div><div class="rt"><span class="en">Costed estimate</span><span class="ru">Смета с маржой</span></div><div class="rd"><span class="en">from the rate library, margin line included</span><span class="ru">из библиотеки расценок, со строкой маржи</span></div></div><div class="rec1"><div class="rn"><span class="en">STAGE <b>02</b></span><span class="ru">СТАДИЯ <b>02</b></span></div><div class="rt"><span class="en">Project baseline</span><span class="ru">Базовая версия проекта</span></div><div class="rd"><span class="en">signed scope, budget and schedule</span><span class="ru">подписанные объём, бюджет и график</span></div></div><div class="rec1"><div class="rn"><span class="en">SPINE</span><span class="ru">ХРЕБЕТ</span></div><div class="rt"><span class="en">Change order</span><span class="ru">Заказ на изменение</span></div><div class="rd"><span class="en">priced, signed, logged against the baseline</span><span class="ru">оценён, подписан, записан к базовой версии</span></div></div><div class="rec1"><div class="rn"><span class="en">STAGE <b>04</b></span><span class="ru">СТАДИЯ <b>04</b></span></div><div class="rt"><span class="en">Purchase order</span><span class="ru">Заказ поставщику</span></div><div class="rd"><span class="en">project line, need&#8209;by date, delivery status</span><span class="ru">строка проекта, дата потребности, статус поставки</span></div></div><div class="rec1"><div class="rn"><span class="en">STAGE <b>05</b></span><span class="ru">СТАДИЯ <b>05</b></span></div><div class="rt"><span class="en">Site log &amp; punch item</span><span class="ru">Журнал объекта и дефект</span></div><div class="rd"><span class="en">photo evidence, stage, cause code</span><span class="ru">фотоподтверждение, этап, код причины</span></div></div><div class="rec1"><div class="rn"><span class="en">GATE</span><span class="ru">ГЕЙТ</span></div><div class="rt"><span class="en">Progress act</span><span class="ru">Акт выполненных работ</span></div><div class="rd"><span class="en">released only on a passed gate</span><span class="ru">выпускается только после пройденного гейта</span></div></div><div class="rec1"><div class="rn"><span class="en">STAGE <b>06</b></span><span class="ru">СТАДИЯ <b>06</b></span></div><div class="rt"><span class="en">Warranty ticket</span><span class="ru">Гарантийная заявка</span></div><div class="rd"><span class="en">project, trade, root cause, cost</span><span class="ru">проект, вид работ, корневая причина, стоимость</span></div></div></div>
+<div class="pnav"><button class="lk2" data-go="chain">&#8592; <span class="en">Value chain</span><span class="ru">Цепочка</span></button><span class="pc">3 / 7</span><button class="lk2" data-go="layers"><span class="en">Next</span><span class="ru">Дальше</span>: <b><span class="en">Layers</span><span class="ru">Слои</span></b> &#8594;</button></div>
 </div>
 
-<div class="page" id="p-layers">
+<div class="page" id="p-layers" role="tabpanel" aria-labelledby="tab-layers">
   <div class="kicker"><div class="bar"></div><div class="txt"><span class="en">THREE LAYERS OVER THE CHAIN</span><span class="ru">ТРИ СЛОЯ ПОВЕРХ ЦЕПОЧКИ</span></div></div>
   <h1><span class="en">Finance, client and AI: three layers on <em>one</em> data spine</span><span class="ru">Финансы, клиент и ИИ: три слоя на <em>одном</em> хребте данных</span></h1>
   <div class="stand"><span class="en">The layers are not separate systems. Each one reads the same eight records the chain produces, which is why they arrive in this order and not the reverse.</span><span class="ru">Слои не отдельные системы. Каждый читает те же восемь записей, которые производит цепочка, и поэтому они появляются именно в этом порядке, а не в обратном.</span></div>
@@ -595,10 +622,12 @@
       <tr><td><span class="en">Warranty log<small>tickets by project, trade and root cause</small></span><span class="ru">Журнал гарантии<small>заявки по проекту, виду работ и причине</small></span></td><td><span class="d r"></span></td><td><span class="d r"></span></td><td><span class="d r"></span></td><td></td><td><span class="d o"></span></td><td><span class="d r"></span></td><td class="cl"><span class="d r"></span></td></tr>
       </tbody>
   </table></div>
+  <div class="swipe"><span class="en">&#8592; swipe to see all roles &#8594;</span><span class="ru">&#8592; листайте, чтобы увидеть все роли &#8594;</span></div>
   <div class="legend"><span><span class="d o"></span>&nbsp; <span class="en">owns and edits</span><span class="ru">ведёт и редактирует</span></span><span><span class="d r"></span>&nbsp; <span class="en">reads (the client reads a filtered view of their own project only)</span><span class="ru">читает (клиент видит только отфильтрованный вид своего проекта)</span></span><span><span class="en">blank: not needed for the role</span><span class="ru">пусто: этой роли не нужно</span></span></div>
+<div class="pnav"><button class="lk2" data-go="spine">&#8592; <span class="en">The spine</span><span class="ru">Хребет</span></button><span class="pc">4 / 7</span><button class="lk2" data-go="sequencing"><span class="en">Next</span><span class="ru">Дальше</span>: <b><span class="en">Sequencing</span><span class="ru">Волны</span></b> &#8594;</button></div>
 </div>
 
-<div class="page" id="p-sequencing">
+<div class="page" id="p-sequencing" role="tabpanel" aria-labelledby="tab-sequencing">
   <div class="kicker"><div class="bar"></div><div class="txt"><span class="en">SEQUENCING · THREE WAVES</span><span class="ru">ПОСЛЕДОВАТЕЛЬНОСТЬ · ТРИ ВОЛНЫ</span></div></div>
   <h1><span class="en">Built in <em>waves</em>, each one paying for the next</span><span class="ru">Строится <em>волнами</em>, каждая окупает следующую</span></h1>
   <div class="stand"><span class="en">Nothing here is a big&#8209;bang implementation. Each wave has an entry condition, a scope and an exit test, and the next wave starts only when the previous one holds in daily use.</span><span class="ru">Здесь нет внедрения «большим взрывом». У каждой волны есть условие входа, объём и тест выхода, и следующая волна начинается только тогда, когда предыдущая держится в ежедневной работе.</span></div>
@@ -639,9 +668,10 @@
     <div class="note"><span class="en"><b>Deliberately absent from this page:</b> prices and calendar promises. Scope and sequence are a method; cost and dates come out of a diagnostic of the actual company, not a reference view.</span><span class="ru"><b>Чего на этой странице нет намеренно:</b> цен и календарных обещаний. Объём и последовательность описывают метод; стоимость и сроки даёт диагностика конкретной компании, а не референс.</span></div>
     <div class="note"><span class="en"><b>What stays manual on purpose:</b> design judgement, client relationships and site craftsmanship. The system removes re&#8209;entry, guesswork and memory as a filing system. It does not replace the people who build.</span><span class="ru"><b>Что остаётся ручным намеренно:</b> дизайнерское суждение, отношения с клиентом и мастерство на объекте. Система убирает повторный ввод, догадки и память как систему хранения. Она не заменяет людей, которые строят.</span></div>
   </div>
+<div class="pnav"><button class="lk2" data-go="layers">&#8592; <span class="en">Layers</span><span class="ru">Слои</span></button><span class="pc">5 / 7</span><button class="lk2" data-go="toolkit"><span class="en">Next</span><span class="ru">Дальше</span>: <b><span class="en">Toolkit</span><span class="ru">Инструменты</span></b> &#8594;</button></div>
 </div>
 
-<div class="page" id="p-toolkit">
+<div class="page" id="p-toolkit" role="tabpanel" aria-labelledby="tab-toolkit">
   <div class="kicker"><div class="bar"></div><div class="txt"><span class="en">TOOLKIT · PATTERNS FROM LIVE MANDATES</span><span class="ru">ИНСТРУМЕНТЫ · ПАТТЕРНЫ ИЗ ЖИВЫХ МАНДАТОВ</span></div></div>
   <h1><span class="en">What the instruments look like when they are <em>built</em></span><span class="ru">Как выглядят инструменты, когда они <em>построены</em></span></h1>
   <div class="stand"><span class="en">Six patterns from six mandates, one per card. None of these is a screenshot: each card describes a mechanism that ran in production and the element of this reference it proves. Names, figures and client data stay out by design.</span><span class="ru">Шесть паттернов из шести мандатов, по одному на карточку. Ни одна из них не скриншот: каждая описывает механизм, который работал в продуктиве, и элемент этого референса, который он подтверждает. Имена, цифры и данные клиентов не показываются намеренно.</span></div>
@@ -728,9 +758,10 @@
     </div>
   </div>
   <div class="note mt"><span class="en"><b>What this page proves:</b> the spine is not a slide. Registers, gates, roles and cadence have run in live systems, built by the same hands that would build yours, without an implementation army. Which of the six patterns a fit-out company needs first is, again, what the diagnostic answers.</span><span class="ru"><b>Что доказывает эта страница:</b> хребет не слайд. Реестры, гейты, роли и ритм работали в живых системах, собранных теми же руками, которые соберут ваши, без армии внедренцев. Какой из шести паттернов нужен фит-аут компании первым, снова отвечает диагностика.</span></div>
+<div class="pnav"><button class="lk2" data-go="sequencing">&#8592; <span class="en">Sequencing</span><span class="ru">Волны</span></button><span class="pc">6 / 7</span><button class="lk2" data-go="about"><span class="en">Next</span><span class="ru">Дальше</span>: <b><span class="en">About</span><span class="ru">Обо мне</span></b> &#8594;</button></div>
 </div>
 
-<div class="page" id="p-about">
+<div class="page" id="p-about" role="tabpanel" aria-labelledby="tab-about">
   <div class="kicker"><div class="bar"></div><div class="txt"><span class="en">ABOUT · WHY THIS ARCHITECT</span><span class="ru">ОБО МНЕ · ПОЧЕМУ ЭТОТ АРХИТЕКТОР</span></div></div>
   <h1><span class="en">The same discipline, proven on <em>capital&#8209;grade</em> projects</span><span class="ru">Та же дисциплина, проверенная на проектах <em>капитального</em> масштаба</span></h1>
   <div class="stand"><span class="en">This reference is not a theory page. Each element of the spine has run in live mandates, under investors, regulators and fixed budgets.</span><span class="ru">Этот референс не теория. Каждый элемент хребта работал в живых мандатах: под инвесторами, регуляторами и фиксированными бюджетами.</span></div>
@@ -773,6 +804,7 @@
   </div>
   <div class="sec-head"><div class="sec-label"><span class="en">HOW I WORK</span><span class="ru">КАК Я РАБОТАЮ</span></div><div class="sec-line"></div><div class="sec-tag"><span class="en">FOUR RULES, NO EXCEPTIONS</span><span class="ru">ЧЕТЫРЕ ПРАВИЛА, БЕЗ ИСКЛЮЧЕНИЙ</span></div></div>
   <div class="princ"><div class="p"><b><span class="en">DIAGNOSTIC FIRST</span><span class="ru">СНАЧАЛА ДИАГНОСТИКА</span></b><span class="en">the map comes before the build; the reference view is the method, the map is the product</span><span class="ru">карта раньше стройки: референс показывает метод, карта и есть продукт</span></div><div class="p"><b><span class="en">SCOPE BEFORE PRICE</span><span class="ru">СНАЧАЛА ОБЪЁМ, ПОТОМ ЦЕНА</span></b><span class="en">each piece of work has an entry, a scope and an exit test; commercial terms follow the scope, never precede it</span><span class="ru">у каждой работы есть вход, объём и тест выхода; коммерческие условия идут за объёмом и никогда перед ним</span></div><div class="p"><b><span class="en">EVIDENCE AT EVERY GATE</span><span class="ru">ПОДТВЕРЖДЕНИЕ НА КАЖДОМ ГЕЙТЕ</span></b><span class="en">the same rule applied to my own work: nothing is "done" without an artifact</span><span class="ru">то же правило к моей собственной работе: ничего не «готово» без артефакта</span></div><div class="p"><b><span class="en">NO BIG BANG</span><span class="ru">БЕЗ БОЛЬШОГО ВЗРЫВА</span></b><span class="en">waves that pay for the next one, adopted in daily use before the next starts</span><span class="ru">волны, которые окупают следующую и приживаются в ежедневной работе до старта следующей</span></div></div>
+<div class="pnav"><button class="lk2" data-go="toolkit">&#8592; <span class="en">Toolkit</span><span class="ru">Инструменты</span></button><span class="pc">7 / 7</span><span></span></div>
 </div>
 
 <div class="foot">
@@ -791,7 +823,7 @@
     if(order.indexOf(id) < 0) id = 'overview';
     current = id;
     pages.forEach(function(p){ p.classList.toggle('on', p.id === 'p-'+id); });
-    tabs.forEach(function(t){ t.classList.toggle('on', t.dataset.p === id); });
+    tabs.forEach(function(t){ var on = t.dataset.p === id; t.classList.toggle('on', on); t.setAttribute('aria-selected', on ? 'true' : 'false'); });
     counter.textContent = (order.indexOf(id)+1) + ' / ' + order.length;
     try{ history.replaceState(null,'','#'+id); }catch(e){}
     window.scrollTo(0,0);
@@ -806,12 +838,19 @@
     if(l !== 'ru') l = 'en';
     document.documentElement.lang = l;
     document.title = titles[l];
-    document.querySelectorAll('.lang button').forEach(function(b){ b.classList.toggle('on', b.dataset.l === l); });
+    document.querySelectorAll('.lang button').forEach(function(b){ var on = b.dataset.l === l; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on ? 'true' : 'false'); });
     try{ localStorage.setItem('oa-lang', l); }catch(e){}
   }
   tabs.forEach(function(t){ t.addEventListener('click', function(){ show(t.dataset.p); }); });
   document.querySelectorAll('.lang button').forEach(function(b){ b.addEventListener('click', function(){ setLang(b.dataset.l); }); });
+  document.addEventListener('click', function(e){
+    var el = e.target.closest('[data-go]');
+    if(!el) return;
+    if(el.classList.contains('go') && e.target.closest('.lk')) return;
+    show(el.dataset.go);
+  });
   document.addEventListener('keydown', function(e){
+    if(e.ctrlKey || e.metaKey || e.altKey) return;
     if(e.target && /INPUT|TEXTAREA|SELECT/.test(e.target.tagName)) return;
     if(e.key === 'ArrowRight' || e.key === 'PageDown'){ step(1); e.preventDefault(); }
     if(e.key === 'ArrowLeft' || e.key === 'PageUp'){ step(-1); e.preventDefault(); }
