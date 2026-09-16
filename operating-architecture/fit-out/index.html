@@ -271,6 +271,10 @@
   .logl .no{color:var(--terra);font-weight:bold}
 
   /* ===== about ===== */
+  .usp{display:flex;gap:22px;margin-bottom:26px}
+  .u{flex:1;background:var(--navy);color:#FFF;padding:16px 18px 15px;border-top:3px solid var(--gold)}
+  .u .ue{font-size:10.5px;letter-spacing:2.2px;font-weight:bold;color:var(--gold);margin-bottom:7px}
+  .u .ut{font-size:13.2px;line-height:1.5;color:#E7EAF2}
   .abgrid{display:grid;grid-template-columns:1.15fr .85fr;gap:26px}
   .ap{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--gold);padding:16px 20px;margin-bottom:16px}
   .ap h3{font-size:12px;letter-spacing:2.2px;color:var(--navy);margin-bottom:7px}
@@ -344,7 +348,7 @@
     .spineB{flex-direction:column;align-items:stretch;gap:14px;padding:16px}
     .spineB .cells{flex-direction:column;gap:12px}
     .lawB{max-width:none}
-    .levels,.cols3,.wavesR,.howto,.sqrow,.lygrid,.vcgrid,.spgrid,.abgrid,.twin,.princ,.band,.tkgrid{display:flex;flex-direction:column;gap:12px}
+    .levels,.cols3,.wavesR,.howto,.sqrow,.lygrid,.vcgrid,.spgrid,.abgrid,.twin,.princ,.band,.tkgrid,.usp{display:flex;flex-direction:column;gap:12px}
     .howto .h,.princ .p{border-right:none;border-bottom:1px solid var(--line)}
     .howto .h:last-child,.princ .p:last-child{border-bottom:none}
     .bseg{border-right:none}
@@ -383,7 +387,7 @@
     .top,.foot{zoom:.74}
     #p-about{page-break-after:auto}
     .foot{page-break-inside:avoid}
-    .gate,.spineB,.abside,.bseg{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .gate,.spineB,.abside,.bseg,.u{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   }
 </style>
 </head>
@@ -402,7 +406,7 @@
 <div class="page on" id="p-overview" role="tabpanel" aria-labelledby="tab-overview">
   <div class="kicker"><div class="bar"></div><div class="txt"><span class="en">REFERENCE VIEW · AT A GLANCE</span><span class="ru">РЕФЕРЕНС · ОДНИМ ВЗГЛЯДОМ</span></div></div>
   <h1><span class="en">An <em>operating system</em> for a premium fit&#8209;out and construction business</span><span class="ru"><em>Операционная система</em> для премиального фит-аута и строительства</span></h1>
-  <div class="stand"><span class="en">One structure that makes every project legible: <b>who owes what, by when, with evidence attached.</b> Designed for a 50 to 200 person company running design, procurement and site delivery in&#8209;house on fixed&#8209;price contracts. Every block on this screen is clickable and opens its own tab.</span><span class="ru">Одна структура, которая делает каждый проект читаемым: <b>кто что должен, к какому сроку, с приложенными подтверждениями.</b> Рассчитана на компанию от 50 до 200 человек, которая сама ведёт дизайн, закупки и работы на объекте по контрактам с фиксированной ценой. Каждый блок этого экрана кликабелен и открывает свою вкладку.</span></div>
+  <div class="stand"><span class="en">For a fit&#8209;out contractor on fixed&#8209;price contracts: an operating system that <b>keeps margin where the contract put it</b>, turns the transparency you sell to clients into the way the company runs, and takes the founder out of the integrator role. Built in waves, first results in 90 days, AI once the records are clean. Every block on this screen is clickable and opens its own tab.</span><span class="ru">Для фит-аут подрядчика на фиксированной цене: операционная система, которая <b>удерживает маржу там, где её положил контракт</b>, превращает прозрачность, которую вы продаёте клиентам, в способ работы компании, и выводит основателя из роли интегратора. Строится волнами, первые результаты за 90 дней, ИИ когда записи чистые. Каждый блок этого экрана кликабелен и открывает свою вкладку.</span></div>
 
   <div class="levels">
     <div class="lv s">
@@ -765,6 +769,14 @@
   <div class="kicker"><div class="bar"></div><div class="txt"><span class="en">ABOUT · WHY THIS ARCHITECT</span><span class="ru">ОБО МНЕ · ПОЧЕМУ ЭТОТ АРХИТЕКТОР</span></div></div>
   <h1><span class="en">The same discipline, proven on <em>capital&#8209;grade</em> projects</span><span class="ru">Та же дисциплина, проверенная на проектах <em>капитального</em> масштаба</span></h1>
   <div class="stand"><span class="en">This reference is not a theory page. Each element of the spine has run in live mandates, under investors, regulators and fixed budgets.</span><span class="ru">Этот референс не теория. Каждый элемент хребта работал в живых мандатах: под инвесторами, регуляторами и фиксированными бюджетами.</span></div>
+
+  <div class="sec-head"><div class="sec-label"><span class="en">WHY THIS, NOT AN INTEGRATOR OR A DECK</span><span class="ru">ПОЧЕМУ ЭТО, А НЕ ИНТЕГРАТОР ИЛИ ПРЕЗЕНТАЦИЯ</span></div><div class="sec-line"></div><div class="sec-tag"><span class="en">THREE CONTRASTS</span><span class="ru">ТРИ КОНТРАСТА</span></div></div>
+  <div class="usp">
+    <div class="u"><div class="ue"><span class="en">NOT AN INTEGRATOR</span><span class="ru">НЕ ИНТЕГРАТОР</span></div><div class="ut"><span class="en">The work starts with the discipline, not with software. ERP is a wave&#8209;two decision made on clean records, with no vendor holding the keys to your data.</span><span class="ru">Работа начинается с дисциплины, а не с софта. ERP это решение второй волны на чистых записях, и ни один вендор не держит ключи от ваших данных.</span></div></div>
+    <div class="u"><div class="ue"><span class="en">NOT A DECK</span><span class="ru">НЕ ПРЕЗЕНТАЦИЯ</span></div><div class="ut"><span class="en">The instruments are built by the same hands and stay through the waves. The spine has run under investors and regulators: portfolio governance for a developer, integration of four acquisitions.</span><span class="ru">Инструменты собираются теми же руками и остаются на всех волнах. Хребет работал под инвесторами и регуляторами: управление портфелем девелопера, интеграция четырёх сделок.</span></div></div>
+    <div class="u"><div class="ue"><span class="en">NOT A HIRE IN THE DARK</span><span class="ru">НЕ НАЙМ ВСЛЕПУЮ</span></div><div class="ut"><span class="en">A fixed&#8209;scope diagnostic first, an exit test on every wave, commercial terms after the scope. You see the map before you commit to the build, and the builder, before the mandate.</span><span class="ru">Сначала диагностика с фиксированным объёмом, тест выхода на каждой волне, коммерческие условия после объёма. Вы видите карту до того, как платите за стройку, и строителя до того, как даёте мандат.</span></div></div>
+  </div>
+
   <div class="abgrid">
     <div class="abmain">
       <div class="ap">
