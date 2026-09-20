@@ -16,6 +16,7 @@
   <meta name="twitter:title" content="Ngouen Health Partners — Clinic Turnaround, Dubai" />
   <meta name="twitter:description" content="Confidential clinic diagnostics and turnaround. Led by Yan Ngouen." />
   <meta name="twitter:image" content="https://yantheapy.github.io/yan-portfolio/photo.jpg" />
+  <link rel="stylesheet" href="assets/fonts.css" />
   <style>
     :root {
       --navy: #06142f;
@@ -26,6 +27,7 @@
       --paper: #fbfaf8;
       --white: #ffffff;
       --gold: #c6a15b;
+      --gold-deep: #85652a; /* gold for small text on light backgrounds (>= 4.7:1 on paper, white and the hero tint) */
       --gold-soft: #f2eadc;
       --grey: #f2f4f7;
       --green: #1d6b5f;
@@ -74,7 +76,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 26px;
+      gap: clamp(12px, 2.5vw - 15px, 20px);
     }
 
     .brand {
@@ -85,13 +87,14 @@
       letter-spacing: -0.04em;
       font-family: var(--serif);
       font-weight: 700;
-      font-size: 23px;
+      font-size: clamp(18px, 3.34vw - 18.7px, 21px);
       color: var(--navy);
       min-width: max-content;
+      white-space: nowrap;
     }
 
     .brand span:last-child {
-      color: var(--gold);
+      color: var(--gold-deep);
       font-size: 12px;
       letter-spacing: 0.18em;
       font-family: var(--sans);
@@ -103,13 +106,29 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 26px;
+      gap: clamp(10px, 3.4vw - 27px, 13px);
       color: #263040;
-      font-size: 14px;
+      font-size: 13px;
+    }
+
+    .nav-links a {
+      white-space: nowrap;
     }
 
     .nav-links a:hover {
-      color: var(--gold);
+      color: var(--gold-deep);
+    }
+
+    .nav .nav-cta {
+      white-space: nowrap;
+      flex-shrink: 0;
+      padding: 12px clamp(12px, 3vw - 21px, 14px);
+      font-size: clamp(10px, 0.8vw + 1.2px, 11px);
+    }
+
+    /* CTA shown inside the collapsed menu only (the header CTA is hidden on small screens) */
+    .nav-links .menu-cta {
+      display: none;
     }
 
     .btn {
@@ -154,7 +173,18 @@
       background: transparent;
       color: var(--navy);
       font-size: 26px;
+      line-height: 1;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      margin-right: -8px;
+      flex-shrink: 0;
       cursor: pointer;
+    }
+
+    .mobile-toggle:focus-visible {
+      outline: 2px solid var(--gold-deep);
+      outline-offset: 2px;
     }
 
     .hero {
@@ -194,7 +224,7 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      color: var(--gold);
+      color: var(--gold-deep);
       font-size: 12px;
       font-weight: 900;
       letter-spacing: 0.18em;
@@ -218,7 +248,10 @@
     }
 
     h1 {
-      font-size: clamp(46px, 6vw, 78px);
+      /* 52px cap (not 64px): the hero text column is 587px at >=1220px, and the
+         headline only fits in 3 lines of Georgia at <= ~55px */
+      font-size: clamp(34px, 4.6vw, 52px);
+      line-height: 1.05;
       max-width: 690px;
     }
 
@@ -312,6 +345,19 @@
       margin-top: 8px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
+    }
+
+    .dash-note {
+      color: rgba(255, 255, 255, 0.62);
+      font-size: 11px;
+      margin-top: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .dash-top .pill {
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .dash-grid {
@@ -425,7 +471,7 @@
       display: grid;
       place-items: center;
       border: 1px solid rgba(198, 161, 91, 0.42);
-      color: var(--gold);
+      color: var(--gold-deep);
       margin-bottom: 22px;
       position: relative;
       z-index: 1;
@@ -470,7 +516,7 @@
 
     .source-note {
       margin-top: 16px;
-      color: #8b91a0;
+      color: #6b7280;
       font-size: 12px;
     }
 
@@ -545,7 +591,7 @@
 
     .num {
       font-family: var(--serif);
-      color: var(--gold);
+      color: var(--gold-deep);
       font-size: 28px;
       margin-bottom: 18px;
       display: inline-block;
@@ -877,6 +923,10 @@
       color: rgba(255,255,255,0.72);
     }
 
+    .founder .eyebrow {
+      color: var(--gold);
+    }
+
     .founder-grid {
       display: grid;
       grid-template-columns: 0.88fr 1.12fr;
@@ -1058,7 +1108,7 @@
 
     .privacy {
       font-size: 12px;
-      color: #858c99;
+      color: #6b7280;
     }
 
     footer {
@@ -1122,6 +1172,7 @@
       box-shadow: 0 10px 24px rgba(31, 122, 69, 0.22);
     }
     .btn.wa:hover { background: #1a6b3c; }
+    .cta .btn.wa { color: white; } /* keep white text on green inside the gold-button CTA section */
     .founder-photo {
       width: 124px;
       height: 124px;
@@ -1169,7 +1220,7 @@
     }
     .contact-direct a:hover { color: var(--gold); }
     .contact-direct .lab {
-      color: var(--gold);
+      color: var(--gold-deep);
       font-size: 11px;
       font-weight: 900;
       letter-spacing: 0.1em;
@@ -1188,10 +1239,6 @@
         grid-template-columns: repeat(2, 1fr);
       }
 
-      .nav-links {
-        gap: 16px;
-      }
-
       .service-grid {
         grid-template-columns: 1fr;
       }
@@ -1203,30 +1250,58 @@
       }
     }
 
-    @media (max-width: 900px) {
+    /* Below 1100px the primary nav collapses into the burger menu */
+    @media (max-width: 1099.98px) {
       .nav-links {
         display: none;
         position: absolute;
         left: 0;
         right: 0;
         top: 76px;
+        max-height: calc(100vh - 76px);
+        overflow-y: auto;
         background: var(--paper);
         border-bottom: 1px solid var(--line);
-        padding: 20px;
+        box-shadow: 0 24px 40px rgba(6, 20, 47, 0.10);
+        padding: 12px 20px 22px;
         flex-direction: column;
-        align-items: flex-start;
+        align-items: stretch;
+        gap: 0;
+        font-size: 16px;
       }
 
       .nav-links.open {
         display: flex;
       }
 
+      .nav-links a {
+        padding: 12px 0;
+      }
+
+      .nav-links a + a {
+        border-top: 1px solid var(--line);
+      }
+
+      .brand {
+        font-size: 22px;
+      }
+
       .mobile-toggle {
         display: block;
       }
+    }
 
-      .nav .btn {
+    @media (max-width: 900px) {
+      .nav .nav-cta {
         display: none;
+      }
+
+      .nav-links .menu-cta {
+        display: inline-flex;
+        margin-top: 16px;
+        padding: 14px 22px;
+        border: 1px solid var(--navy);
+        font-size: 11px;
       }
 
       .hero-grid,
@@ -1279,8 +1354,8 @@
         gap: 34px;
       }
 
-      h1 {
-        font-size: 42px;
+      .brand {
+        font-size: 19px;
       }
 
       h2 {
@@ -1356,7 +1431,7 @@
         <span>Clinic Performance · Dubai</span>
       </a>
 
-      <nav class="nav-links" id="navLinks">
+      <nav class="nav-links" id="navLinks" aria-label="Primary">
         <a href="#market">Market</a>
         <a href="#problems">Problems</a>
         <a href="#framework">Framework</a>
@@ -1365,10 +1440,12 @@
         <a href="#founder">About</a>
         <a href="#team">How I work</a>
         <a href="#contact">Contact</a>
+        <a href="index.html">Portfolio</a>
+        <a class="btn menu-cta" href="#contact">Confidential Consultation</a>
       </nav>
 
-      <a class="btn" href="#contact">Confidential Consultation</a>
-      <button class="mobile-toggle" aria-label="Open navigation" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
+      <a class="btn nav-cta" href="#contact">Confidential Consultation</a>
+      <button class="mobile-toggle" id="navToggle" type="button" aria-label="Open navigation" aria-controls="navLinks" aria-expanded="false">☰</button>
     </div>
   </header>
 
@@ -1394,11 +1471,12 @@
         </div>
 
         <div class="hero-card reveal">
-          <div class="dashboard" aria-label="Clinic performance dashboard illustration">
+          <div class="dashboard" role="group" aria-label="Illustrative KPI view, not client data">
             <div class="dash-top">
               <div>
                 <div class="dash-title">Clinic Control Room</div>
                 <div class="dash-sub">Cash • Claims • Doctors • EBITDA</div>
+                <div class="dash-note">Illustrative KPI view · not client data</div>
               </div>
               <span class="pill" style="background:rgba(198,161,91,0.12); color:#e7cc8f; border-color:rgba(198,161,91,0.35);">Live KPI View</span>
             </div>
@@ -1414,7 +1492,7 @@
               <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
               <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
             </div>
-            <p style="color:rgba(255,255,255,0.4); font-size:11px; margin-top:14px; letter-spacing:0.04em;">Illustrative control-room view. Figures are representative, not client data.</p>
+            <p style="color:rgba(255,255,255,0.62); font-size:11px; margin-top:14px; letter-spacing:0.04em;">Illustrative control-room view. Figures are representative, not client data.</p>
           </div>
         </div>
       </div>
@@ -1867,9 +1945,9 @@
         </form>
       </div>
     </section>
-  </main>
 
-  <a class="floating-cta" href="https://wa.me/971588723184?text=Hi%20Yan%2C%20I%27d%20like%20a%20confidential%20clinic%20diagnostic." target="_blank" rel="noopener"><span class="btn wa">WhatsApp</span></a>
+    <a class="floating-cta" href="https://wa.me/971588723184?text=Hi%20Yan%2C%20I%27d%20like%20a%20confidential%20clinic%20diagnostic." target="_blank" rel="noopener"><span class="btn wa">WhatsApp</span></a>
+  </main>
 
   <footer>
     <div class="container footer-grid">
@@ -1894,11 +1972,36 @@
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    document.querySelectorAll('#navLinks a').forEach(link => {
-      link.addEventListener('click', () => {
-        document.getElementById('navLinks').classList.remove('open');
-      });
+    // Burger menu (nav collapses below 1100px)
+    const navLinks = document.getElementById('navLinks');
+    const navToggle = document.getElementById('navToggle');
+    const isNavOpen = () => navLinks.classList.contains('open');
+
+    function setNav(open) {
+      navLinks.classList.toggle('open', open);
+      navToggle.setAttribute('aria-expanded', String(open));
+      navToggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+      navToggle.textContent = open ? '✕' : '☰';
+    }
+
+    navToggle.addEventListener('click', () => setNav(!isNavOpen()));
+
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => setNav(false));
     });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isNavOpen()) {
+        setNav(false);
+        navToggle.focus();
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (isNavOpen() && !navLinks.contains(e.target) && !navToggle.contains(e.target)) setNav(false);
+    });
+
+    window.matchMedia('(max-width: 1099.98px)').addEventListener('change', () => setNav(false));
   </script>
 </body>
 </html>

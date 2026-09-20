@@ -8,6 +8,7 @@
 <meta property="og:title" content="Operating Architecture">
 <meta property="og:description" content="Reference view, not a proposal: an operating system for a premium fit-out and construction business.">
 <title>Operating Architecture</title>
+<link rel="icon" type="image/png" href="../../favicon.png">
 <style>
   :root{
     --bg:#FAF7F1; --navy:#1B2440; --navy2:#26314F; --navy3:#333E60;
@@ -34,7 +35,7 @@
     @keyframes fadein{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
     .page.on{animation:fadein .16s ease-out}
   }
-  h1{text-wrap:balance}
+  .pt{text-wrap:balance}
   .lk{background:none;border:none;padding:0;font:inherit;color:inherit;cursor:pointer;letter-spacing:inherit;font-weight:inherit;text-decoration:underline;text-decoration-color:rgba(122,95,15,.35);text-underline-offset:3px}
   .lk:hover{text-decoration-color:var(--goldtext)}
   .go{cursor:pointer;position:relative;transition:outline-color .15s}
@@ -47,21 +48,26 @@
   .pnav .lk2 b{font-family:'Liberation Serif',Georgia,serif;font-weight:bold}
   .pnav .pc{font-family:'Liberation Serif',Georgia,serif;font-size:12.5px;color:var(--muted)}
   .swipe{display:none;font-size:11px;color:var(--muted);letter-spacing:1px;margin-top:6px;text-align:right}
+  .gate .swipe{color:#8E96AC}
 
   /* ===== top bar ===== */
   .top{background:var(--navy);color:#FFF;padding:0 40px;position:sticky;top:env(safe-area-inset-top,0px);z-index:50;box-shadow:0 2px 10px rgba(27,36,64,.25)}
-  .top-row{display:flex;align-items:center;gap:14px;height:64px;max-width:1600px;margin:0 auto}
+  /* the row wraps only when it must: the badge and controls then drop to a second, right-aligned line */
+  .top-row{display:flex;align-items:center;flex-wrap:wrap;gap:14px;row-gap:8px;min-height:64px;padding:9px 0;max-width:1600px;margin:0 auto}
   .brand{font-family:'Liberation Serif',Georgia,serif;font-size:19px;font-weight:bold;white-space:nowrap;letter-spacing:.2px}
   .brand em{font-style:italic;color:var(--gold)}
-  .tabs{display:flex;gap:6px;flex:1;min-width:0}
+  .back{flex:none;display:inline-flex;align-items:center;min-height:32px;padding:4px 14px 4px 0;border-right:1px solid #3A4568;color:#C9CEDC;text-decoration:none;font-size:12.5px;font-weight:bold;letter-spacing:.3px;white-space:nowrap;border-radius:2px}
+  .back:hover{color:var(--gold)}
+  .tabs{display:flex;gap:6px;flex:1 0 auto;min-width:0}
   .badge,.counter,.lang,.view,.pbtn{flex:none}
+  .ctl{display:flex;align-items:center;gap:inherit;flex:none;margin-left:auto}
   .tab{background:transparent;border:1px solid transparent;color:#C9CEDC;font-family:inherit;font-size:13.5px;padding:8px 9px;cursor:pointer;letter-spacing:.3px;border-radius:2px;display:flex;align-items:center;gap:8px;white-space:nowrap}
-  .tab .n{font-family:'Liberation Serif',Georgia,serif;font-size:11.5px;color:var(--gold);opacity:.75}
+  .tab .n{display:none;font-family:'Liberation Serif',Georgia,serif;font-size:11.5px;color:var(--gold);opacity:.75}
   .tab:hover{color:#FFF;border-color:#3A4568}
   .tab.on{background:var(--navy2);color:#FFF;border-color:var(--gold)}
   .tab.on .n{opacity:1}
   .badge{font-size:10.5px;letter-spacing:1.6px;color:var(--gold);border:1px solid var(--gold);padding:6px 10px;white-space:nowrap;font-weight:bold}
-  .counter{font-family:'Liberation Serif',Georgia,serif;font-size:13px;color:#8E96AC;white-space:nowrap;min-width:38px;text-align:center}
+  .counter{display:none;font-family:'Liberation Serif',Georgia,serif;font-size:13px;color:#8E96AC;white-space:nowrap;min-width:38px;text-align:center}
   .lang,.view{display:flex;border:1px solid #3A4568;border-radius:2px;overflow:hidden}
   .view button{background:transparent;border:none;color:#C9CEDC;font-family:inherit;font-size:12px;font-weight:bold;letter-spacing:.6px;padding:7px 10px;cursor:pointer;white-space:nowrap}
   .view button.on{background:#3A4568;color:#FFF}
@@ -79,8 +85,8 @@
   .kicker{display:flex;align-items:center;gap:14px;margin-bottom:12px}
   .kicker .bar{width:46px;height:4px;background:var(--terra)}
   .kicker .txt{font-size:12.5px;letter-spacing:3px;color:var(--terra);font-weight:bold}
-  h1{font-family:'Liberation Serif',Georgia,serif;font-size:40px;line-height:1.06;color:var(--navy);font-weight:bold;max-width:1000px;margin-bottom:12px}
-  h1 em{font-style:italic;color:var(--terra)}
+  .pt{font-family:'Liberation Serif',Georgia,serif;font-size:40px;line-height:1.06;color:var(--navy);font-weight:bold;max-width:1000px;margin-bottom:12px}
+  .pt em{font-style:italic;color:var(--terra)}
   .stand{font-size:16px;line-height:1.5;color:var(--muted);max-width:900px;margin-bottom:26px}
   .stand b{color:var(--ink)}
 
@@ -329,14 +335,15 @@
   }
   @media (max-width:1560px){
     .counter{display:none}
-    .tab{padding:8px 6px;font-size:13px}
-    .top-row{gap:10px}
+    .tab{padding:8px 5px;font-size:13px}
+    .top-row{gap:8px}
+    .back{padding-right:10px}
     .top{padding:0 28px}
     .badge{letter-spacing:.9px;padding:6px 7px}
     .brand{font-size:18px}
   }
   @media (max-width:1380px){
-    h1{font-size:36px}
+    .pt{font-size:36px}
     .stageS .pain{font-size:11.2px}
     .lawB{font-size:15px;max-width:240px}
     .hint{display:none}
@@ -364,6 +371,25 @@
     .top-row{flex-wrap:wrap;height:auto;padding:8px 0;row-gap:6px}
     .tabs{order:5;flex:1 0 100%;overflow-x:auto;padding-bottom:2px}
   }
+  @media (max-width:1240px){
+    .vcgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .vc .vhead{flex-wrap:wrap}
+    .vc .rec{white-space:normal}
+    .vrow{grid-template-columns:160px minmax(0,1fr)}
+  }
+  @media (max-width:1050px){
+    .recs{flex-wrap:wrap;gap:10px}
+    .rec1{flex:1 1 30%}
+    .rec1 + .rec1{margin-left:0}
+    .rec1:after{display:none}
+  }
+  @media (max-width:900px){
+    .chain{flex-wrap:wrap;gap:14px}
+    .stageS{flex:1 1 30%}
+    .stageS + .stageS{margin-left:0}
+    .stageS:after{display:none}
+    .tkgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  }
   @media (max-width:760px){
     .top{padding:0 12px}
     .top-row{gap:8px}
@@ -372,7 +398,7 @@
     .badge{font-size:9px;letter-spacing:1px;padding:4px 6px}
     .counter{min-width:0}
     .page{padding:22px 16px 26px;min-height:0}
-    h1{font-size:26px}
+    .pt{font-size:26px}
     .stand{font-size:14.5px}
     .sec-head{flex-wrap:wrap;gap:6px}
     .sec-line{flex:1 0 100%;order:3}
@@ -405,6 +431,7 @@
     .foot{flex-direction:column;gap:6px;padding:12px 16px 20px}
     .top{position:static}
     .tabs{order:5;flex:1 0 100%;flex-wrap:wrap;overflow:visible;gap:4px}
+    .ctl{flex:1 1 auto;flex-wrap:wrap;min-width:0;margin-left:0}
     .tab{padding:8px 10px;font-size:12.5px}
     .vc .rec{flex-basis:100%;white-space:normal;margin-top:4px}
     .mx td:first-child,.mx th:first-child{position:sticky;left:0;background:#FFF;z-index:1;box-shadow:2px 0 0 var(--line)}
@@ -417,7 +444,7 @@
   @media print{
     body{min-width:0;background:#FFF}
     .top{position:static;box-shadow:none}
-    .tabs,.pbtn,.counter,.hint,.lang,.view,.pnav,.swipe{display:none !important}
+    .tabs,.pbtn,.counter,.hint,.lang,.view,.pnav,.swipe,.back{display:none !important}
     .page{display:block !important;page-break-after:always;min-height:0;padding-top:20px;zoom:.74}
     .top,.foot{zoom:.74}
     #p-about{page-break-after:auto}
@@ -444,20 +471,24 @@
   <symbol id="i-ai" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1.5"/><rect x="9.5" y="9.5" width="5" height="5"/><path d="M9 3v3M12 3v3M15 3v3M9 18v3M12 18v3M15 18v3M3 9h3M3 12h3M3 15h3M18 9h3M18 12h3M18 15h3"/></symbol>
 </svg>
 
-<div class="top"><div class="top-row">
-  <div class="brand"><span class="en">Operating <em>architecture</em></span><span class="ru">Операционная <em>архитектура</em></span></div>
+<header class="top"><div class="top-row">
+  <a class="back" href="../../index.html"><span class="en">&#8592; Yan Ngouen · Portfolio</span><span class="ru">&#8592; Ян Нгуен · Портфолио</span></a>
+  <h1 class="brand"><span class="en">Operating <em>architecture</em></span><span class="ru">Операционная <em>архитектура</em></span></h1>
   <div class="tabs" role="tablist"><button class="tab on" role="tab" id="tab-overview" aria-controls="p-overview" aria-selected="true" title="1" data-p="overview"><span class="n">1</span><span class="en">Overview</span><span class="ru">Обзор</span></button><button class="tab" role="tab" id="tab-chain" aria-controls="p-chain" aria-selected="false" title="2" data-p="chain"><span class="n">2</span><span class="en">Value chain</span><span class="ru">Процесс</span></button><button class="tab" role="tab" id="tab-spine" aria-controls="p-spine" aria-selected="false" title="3" data-p="spine"><span class="n">3</span><span class="en">The spine</span><span class="ru">Данные</span></button><button class="tab" role="tab" id="tab-layers" aria-controls="p-layers" aria-selected="false" title="4" data-p="layers"><span class="n">4</span><span class="en">Layers</span><span class="ru">Слои</span></button><button class="tab" role="tab" id="tab-sequencing" aria-controls="p-sequencing" aria-selected="false" title="5" data-p="sequencing"><span class="n">5</span><span class="en">Sequencing</span><span class="ru">Этапы</span></button><button class="tab" role="tab" id="tab-toolkit" aria-controls="p-toolkit" aria-selected="false" title="6" data-p="toolkit"><span class="n">6</span><span class="en">Toolkit</span><span class="ru">Инструменты</span></button><button class="tab" role="tab" id="tab-about" aria-controls="p-about" aria-selected="false" title="7" data-p="about"><span class="n">7</span><span class="en">About</span><span class="ru">Обо мне</span></button></div>
+  <div class="ctl">
   <div class="badge"><span class="en">REFERENCE VIEW, NOT A PROPOSAL</span><span class="ru">РЕФЕРЕНС, НЕ ПРЕДЛОЖЕНИЕ</span></div>
   <div class="counter" id="counter">1 / 7</div>
   <div class="hint"><span class="en">&#8592; &#8594; keys · L language · C compact</span><span class="ru">&#8592; &#8594; клавиши · L язык · C кратко</span></div>
   <div class="view" role="group" aria-label="Detail"><button data-v="full" class="on" aria-pressed="true" title="C"><span class="en">Full</span><span class="ru">Полный</span></button><button data-v="compact" aria-pressed="false" title="C"><span class="en">Compact</span><span class="ru">Кратко</span></button></div>
   <div class="lang" role="group" aria-label="Language"><button data-l="en" class="on" aria-pressed="true" title="L">EN</button><button data-l="ru" aria-pressed="false" title="L">RU</button></div>
   <button class="pbtn" id="printbtn"><span class="en">Print</span><span class="ru">Печать</span></button>
-</div></div>
+  </div>
+</div></header>
 
+<main>
 <div class="page on" id="p-overview" role="tabpanel" aria-labelledby="tab-overview">
   <div class="kicker"><div class="bar"></div><div class="txt"><span class="en">REFERENCE VIEW · AT A GLANCE</span><span class="ru">РЕФЕРЕНС · ОДНИМ ВЗГЛЯДОМ</span></div></div>
-  <h1><span class="en">An <em>operating system</em> for a premium fit&#8209;out and construction business</span><span class="ru"><em>Операционная система</em> для премиального фит-аута и строительства</span></h1>
+  <h2 class="pt"><span class="en">An <em>operating system</em> for a premium fit&#8209;out and construction business</span><span class="ru"><em>Операционная система</em> для премиального фит-аута и строительства</span></h2>
   <div class="stand"><span class="en">For a fit&#8209;out contractor on fixed&#8209;price contracts: an operating system that <b>keeps margin where the contract put it</b>, turns the transparency you sell to clients into the way the company runs, and takes the founder out of the integrator role. Built in waves, first results in 90 days, AI once the records are clean. Every block on this screen is clickable and opens its own tab.</span><span class="ru">Для фит-аут подрядчика на фиксированной цене: операционная система, которая <b>удерживает маржу там, где её положил контракт</b>, превращает прозрачность, которую вы продаёте клиентам, в способ работы компании, и выводит основателя из роли интегратора. Строится этапами, первые результаты за 90 дней, ИИ когда записи чистые. Каждый блок этого экрана кликабелен и открывает свою вкладку.</span></div>
 
   <div class="levels">
@@ -508,7 +539,7 @@
 
 <div class="page" id="p-chain" role="tabpanel" aria-labelledby="tab-chain">
   <div class="kicker"><div class="bar"></div><div class="txt"><span class="en">VALUE CHAIN · SIX STAGES IN DEPTH</span><span class="ru">ЦЕПОЧКА ЦЕННОСТИ · ШЕСТЬ СТАДИЙ ПОДРОБНО</span></div></div>
-  <h1><span class="en">Where the manual work lives, and what <em>replaces</em> it</span><span class="ru">Где живёт ручная работа и что её <em>заменяет</em></span></h1>
+  <h2 class="pt"><span class="en">Where the manual work lives, and what <em>replaces</em> it</span><span class="ru">Где живёт ручная работа и что её <em>заменяет</em></span></h2>
   <div class="note mb"><span class="en"><b>These are hypotheses, not a diagnosis.</b> They describe where manual work typically lives in this segment. Which of them apply, and how hard each one bites, is exactly what a short diagnostic establishes before anything is built.</span><span class="ru"><b>Это гипотезы, не диагноз.</b> Они описывают, где в этом сегменте обычно живёт ручная работа. Какие из них относятся к вам и насколько сильно каждая бьёт, как раз и устанавливает короткая диагностика до того, как что-либо строится.</span></div>
   <div class="vcgrid">
     <div class="vc">
@@ -554,7 +585,7 @@
 
 <div class="page" id="p-spine" role="tabpanel" aria-labelledby="tab-spine">
   <div class="kicker"><div class="bar"></div><div class="txt"><span class="en">THE SPINE · FOUR DISCIPLINES</span><span class="ru">ДАННЫЕ · ЧЕТЫРЕ ДИСЦИПЛИНЫ</span></div></div>
-  <h1><span class="en">The four disciplines every stage <em>hangs on</em></span><span class="ru">Четыре дисциплины, на которых <em>держится</em> каждый этап</span></h1>
+  <h2 class="pt"><span class="en">The four disciplines every stage <em>hangs on</em></span><span class="ru">Четыре дисциплины, на которых <em>держится</em> каждый этап</span></h2>
   <div class="stand l2"><span class="en">The value chain describes what the company does. The spine describes how any of it stays true: one source of record, priced deviations, gated progress, and a fixed rhythm of review. Remove any one of the four and fixed price becomes a bet.</span><span class="ru">Цепочка ценности описывает, что делает компания. Слой данных описывает, как всё это остаётся правдой: один источник записи, оценённые отклонения, прогресс через гейты и фиксированный ритм обзора. Уберите любую из четырёх, и фиксированная цена превращается в ставку.</span></div>
   <div class="spgrid">
     <div class="sp">
@@ -580,7 +611,7 @@
   </div>
   <div class="gate">
     <div class="gt"><span class="en">HOW A GATE WORKS</span><span class="ru">КАК РАБОТАЕТ ГЕЙТ</span><span class="en gs">PASS OPENS THE NEXT STAGE · FAIL ROUTES THROUGH CHANGE CONTROL AND RETURNS TO THE GATE</span><span class="ru gs">ПРОЙДЕН: ОТКРЫВАЕТСЯ СЛЕДУЮЩИЙ ЭТАП · НЕ ПРОЙДЕН: ЧЕРЕЗ КОНТРОЛЬ ИЗМЕНЕНИЙ ОБРАТНО К ГЕЙТУ</span></div>
-    <div class="gwrap">
+    <div class="gwrap" tabindex="0">
     <svg viewBox="0 0 1240 332" xmlns="http://www.w3.org/2000/svg" font-family="Liberation Sans, Arial, sans-serif">
       <defs>
         <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#C9A227"/></marker>
@@ -642,7 +673,7 @@
 
 <div class="page" id="p-layers" role="tabpanel" aria-labelledby="tab-layers">
   <div class="kicker"><div class="bar"></div><div class="txt"><span class="en">THREE LAYERS OVER THE CHAIN</span><span class="ru">ТРИ СЛОЯ ПОВЕРХ ЦЕПОЧКИ</span></div></div>
-  <h1><span class="en">Finance, client and AI: three layers on <em>one</em> data spine</span><span class="ru">Финансы, клиент и ИИ: три слоя на <em>одном</em> хребте данных</span></h1>
+  <h2 class="pt"><span class="en">Finance, client and AI: three layers on <em>one</em> data spine</span><span class="ru">Финансы, клиент и ИИ: три слоя на <em>одном</em> хребте данных</span></h2>
   <div class="stand l2"><span class="en">The layers are not separate systems. Each one reads the same eight records the chain produces, which is why they arrive in this order and not the reverse.</span><span class="ru">Слои не отдельные системы. Каждый читает те же восемь записей, которые производит цепочка, и поэтому они появляются именно в этом порядке, а не в обратном.</span></div>
   <div class="lygrid">
     <div class="ly g">
@@ -665,8 +696,8 @@
     </div>
   </div>
   <div class="sec-head"><div class="sec-label"><span class="en">WHO SEES WHAT</span><span class="ru">КТО ЧТО ВИДИТ</span></div><div class="sec-line"></div><div class="sec-tag"><span class="en">ONE RECORD, MANY VIEWS</span><span class="ru">ОДНА ЗАПИСЬ, МНОГО ВИДОВ</span></div></div>
-  <div class="mxwrap"><table class="mx">
-    <thead><tr><th><span class="en">VIEW</span><span class="ru">ВИД</span></th><th><span class="en">FOUNDER</span><span class="ru">ОСНОВАТЕЛЬ</span></th><th><span class="en">PROJECT<br>MANAGER</span><span class="ru">РУКОВОДИТЕЛЬ<br>ПРОЕКТА</span></th><th><span class="en">ESTIMATOR</span><span class="ru">СМЕТЧИК</span></th><th><span class="en">PROCUREMENT</span><span class="ru">ЗАКУПКИ</span></th><th><span class="en">SITE LEAD</span><span class="ru">ПРОРАБ</span></th><th><span class="en">FINANCE</span><span class="ru">ФИНАНСЫ</span></th><th class="cl"><span class="en">CLIENT</span><span class="ru">КЛИЕНТ</span></th></tr></thead>
+  <div class="mxwrap" tabindex="0"><table class="mx">
+    <thead><tr><th scope="col"><span class="en">VIEW</span><span class="ru">ВИД</span></th><th scope="col"><span class="en">FOUNDER</span><span class="ru">ОСНОВАТЕЛЬ</span></th><th scope="col"><span class="en">PROJECT<br>MANAGER</span><span class="ru">РУКОВОДИТЕЛЬ<br>ПРОЕКТА</span></th><th scope="col"><span class="en">ESTIMATOR</span><span class="ru">СМЕТЧИК</span></th><th scope="col"><span class="en">PROCUREMENT</span><span class="ru">ЗАКУПКИ</span></th><th scope="col"><span class="en">SITE LEAD</span><span class="ru">ПРОРАБ</span></th><th scope="col"><span class="en">FINANCE</span><span class="ru">ФИНАНСЫ</span></th><th scope="col" class="cl"><span class="en">CLIENT</span><span class="ru">КЛИЕНТ</span></th></tr></thead>
     <tbody>
       <tr><td><span class="en">Status board<small>every live project: stage, owner, gate state, money position</small></span><span class="ru">Статус-борд<small>все живые проекты: этап, ответственный, состояние гейта, деньги</small></span></td><td><span class="d o"></span></td><td><span class="d o"></span></td><td><span class="d r"></span></td><td><span class="d r"></span></td><td><span class="d r"></span></td><td><span class="d r"></span></td><td class="cl"><span class="d r"></span></td></tr>
       <tr><td><span class="en">Estimate library and rates<small>assemblies, rates, approved margin rules</small></span><span class="ru">Библиотека смет и расценок<small>типовые узлы, расценки, правила маржи</small></span></td><td><span class="d r"></span></td><td><span class="d r"></span></td><td><span class="d o"></span></td><td><span class="d o"></span></td><td></td><td><span class="d r"></span></td><td class="cl"></td></tr>
@@ -685,7 +716,7 @@
 
 <div class="page" id="p-sequencing" role="tabpanel" aria-labelledby="tab-sequencing">
   <div class="kicker"><div class="bar"></div><div class="txt"><span class="en">SEQUENCING · THREE WAVES</span><span class="ru">ПОСЛЕДОВАТЕЛЬНОСТЬ · ТРИ ЭТАПА</span></div></div>
-  <h1><span class="en">Built in <em>waves</em>, each one paying for the next</span><span class="ru">Строится <em>этапами</em>, каждый окупает следующий</span></h1>
+  <h2 class="pt"><span class="en">Built in <em>waves</em>, each one paying for the next</span><span class="ru">Строится <em>этапами</em>, каждый окупает следующий</span></h2>
   <div class="stand l2"><span class="en">Nothing here is a big&#8209;bang implementation. Each wave has an entry condition, a scope and an exit test, and the next wave starts only when the previous one holds in daily use.</span><span class="ru">Здесь нет внедрения «большим взрывом». У каждого этапа есть условие входа, объём и тест выхода, и следующий этап начинается только тогда, когда предыдущий держится в ежедневной работе.</span></div>
   <div class="band">
     <div class="bseg w1"><div class="bt"><span class="en">WAVE 1 · FIRST 90 DAYS</span><span class="ru">ЭТАП 1 · ПЕРВЫЕ 90 ДНЕЙ</span></div><div class="bn"><span class="en">Legibility</span><span class="ru">Читаемость</span></div><div class="bd"><span class="en">estimate pipeline and one status board</span><span class="ru">сметный конвейер и один статус-борд</span></div></div>
@@ -729,7 +760,7 @@
 
 <div class="page" id="p-toolkit" role="tabpanel" aria-labelledby="tab-toolkit">
   <div class="kicker"><div class="bar"></div><div class="txt"><span class="en">TOOLKIT · PATTERNS FROM LIVE MANDATES</span><span class="ru">ИНСТРУМЕНТЫ · ПАТТЕРНЫ ИЗ ЖИВЫХ МАНДАТОВ</span></div></div>
-  <h1><span class="en">What the instruments look like when they are <em>built</em></span><span class="ru">Как выглядят инструменты, когда они <em>построены</em></span></h1>
+  <h2 class="pt"><span class="en">What the instruments look like when they are <em>built</em></span><span class="ru">Как выглядят инструменты, когда они <em>построены</em></span></h2>
   <div class="stand l2"><span class="en">Six patterns from six mandates, one per card. None of these is a screenshot: each card describes a mechanism that ran in production and the element of this reference it proves. Names, figures and client data stay out by design.</span><span class="ru">Шесть паттернов из шести мандатов, по одному на карточку. Ни одна из них не скриншот: каждая описывает механизм, который работал в продуктиве, и элемент этого референса, который он подтверждает. Имена, цифры и данные клиентов не показываются намеренно.</span></div>
   <div class="tkgrid">
     <div class="tk">
@@ -819,7 +850,7 @@
 
 <div class="page" id="p-about" role="tabpanel" aria-labelledby="tab-about">
   <div class="kicker"><div class="bar"></div><div class="txt"><span class="en">ABOUT · WHY THIS ARCHITECT</span><span class="ru">ОБО МНЕ · ПОЧЕМУ ЭТОТ АРХИТЕКТОР</span></div></div>
-  <h1><span class="en">The same discipline, proven on <em>capital&#8209;grade</em> projects</span><span class="ru">Та же дисциплина, проверенная на проектах <em>капитального</em> масштаба</span></h1>
+  <h2 class="pt"><span class="en">The same discipline, proven on <em>capital&#8209;grade</em> projects</span><span class="ru">Та же дисциплина, проверенная на проектах <em>капитального</em> масштаба</span></h2>
   <div class="stand l2"><span class="en">This reference is not a theory page. Each element of the spine has run in live mandates, under investors, regulators and fixed budgets.</span><span class="ru">Этот референс не теория. Каждый элемент хребта работал в живых мандатах: под инвесторами, регуляторами и фиксированными бюджетами.</span></div>
 
   <div class="sec-head"><div class="sec-label"><span class="en">WHY THIS, NOT AN INTEGRATOR OR A DECK</span><span class="ru">ПОЧЕМУ ЭТО, А НЕ ИНТЕГРАТОР ИЛИ ПРЕЗЕНТАЦИЯ</span></div><div class="sec-line"></div><div class="sec-tag"><span class="en">THREE CONTRASTS</span><span class="ru">ТРИ КОНТРАСТА</span></div></div>
@@ -870,11 +901,12 @@
   <div class="princ"><div class="p"><b><span class="en">DIAGNOSTIC FIRST</span><span class="ru">СНАЧАЛА ДИАГНОСТИКА</span></b><span class="en">the map comes before the build; the reference view is the method, the map is the product</span><span class="ru">карта раньше стройки: референс показывает метод, карта и есть продукт</span></div><div class="p"><b><span class="en">SCOPE BEFORE PRICE</span><span class="ru">СНАЧАЛА ОБЪЁМ, ПОТОМ ЦЕНА</span></b><span class="en">each piece of work has an entry, a scope and an exit test; commercial terms follow the scope, never precede it</span><span class="ru">у каждой работы есть вход, объём и тест выхода; коммерческие условия идут за объёмом и никогда перед ним</span></div><div class="p"><b><span class="en">EVIDENCE AT EVERY GATE</span><span class="ru">ПОДТВЕРЖДЕНИЕ НА КАЖДОМ ГЕЙТЕ</span></b><span class="en">the same rule applied to my own work: nothing is "done" without an artifact</span><span class="ru">то же правило к моей собственной работе: ничего не «готово» без артефакта</span></div><div class="p"><b><span class="en">NO BIG BANG</span><span class="ru">БЕЗ БОЛЬШОГО ВЗРЫВА</span></b><span class="en">waves that pay for the next one, adopted in daily use before the next starts</span><span class="ru">этапы, которые окупают следующий и приживаются в ежедневной работе до старта следующей</span></div></div>
 <div class="pnav"><button class="lk2" data-go="toolkit">&#8592; <span class="en">Toolkit</span><span class="ru">Инструменты</span></button><span class="pc">7 / 7</span><span></span></div>
 </div>
+</main>
 
-<div class="foot">
+<footer class="foot">
   <div class="l"><span class="en">Yan Ngouen <span>· operating architecture for project businesses · linkedin.com/in/yan-ngouen</span></span><span class="ru">Янь Нгуен <span>· операционная архитектура для проектного бизнеса · linkedin.com/in/yan-ngouen</span></span></div>
   <div class="r"><span class="en">Reference view, not a proposal · September 2026</span><span class="ru">Референс, не коммерческое предложение · сентябрь 2026</span></div>
-</div>
+</footer>
 <script>
 (function(){
   var order = ['overview','chain','spine','layers','sequencing','toolkit','about'];

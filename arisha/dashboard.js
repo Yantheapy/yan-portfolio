@@ -17,7 +17,7 @@ const PROJECTS={
     label:'Arisha',
     title:'Arisha Medical Clinic',
     shortTitle:'Arisha',
-    subtitle:{ru:'Финансовая модель · Март 2026',en:'Financial model · March 2026'},
+    subtitle:{ru:'Финансовая модель · Март 2026 · публикуется с разрешения владельца проекта',en:'Financial model · March 2026 · shared with the project owner\'s permission'},
     workbookPath:'Arisha_Enhanced_V3.xlsx',
     workbookLabel:'Arisha_Enhanced_V3.xlsx',
     benchmarkMarketLabel:{ru:'рынок Dubai',en:'Dubai market'},
@@ -47,7 +47,7 @@ const I18N={
     navPatients:'Пациенты',
     navSensitivity:'Чувствительность',
     navRisks:'Риски',
-    filterPeriod:'📅 Период:',
+    filterPeriod:'Период:',
     panelModel:'Модель',
     panelRealtime:'Параметры в реальном времени',
     groupScenario:'Сценарий',
@@ -63,7 +63,7 @@ const I18N={
     overviewSources:'Источники пациентов',
     overviewUtil:'Утилизация и ёмкость',
     benchmarkTitle:'Бенчмарк: {project} vs {market}',
-    scenarioCompare:'📐 Сценарии: 620 sqm vs 450 sqm',
+    scenarioCompare:'Сценарии: 620 sqm vs 450 sqm',
     scenarioMetric:'Метрика',
     scenarioDelta:'Δ Разница',
     scenarioPaybackBase:'4.0 лет',
@@ -86,7 +86,7 @@ const I18N={
     riskUtilizationMitigation:'Рост после Y7 только через price increases',
     riskDubaiMitigation:'Модель учитывает seasonality',
     ratioTrends:'Ratio Trends (10 лет)',
-    selectedPeriodToast:'📅 Период: {label}',
+    selectedPeriodToast:'Период: {label}',
     costStructure:'Структура расходов {label}',
     sensitivityBreakevenDesc:'Клиника прибыльна даже при минимальной загрузке.',
     yearsUnit:'лет',
@@ -105,7 +105,7 @@ const I18N={
     amortizationTable:'Таблица амортизации',
     tornadoSectionTitle:'Tornado: влияние драйверов на 10Y NPV',
     scenarioLibrarySectionTitle:'Библиотека сценариев и сравнение',
-    mcSimulationSectionTitle:'🎲 Monte Carlo Simulation',
+    mcSimulationSectionTitle:'Monte Carlo Simulation',
     integrityChecksSectionTitle:'Проверки целостности',
     ratioRadarTitle:'Финансовые коэффициенты: Y1 vs Y5 vs Y10',
     assumptionsDefinitions:'Допущения и определения',
@@ -113,7 +113,7 @@ const I18N={
     templateComplianceSectionTitle:'Проверка соответствия шаблону',
     importAuditSectionTitle:'Журнал импорта',
     excelChecklistSectionTitle:'Сверка с Excel',
-    monthlyDrilldownTitle:'📅 Monthly Drill-down (Year 1)',
+    monthlyDrilldownTitle:'Monthly Drill-down (Year 1)',
     monthlyDrilldownNote:'Помесячные данные показаны для Y1. Для Y2/Y3 используется линейная оценка.',
     equityCompareTableTitle:'Equity vs Revenue Share',
     mcLegendHtml:'NPV Distribution (слева) · 5Y IRR Distribution (справа) · <span style="color:#f43f5e">Красный</span> = ниже порога',
@@ -136,7 +136,7 @@ const I18N={
     navPatients:'Patients',
     navSensitivity:'Sensitivity',
     navRisks:'Risks',
-    filterPeriod:'📅 Period:',
+    filterPeriod:'Period:',
     panelModel:'Model',
     panelRealtime:'Real-time parameters',
     groupScenario:'Scenario',
@@ -152,7 +152,7 @@ const I18N={
     overviewSources:'Patient Sources',
     overviewUtil:'Utilization & Capacity',
     benchmarkTitle:'Benchmark: {project} vs {market}',
-    scenarioCompare:'📐 Scenarios: 620 sqm vs 450 sqm',
+    scenarioCompare:'Scenarios: 620 sqm vs 450 sqm',
     scenarioMetric:'Metric',
     scenarioDelta:'Δ Difference',
     scenarioPaybackBase:'4.0 yrs',
@@ -175,7 +175,7 @@ const I18N={
     riskUtilizationMitigation:'Growth beyond Y7 depends mainly on pricing and added capacity.',
     riskDubaiMitigation:'Seasonality is already reflected in the model.',
     ratioTrends:'Ratio Trends (10Y)',
-    selectedPeriodToast:'📅 Period: {label}',
+    selectedPeriodToast:'Period: {label}',
     costStructure:'Cost Structure {label}',
     sensitivityBreakevenDesc:'The clinic remains profitable even at a very low utilization threshold.',
     yearsUnit:'yrs',
@@ -194,7 +194,7 @@ const I18N={
     amortizationTable:'Amortization Table',
     tornadoSectionTitle:'Tornado: Driver Impact on 10Y NPV',
     scenarioLibrarySectionTitle:'Scenario Library & Compare',
-    mcSimulationSectionTitle:'🎲 Monte Carlo Simulation',
+    mcSimulationSectionTitle:'Monte Carlo Simulation',
     integrityChecksSectionTitle:'Integrity Checks',
     ratioRadarTitle:'Financial Ratios: Y1 vs Y5 vs Y10',
     assumptionsDefinitions:'Assumptions & Definitions',
@@ -202,7 +202,7 @@ const I18N={
     templateComplianceSectionTitle:'Template Compliance Check',
     importAuditSectionTitle:'Import Audit Trail',
     excelChecklistSectionTitle:'Excel Reconciliation Checklist',
-    monthlyDrilldownTitle:'📅 Monthly Drill-down (Year 1)',
+    monthlyDrilldownTitle:'Monthly Drill-down (Year 1)',
     monthlyDrilldownNote:'Monthly data shown for Year 1. Y2/Y3 estimated via linear distribution.',
     equityCompareTableTitle:'Equity vs Revenue Share',
     mcLegendHtml:'NPV Distribution (left) · 5Y IRR Distribution (right) · <span style="color:#f43f5e">Red</span> = below threshold',
@@ -1012,7 +1012,7 @@ function describeModelSource(){
 }
 function updateProjectBranding(){
   const project=getProjectConfig();
-  document.title=`${project.title} — Financial Dashboard`;
+  document.title=`${project.title} — financial model · Yan Ngouen`;
   const titleEl=document.getElementById('projectTitle');
   const subtitleEl=document.getElementById('projectSubtitle');
   const benchmarkTitle=document.getElementById('benchmarkTitle');
@@ -1040,14 +1040,14 @@ function setImportButtonState(state,label=''){
   importBtn.disabled=state==='loading';
   importBtn.classList.toggle('loaded',state==='loaded');
   if(state==='loading'){
-    importBtn.textContent=`⏳ ${label||'Loading workbook'}`;
+    importBtn.textContent=`Loading: ${label||'workbook'}`;
     return;
   }
   if(state==='loaded'){
-    importBtn.textContent=`✅ ${label}`;
+    importBtn.textContent=`Model: ${label}`;
     return;
   }
-  importBtn.textContent='📊 Import .xlsx';
+  importBtn.textContent='Import .xlsx';
 }
 function loadProjectScopedState(){
   importAudit=readStoredUI(APP_STORAGE_KEYS.importAudit,createImportAudit(),'project');
@@ -1091,7 +1091,7 @@ async function switchProject(projectId,{force=false,announce=true}={}){
   renderExcelChecklist();
   renderTemplateCompliance();
   updateFooterCurrency();
-  if(announce)showToast(`📁 ${getProjectConfig().title}`,'');
+  if(announce)showToast(`Project: ${getProjectConfig().title}`,'');
   await loadProjectWorkbook();
 }
 
@@ -1398,10 +1398,14 @@ function assessWorkbookTemplate(wb,filename='Workbook'){
   };
 }
 
+/* ===== MOTION PREFERENCE ===== */
+const REDUCED_MOTION=window.matchMedia('(prefers-reduced-motion: reduce)');
+
 /* ===== CHART.JS DEFAULTS ===== */
 Chart.defaults.color='#94a3b8';
 Chart.defaults.font.family="'Inter',sans-serif";
-Chart.defaults.font.size=10;
+Chart.defaults.font.size=11;
+if(REDUCED_MOTION.matches)Chart.defaults.animation=false;
 Chart.defaults.plugins.legend.labels.usePointStyle=true;
 Chart.defaults.plugins.legend.labels.pointStyleWidth=7;
 Chart.defaults.plugins.tooltip.backgroundColor='rgba(17,24,39,.95)';
@@ -2092,7 +2096,7 @@ const PL_ROW_DETAILS={
 function initPLTable(){
   const yearIdxs=getPLTableYearIdx();
   const head=document.querySelector('#plTable thead tr');
-  if(head)head.innerHTML=`<th>${tr('plMetric')}</th>`+yearIdxs.map(i=>`<th data-year="${i}">Y${i+1}</th>`).join('');
+  if(head)head.innerHTML=`<th scope="col">${tr('plMetric')}</th>`+yearIdxs.map(i=>`<th scope="col" data-year="${i}">Y${i+1}</th>`).join('');
   const tbody=document.querySelector('#plTable tbody');tbody.innerHTML='';
   const rows=[
     {l:'Revenue (M)',v:yearIdxs.map(i=>ADJ.revenue[i]),h:false,pct:false},
@@ -2476,11 +2480,11 @@ function initHeatmap(){
   const anchor=getSensitivityAnchor();
   const w=document.getElementById('heatmapWrap');
   const factors=BASE.heatFactors;
-  let html='<table class="heatmap-table"><thead><tr><th></th>';
-  BASE.heatOpexCols.forEach(c=>{html+='<th>'+c+'</th>';});
+  let html='<table class="heatmap-table"><thead><tr><th scope="col"><span class="sr-only">Revenue change vs OPEX change</span></th>';
+  BASE.heatOpexCols.forEach(c=>{html+='<th scope="col">'+c+'</th>';});
   html+='</tr></thead><tbody>';
   factors.forEach((rf,ri)=>{
-    html+='<tr><td class="heatmap-label">'+BASE.heatRows[ri]+'</td>';
+    html+='<tr><th scope="row" class="heatmap-label">'+BASE.heatRows[ri]+'</th>';
     factors.forEach((of,ci)=>{
       const point=calcSensitivityPoint({revenueFactor:rf,opexFactor:of});
       const isBase=ri===2&&ci===2;
@@ -2514,7 +2518,8 @@ function colorHeatmap(){
   const mn=Math.min(...vals),mx=Math.max(...vals);
   cells.forEach(c=>{const v=parseFloat(c.dataset.value);const t=(v-mn)/(mx-mn);
     const r=Math.round(244-t*200),g=Math.round(63+t*122),b=Math.round(94+t*37);
-    c.style.backgroundColor=`rgba(${r},${g},${b},.25)`;c.style.color=`rgb(${r},${g},${b})`;
+    // Tinted cell background carries the signal; text stays light so every cell keeps ≥ 4.5:1 contrast.
+    c.style.backgroundColor=`rgba(${r},${g},${b},.32)`;c.style.color='#f1f5f9';
   });
 }
 
@@ -2714,7 +2719,7 @@ function setPatientTrendMode(mode,{announce=true}={}){
   updatePatientAcquisitionCharts();
   if(announce){
     const labels=getPatientTrendModeLabels();
-    showToast(currentLanguage==='ru'?`📈 Режим тренда: ${labels[nextMode]}`:`📈 Trend mode: ${labels[nextMode]}`,'success');
+    showToast(currentLanguage==='ru'?`Режим тренда: ${labels[nextMode]}`:`Trend mode: ${labels[nextMode]}`,'success');
   }
 }
 function initPatientTrendControls(){
@@ -3983,7 +3988,7 @@ function saveCurrentScenario(){
   persistScenarioLibrary();
   renderScenarioLibrary();
   if(input)input.value='';
-  showToast(currentLanguage==='ru'?`💾 ${name} сохранен`:`💾 ${name} saved`,'success');
+  showToast(currentLanguage==='ru'?`Сценарий «${name}» сохранен`:`Scenario "${name}" saved`,'success');
 }
 function loadScenarioRecord(id){
   const record=scenarioLibrary.find(item=>item.id===id);
@@ -4134,8 +4139,8 @@ function renderTemplateCompliance(){
     <div class="chart-tabs template-filter-tabs" id="templateComplianceFilters">
       ${filterTabs.map(tab=>`<button class="chart-tab ${tab.key===activeFilter?'active':''}" type="button" data-template-filter="${tab.key}">${tab.label}</button>`).join('')}
     </div>
-    <div class="table-scroll"><table class="data-table">
-      <thead><tr><th>${currentLanguage==='ru'?'Область':'Area'}</th><th>${currentLanguage==='ru'?'Требование':'Requirement'}</th><th>${currentLanguage==='ru'?'Severity':'Severity'}</th><th>${currentLanguage==='ru'?'Статус':'Status'}</th><th>${currentLanguage==='ru'?'Комментарий':'Detail'}</th></tr></thead>
+    <div class="table-scroll" tabindex="0"><table class="data-table">
+      <thead><tr><th scope="col">${currentLanguage==='ru'?'Область':'Area'}</th><th scope="col">${currentLanguage==='ru'?'Требование':'Requirement'}</th><th scope="col">${currentLanguage==='ru'?'Severity':'Severity'}</th><th scope="col">${currentLanguage==='ru'?'Статус':'Status'}</th><th scope="col">${currentLanguage==='ru'?'Комментарий':'Detail'}</th></tr></thead>
       <tbody>
         ${filteredChecks.map(check=>{
           const severityLabel=check.severity==='fail'?(currentLanguage==='ru'?'Critical':'Critical'):check.severity==='warn'?(currentLanguage==='ru'?'Warning':'Warning'):(currentLanguage==='ru'?'Optional':'Optional');
@@ -4179,8 +4184,8 @@ function renderExcelChecklist(){
       <div class="module-metric-card"><div class="module-metric-label">${currentLanguage==='ru'?'Baseline':'Baseline'}</div><div class="module-metric-value">${excelChecklist.fileName||'Workbook'} @ ${excelChecklist.wacc}% WACC</div></div>
     </div>
     <div class="module-callout ${summary.fail?'warning':'positive'}">${scenarioNote}</div>
-    <div class="table-scroll"><table class="data-table">
-      <thead><tr><th>${currentLanguage==='ru'?'Метрика':'Metric'}</th><th>${currentLanguage==='ru'?'Источник':'Source'}</th><th>Workbook</th><th>${currentLanguage==='ru'?'Пересборка':'Rebuilt'}</th><th>Δ</th><th>${currentLanguage==='ru'?'Статус':'Status'}</th></tr></thead>
+    <div class="table-scroll" tabindex="0"><table class="data-table">
+      <thead><tr><th scope="col">${currentLanguage==='ru'?'Метрика':'Metric'}</th><th scope="col">${currentLanguage==='ru'?'Источник':'Source'}</th><th scope="col">Workbook</th><th scope="col">${currentLanguage==='ru'?'Пересборка':'Rebuilt'}</th><th scope="col">Δ</th><th scope="col">${currentLanguage==='ru'?'Статус':'Status'}</th></tr></thead>
       <tbody>
         ${checks.map(check=>{
           const deltaClass=check.delta===0?'':(check.delta>0?'pos':'neg');
@@ -4595,7 +4600,7 @@ function initMonthlyDrilldown(){
       if(charts.mdRev){charts.mdRev.destroy();delete charts.mdRev;}
       if(charts.mdEbitda){charts.mdEbitda.destroy();delete charts.mdEbitda;}
       renderMonthlyCharts(y);
-      document.querySelector('.monthly-drilldown h3').textContent='📅 Monthly Drill-down (Year '+(y+1)+')';
+      document.querySelector('.monthly-drilldown h3').textContent='Monthly Drill-down (Year '+(y+1)+')';
     });
   });
 }
@@ -4912,7 +4917,7 @@ function initMonteCarloCharts(){
     const profileLabel=getMonteCarloProfileLabel(monteCarloProfile);
     runBtn.disabled=true;
     runBtn.dataset.running='true';
-    runBtn.textContent=currentLanguage==='ru'?'⏳ Симуляция...':'⏳ Simulating...';
+    runBtn.textContent=currentLanguage==='ru'?'Симуляция...':'Simulating...';
     statusEl.textContent=currentLanguage==='ru'
       ? `${profileLabel} профиль · выполняется ${profile.sims.toLocaleString()} сценариев...`
       : `${profileLabel} profile · running ${profile.sims.toLocaleString()} scenarios...`;
@@ -5020,6 +5025,18 @@ document.querySelectorAll('.nav-btn').forEach(btn=>{
     secEl.classList.add('active');
     animateVisible();
     hydrateSection(secEl);
+    if(isNarrowLayout()){
+      // Stacked layout: keep the active tab in view inside the strip and start the new section at its top.
+      const behavior=REDUCED_MOTION.matches?'auto':'smooth';
+      try{btn.scrollIntoView({block:'nearest',inline:'center',behavior});}catch(_){}
+      const main=document.getElementById('dashboard-main');
+      const dock=document.getElementById('mobileNavDock');
+      if(main){
+        const offset=(dock&&!dock.hidden?dock.getBoundingClientRect().height:0)+8;
+        const target=main.getBoundingClientRect().top+window.scrollY-offset;
+        if(window.scrollY>target)window.scrollTo({top:Math.max(0,target),left:0,behavior});
+      }
+    }
   });
 });
 
@@ -5101,6 +5118,7 @@ function setTemplateComplianceFilter(nextFilter){
   templateComplianceFilter=['all','fail','warn','optional'].includes(nextFilter)?nextFilter:'all';
   renderTemplateCompliance();
 }
+const PANEL_AUTO_COLLAPSE_WIDTH=1100;
 function setControlPanelCollapsed(collapsed,persist=true){
   const panel=document.getElementById('controlPanel');
   const layout=document.querySelector('.dashboard-layout');
@@ -5108,14 +5126,22 @@ function setControlPanelCollapsed(collapsed,persist=true){
   const titleCopy=panel?.querySelector('.panel-title-copy');
   const groups=panel?.querySelector('.panel-groups');
   if(!panel||!layout||!toggle||!groups||!titleCopy)return;
+  const narrow=isNarrowLayout();
   panel.classList.toggle('collapsed',collapsed);
   layout.classList.toggle('panel-collapsed',collapsed);
-  titleCopy.hidden=collapsed;
+  // On the stacked (narrow) layout the collapsed panel keeps its title so the strip stays self-explanatory.
+  titleCopy.hidden=collapsed&&!narrow;
   groups.hidden=collapsed;
   toggle.setAttribute('aria-expanded',String(!collapsed));
   toggle.setAttribute('aria-label',collapsed?'Expand model panel':'Collapse model panel');
-  toggle.textContent=collapsed?'›':'‹';
+  if(narrow)toggle.textContent=collapsed?'Show parameters ▸':'Hide ▴';
+  else toggle.textContent=collapsed?'›':'‹';
   if(persist)writeStoredUI(UI_STORAGE_KEYS.panelCollapsed,collapsed);
+}
+function getDefaultPanelCollapsed(){
+  const stored=readStoredUI(UI_STORAGE_KEYS.panelCollapsed,null);
+  if(typeof stored==='boolean')return stored;
+  return window.innerWidth<PANEL_AUTO_COLLAPSE_WIDTH;
 }
 function setPanelGroupOpen(group,isOpen,persist=true){
   if(!group)return;
@@ -5135,8 +5161,15 @@ function initControlPanel(){
   const toggle=document.getElementById('panelToggleBtn');
   if(!panel||!toggle)return;
 
-  setControlPanelCollapsed(Boolean(readStoredUI(UI_STORAGE_KEYS.panelCollapsed,false)),false);
+  setControlPanelCollapsed(getDefaultPanelCollapsed(),false);
   toggle.addEventListener('click',()=>setControlPanelCollapsed(!panel.classList.contains('collapsed')));
+  // Auto-collapse when the viewport shrinks below the side-by-side layout, unless the visitor chose a state.
+  const autoCollapseQuery=window.matchMedia(`(max-width: ${PANEL_AUTO_COLLAPSE_WIDTH-1}px)`);
+  const onAutoCollapse=e=>{
+    if(e.matches&&readStoredUI(UI_STORAGE_KEYS.panelCollapsed,null)===null)setControlPanelCollapsed(true,false);
+  };
+  if(typeof autoCollapseQuery.addEventListener==='function')autoCollapseQuery.addEventListener('change',onAutoCollapse);
+  else if(typeof autoCollapseQuery.addListener==='function')autoCollapseQuery.addListener(onAutoCollapse);
 
   const storedGroups=readStoredUI(UI_STORAGE_KEYS.panelGroups,{});
   document.querySelectorAll('.panel-group').forEach(group=>{
@@ -5177,9 +5210,68 @@ function updateFooterCurrency(){
 
 /* ===== ANIMATIONS ===== */
 function animateVisible(){
+  if(REDUCED_MOTION.matches){
+    document.querySelectorAll('.dashboard-section.active [data-animate]').forEach(el=>el.classList.add('visible'));
+    document.querySelectorAll('.bench-bar').forEach(b=>{b.style.width=b.dataset.width;});
+    colorHeatmap();
+    return;
+  }
   document.querySelectorAll('.dashboard-section.active [data-animate]').forEach((el,i)=>{setTimeout(()=>el.classList.add('visible'),i*60);});
   setTimeout(()=>{document.querySelectorAll('.bench-bar').forEach(b=>{b.style.width=b.dataset.width;});},300);
   colorHeatmap();
+}
+
+/* ===== RESPONSIVE HEADER (nav dock + tab-strip fade) ===== */
+const NARROW_LAYOUT=window.matchMedia('(max-width: 900px)');
+function isNarrowLayout(){return NARROW_LAYOUT.matches;}
+function updateNavEdgeFade(){
+  const nav=document.getElementById('mainNav');
+  if(!nav)return;
+  const atEnd=nav.scrollWidth-nav.clientWidth-nav.scrollLeft<=2;
+  nav.classList.toggle('at-end',atEnd);
+}
+function layoutHeaderNav(){
+  const nav=document.getElementById('mainNav');
+  const dock=document.getElementById('mobileNavDock');
+  const headerInner=document.querySelector('.header-inner');
+  if(!nav||!dock||!headerInner)return;
+  if(isNarrowLayout()){
+    if(nav.parentElement!==dock){dock.appendChild(nav);dock.hidden=false;}
+    const active=nav.querySelector('.nav-btn.active');
+    if(active&&typeof active.scrollIntoView==='function'){
+      try{active.scrollIntoView({block:'nearest',inline:'nearest'});}catch(_){}
+    }
+  }else if(nav.parentElement!==headerInner){
+    const tools=headerInner.querySelector('.header-tools');
+    headerInner.insertBefore(nav,tools||null);
+    dock.hidden=true;
+  }
+  updateNavEdgeFade();
+}
+function syncHeaderHeight(){
+  const header=document.getElementById('main-header');
+  if(!header)return;
+  const h=isNarrowLayout()?0:Math.round(header.getBoundingClientRect().height);
+  document.documentElement.style.setProperty('--hdr',`${Math.max(h,isNarrowLayout()?0:64)}px`);
+}
+function initResponsiveHeader(){
+  const nav=document.getElementById('mainNav');
+  if(!nav)return;
+  layoutHeaderNav();
+  syncHeaderHeight();
+  const header=document.getElementById('main-header');
+  if(header&&typeof ResizeObserver==='function')new ResizeObserver(()=>syncHeaderHeight()).observe(header);
+  else window.addEventListener('resize',syncHeaderHeight,{passive:true});
+  nav.addEventListener('scroll',updateNavEdgeFade,{passive:true});
+  window.addEventListener('resize',updateNavEdgeFade,{passive:true});
+  const onChange=()=>{
+    layoutHeaderNav();
+    syncHeaderHeight();
+    const panel=document.getElementById('controlPanel');
+    if(panel)setControlPanelCollapsed(panel.classList.contains('collapsed'),false);
+  };
+  if(typeof NARROW_LAYOUT.addEventListener==='function')NARROW_LAYOUT.addEventListener('change',onChange);
+  else if(typeof NARROW_LAYOUT.addListener==='function')NARROW_LAYOUT.addListener(onChange);
 }
 
 /* ===== YEAR FILTER ===== */
@@ -5280,6 +5372,7 @@ window.addEventListener('DOMContentLoaded',()=>{
   updateKPIs();
   updateLiveMetrics();
   initCardFocusMode();
+  initResponsiveHeader();
   animateVisible();
   initOverviewCharts();
   initControlPanel();
@@ -5308,24 +5401,66 @@ window.addEventListener('DOMContentLoaded',()=>{
   loadProjectWorkbook();
 });
 
+/* ===== LAZY VENDOR SCRIPTS =====
+   SheetJS, html2canvas and jsPDF are only needed for Excel import and PDF export, so they are
+   fetched on first use instead of blocking the initial render. */
+const VENDOR_SCRIPTS={
+  xlsx:'https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js',
+  html2canvas:'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js',
+  jspdf:'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'
+};
+const loadedScripts=new Map();
+function loadScript(src){
+  if(loadedScripts.has(src))return loadedScripts.get(src);
+  const promise=new Promise((resolve,reject)=>{
+    const existing=document.querySelector(`script[src="${src}"]`);
+    if(existing&&existing.dataset.loaded==='true'){resolve();return;}
+    const script=existing||document.createElement('script');
+    script.addEventListener('load',()=>{script.dataset.loaded='true';resolve();},{once:true});
+    script.addEventListener('error',()=>{
+      loadedScripts.delete(src);
+      script.remove();
+      reject(new Error(`Could not load ${src.split('/').pop()}`));
+    },{once:true});
+    if(!existing){
+      script.src=src;
+      script.async=true;
+      script.dataset.lazy='true';
+      document.head.appendChild(script);
+    }
+  });
+  loadedScripts.set(src,promise);
+  return promise;
+}
+function ensureXlsx(){
+  return typeof XLSX!=='undefined'?Promise.resolve():loadScript(VENDOR_SCRIPTS.xlsx);
+}
+function ensurePdfLibs(){
+  return Promise.all([
+    typeof html2canvas!=='undefined'?Promise.resolve():loadScript(VENDOR_SCRIPTS.html2canvas),
+    window.jspdf?.jsPDF?Promise.resolve():loadScript(VENDOR_SCRIPTS.jspdf)
+  ]);
+}
+
 /* ===== PDF EXPORT ===== */
 function initPdfExport(){
   const btn=document.getElementById('exportPdfBtn');
   if(!btn)return;
   btn.addEventListener('click',async()=>{
     btn.disabled=true;
-    btn.textContent='⏳ Generating...';
-    showToast('📄 Generating PDF report...','');
+    btn.textContent='Generating...';
+    showToast('Generating PDF report...','');
     try{
+      await ensurePdfLibs();
       await generatePDF();
-      btn.textContent='📄 Export PDF';
+      btn.textContent='Export PDF';
       btn.disabled=false;
-      showToast('✅ PDF saved!','success');
+      showToast('PDF saved.','success');
     }catch(e){
       console.error('PDF error:',e);
-      btn.textContent='📄 Export PDF';
+      btn.textContent='Export PDF';
       btn.disabled=false;
-      showToast('❌ PDF error: '+e.message,'error');
+      showToast('PDF error: '+e.message,'error');
     }
   });
 }
@@ -5473,17 +5608,18 @@ function initExcelImport(){
     if(files.length&&/\.xlsx?$/i.test(files[0].name)){
       processExcelFile(files[0]);
     } else {
-      showToast('⚠ Please drop an .xlsx file','error');
+      showToast('Please drop an .xlsx file','error');
     }
   });
 }
 
 function processExcelFile(file){
-  showToast('📊 Reading '+file.name+'...','');
+  showToast('Reading '+file.name+'...','');
   setImportButtonState('loading',`Reading ${file.name}`);
   const reader=new FileReader();
-  reader.onload=function(e){
+  reader.onload=async function(e){
     try{
+      await ensureXlsx();
       const wb=XLSX.read(e.target.result,{type:'array'});
       templateCompliance=assessWorkbookTemplate(wb,file.name);
       templateComplianceFilter=templateCompliance.summary.fail>0?'fail':'all';
@@ -5493,23 +5629,23 @@ function processExcelFile(file){
       renderTemplateCompliance();
       if(!templateCompliance.ready){
         setImportButtonState('idle');
-        showToast(`❌ Template mismatch: ${templateCompliance.summary.fail||0} critical gap(s). Previous model kept.`,`error`);
+        showToast(`Template mismatch: ${templateCompliance.summary.fail||0} critical gap(s). Previous model kept.`,`error`);
         return;
       }
       parseWorkbook(wb,file.name);
-      showToast('✅ '+file.name+' loaded! Dashboard updated.','success');
+      showToast(file.name+' loaded. Dashboard updated.','success');
       setImportButtonState('loaded',file.name);
     }catch(err){
       console.error('Excel parse error:',err);
       setImportButtonState('idle');
-      showToast('❌ Error: '+err.message,'error');
+      showToast('Error: '+err.message,'error');
     }
   };
   reader.readAsArrayBuffer(file);
 }
 
 async function loadProjectWorkbook(projectId=currentProjectId){
-  if(typeof XLSX==='undefined'||typeof fetch!=='function')return;
+  if(typeof fetch!=='function')return;
   const targetProjectId=resolveProjectId(projectId);
   const project=getProjectConfig(targetProjectId);
   const loadToken=++currentProjectLoadToken;
@@ -5518,8 +5654,8 @@ async function loadProjectWorkbook(projectId=currentProjectId){
       setModelSourceState(createModelSourceState({reason:'file_protocol'}),{rerender:true});
       setImportButtonState('idle');
       showToast(currentLanguage==='ru'
-        ? '⚠️ Автозагрузка workbook отключена в file:// режиме. Запустите локальный сервер или импортируйте .xlsx вручную.'
-        : '⚠️ Workbook auto-load is disabled in file:// mode. Start a local server or import .xlsx manually.','error');
+        ? 'Автозагрузка workbook отключена в file:// режиме. Запустите локальный сервер или импортируйте .xlsx вручную.'
+        : 'Workbook auto-load is disabled in file:// mode. Start a local server or import .xlsx manually.','error');
       return;
     }
     const filename=project.workbookPath;
@@ -5528,12 +5664,13 @@ async function loadProjectWorkbook(projectId=currentProjectId){
     if(!response.ok){
       setModelSourceState(createModelSourceState({reason:response.status===404?'workbook_missing':'fetch_failed'}),{rerender:true});
       setImportButtonState('idle');
-      showToast(`❌ Workbook not found: ${project.workbookLabel}`,'error');
+      showToast(`Workbook not found: ${project.workbookLabel}`,'error');
       return;
     }
     const buffer=await response.arrayBuffer();
-    const wb=XLSX.read(buffer,{type:'array'});
+    await ensureXlsx();
     if(loadToken!==currentProjectLoadToken)return;
+    const wb=XLSX.read(buffer,{type:'array'});
     templateCompliance=assessWorkbookTemplate(wb,project.workbookLabel);
     templateComplianceFilter=templateCompliance.summary.fail>0?'fail':'all';
     if(!templateCompliance.ready&&!templateComplianceDetailsExpanded){
@@ -6033,5 +6170,5 @@ function rebuildDashboard(){
   renderExcelChecklist();
   renderActualVsPlan();
   markMonteCarloStale(true);
-  console.log('✅ Dashboard rebuilt from Excel data');
+  console.log('Dashboard rebuilt from Excel data');
 }
